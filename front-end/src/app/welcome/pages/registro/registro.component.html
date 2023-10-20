@@ -1,0 +1,99 @@
+<app-header></app-header>
+
+<div class="body">
+    <div class="container-form">
+        <div class="information">
+            <div class="info-childs">
+                <h2>Bienvenido</h2>
+                <p>Si ya tienes cuenta, por favor inicia sesión</p>
+                <a routerLink="/login">
+                    <button>Iniciar Sesión</button>
+                </a>
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Crear una cuenta</h2>
+                <p>Ingresa tus datos para registrarte</p>
+                <form class="form was-validated" (ngSubmit)="procesar()" #formContact="ngForm">
+
+                    <!-- tipo de documento -->
+                    <label >
+                        <i class='bx bx-id-card'></i>
+                        <select name="tip_doc" [(ngModel)]="persona.tip_doc"  required #tip_doc="ngModel">                  
+                            <option value="">Tipo de Documento</option>
+                            <option value="1">Celuda de Ciudadania</option>
+                            <option value="2">Cedula de Extranjeria</option>
+                            <option value="3">Pasaporte</option>
+                        </select>
+                        <div class="alerta" [hidden]="tip_doc.valid || tip_doc.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>
+                    </label>
+                    
+                    <!-- numero de documento -->
+                    <label>                        
+                        <i class='bx bxs-id-card' ></i>
+                        <input type="number" name="num_doc" placeholder="Numero de documento" [(ngModel)]="persona.num_doc" required #num_doc="ngModel">
+                        <div class="alerta" [hidden]="num_doc.valid || num_doc.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>
+                    </label>
+
+                    <!-- nombres -->
+                    <label>                        
+                        <i class='bx bx-user' ></i>
+                        <input type="text" name="nombre" placeholder="Nombres" [(ngModel)]="persona.nombre" required #nombre="ngModel"> 
+                        <div class="alerta" [hidden]="nombre.valid || nombre.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>                       
+                    </label>                    
+
+                    <!-- apellidos -->
+                    <label>                        
+                        <i class='bx bx-user' ></i>
+                        <input type="text" name="apellido" placeholder="Apellidos" [(ngModel)]="persona.apellido" required #apellido="ngModel">
+                        <div class="alerta" [hidden]="apellido.valid || apellido.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>
+                    </label>
+
+                    <!-- email -->
+                    <label>                        
+                        <i class='bx bx-envelope' ></i>
+                        <input type="email" name="correo" placeholder="Correo Electronico" [(ngModel)]="persona.correo" required #correo="ngModel">
+                        <div class="alerta" [hidden]="correo.valid || correo.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>
+                    </label>
+
+                    <!-- contraseña -->
+                    <label>                        
+                        <i class='bx bx-lock-alt' ></i>
+                        <input type="password" name="contrasena"  placeholder="Contraseña" [(ngModel)]="persona.contrasena" required #contrasena="ngModel">
+                        <div class="alerta" [hidden]="contrasena.valid || contrasena.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707' ></i>
+                        </div>
+                    </label>
+
+                    <!-- confirmacion de contraseña -->
+                    <label>
+                        <i class='bx bx-lock-alt' ></i>
+                        <input type="password" name="passConf" placeholder="Confirmación de contraseña" [(ngModel)]="persona.passConf" required #passConf="ngModel">
+                        <div class="alerta" [hidden]="passConf.valid || passConf.pristine">
+                            <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
+                        </div>
+                    </label>
+
+                    <!-- <button type="submit" [disabled]="formContact.invalid">Registrarse</button> -->
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    
+    
+    
+    
