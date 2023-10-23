@@ -1,8 +1,9 @@
 import {createPool} from 'mysql2/promise'
+import { DB_HOST, DB_USER, DB_PORT, DB_DATABASE } from "./config.js";
 
 export const pool =  createPool({
-    host: 'localhost',
-    user: 'root',
-    port: 3306,
-    database: 'compras_create'
+    host: DB_HOST,
+    user: DB_USER,
+    port: DB_PORT,
+    database: DB_DATABASE
 })
