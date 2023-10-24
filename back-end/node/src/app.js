@@ -3,6 +3,7 @@ import express from 'express'
 import usersRoutes from './routes/users.routes.js';
 import indexRoutes from "./routes/index.routes.js"
 import productsRoutes from "./routes/products.routes.js";
+import { featuredProducts } from './controllers/featured.controller.js';
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(express.json())/*Primero se recibe los datos se convierten a json o un o
 app.use(indexRoutes)
 app.use('/api',usersRoutes)
 app.use('/api', productsRoutes)
+app.use('/api',featuredProducts)
 
 /*Not found Route */
 app.use((req, res, next) => {

@@ -3,4 +3,4 @@ import app from './app.js'
 import {PORT} from './config.js'
 
 app.listen(PORT)
-    console.log('SERVER  Corriendo el servidor http://localhost:4200/', 4200)
+    console.log('SERVER  Corriendo el servidor http://localhost:3001/', PORT)
