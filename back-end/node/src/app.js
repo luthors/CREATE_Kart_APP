@@ -16,6 +16,7 @@ app.use(express.json())/*Primero se recibe los datos se convierten a json o un o
 app.use(indexRoutes)
 app.use('/api',usersRoutes)
 app.use('/api', productsRoutes)
+app.use('/api',featuredProducts)
 
 /*Not found Route */
 app.use((req, res, next) => {
