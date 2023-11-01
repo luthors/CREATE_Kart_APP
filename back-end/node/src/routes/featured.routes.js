@@ -1,3 +1,4 @@
+/*Api destacados */
 import { Router } from "express";
 
 import { featuredProducts } from "../controllers/featured.controller.js";

@@ -1,3 +1,4 @@
+/*Encriptar contraseña*/
 import pkg from "bcryptjs";
 
 const {hash} = pkg;

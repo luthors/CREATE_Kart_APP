@@ -1,3 +1,4 @@
+/*Api destacados */
 import { pool } from "../db.js"
 
 export const featuredProducts = async (req,res)=>{
