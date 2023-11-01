@@ -15,14 +15,20 @@
         <div class="form-information-childs">
             <h2>Iniciar Sesion</h2>
             <p>Inicia Sesion con una cuenta</p>
-            <form class="form">
+            <form class="form" [formGroup]="person" (ngSubmit)="iniciarSesion()">
                 <label>
                     <i class='bx bx-envelope' ></i>
-                    <input type="email" placeholder="Correo Electronico">
+                    <input type="email" placeholder="Correo Electronico" formControlName="correo">
+                    <div class="alerta" *ngIf="correoNovalid">
+                        <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
+                    </div>
                 </label>
                 <label>
                     <i class='bx bx-lock-alt' ></i>
-                    <input type="password" placeholder="Contraseña">
+                    <input type="password" placeholder="Contraseña" formControlName="contrasena">
+                    <div class="alerta" *ngIf="contrasenaNovalid">
+                        <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
+                    </div>
                 </label>
                 <button>Ingresar</button>
             </form>

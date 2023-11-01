@@ -1,4 +1,6 @@
-.image {
-    background-image: url(../../../../assets/moda4.jpg);
-    background-size: cover;
+video{
+    width: 98%;
+    margin: 1%;
+    margin-top: 5%;
+    z-index: 1;
 }
