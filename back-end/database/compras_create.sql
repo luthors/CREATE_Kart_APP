@@ -2,7 +2,7 @@ USE compras_create;
 
 /*Roles*/
 CREATE TABLE `roles` (
-  `id_role` int NOT NULL,
+  `id_role` int NOT NULL AUTO_INCREMENT,
   `nombre_roll` char(100) NOT NULL,
   PRIMARY KEY (`id_role`)
 ) ENGINE=InnoDB;
@@ -15,7 +15,7 @@ VALUES
 
 /*Usuarios*/
 CREATE TABLE `users` (/*Usuarios*/
-  `id_user` int NOT NULL,
+  `id_user` int NOT NULL AUTO_INCREMENT,
   `type_doc` char(100) NOT NULL,
   `doc_number` char(100) NOT NULL,
   `name` char(100) NOT NULL,
@@ -41,7 +41,7 @@ VALUES
 
 /*Marcas*/
 CREATE TABLE `brand` (/*Marca*/
-  `id_brand` int NOT NULL,
+  `id_brand` int NOT NULL AUTO_INCREMENT,
   `name_brand` varchar(100) NOT NULL,
   `description` text,
   PRIMARY KEY (`id_brand`)
@@ -58,7 +58,7 @@ INSERT INTO brand VALUES
 
 /*Categoria*/
 CREATE TABLE `category` (
-  `id_category` int NOT NULL,
+  `id_category` int NOT NULL AUTO_INCREMENT,
   `name_category` varchar(100) NOT NULL,
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB;
@@ -71,7 +71,7 @@ INSERT INTO category (id_category,name_category) VALUES
 
 /*Colores*/
 CREATE TABLE `colors` (
-  `id_color` int NOT NULL,
+  `id_color` int NOT NULL AUTO_INCREMENT,
   `name_color` char(100) NOT NULL,
   PRIMARY KEY (`id_color`)
 ) ENGINE=InnoDB;
@@ -87,7 +87,7 @@ INSERT INTO colors (id_color,name_color) VALUES
 
 /*Tallas*/
 CREATE TABLE `sizes` (/*Tallas*/
-  `id_size` int NOT NULL,
+  `id_size` int NOT NULL AUTO_INCREMENT,
   `size` char(100) NOT NULL,
   PRIMARY KEY (`id_size`)
 ) ENGINE=InnoDB;
@@ -103,7 +103,7 @@ INSERT INTO sizes (id_size,size) VALUES
 
 /*Productos */
 CREATE TABLE `products` (/*Productos*/
-  `id_product` int NOT NULL,
+  `id_product` int NOT NULL AUTO_INCREMENT,
   `title` char(100) NOT NULL,
   `descrip` text,
   `brand_product` int NOT NULL,
@@ -132,7 +132,7 @@ INSERT INTO products (id_product,title,descrip,brand_product,color,quantify,pric
 
 /*Talla de los productos */
 CREATE TABLE `productsxsize` ( /*Talla de los productos*/
-  `id_product` int NOT NULL,
+  `id_product` int NOT NULL AUTO_INCREMENT,
   `size` int NOT NULL,
   `quantify` int DEFAULT NULL,
   KEY `id_product` (`id_product`),
@@ -165,7 +165,7 @@ INSERT INTO productsxsize (id_product,size,quantify) VALUES
 
 /*Colores de los productos */
 CREATE TABLE `productsxcolors` (/*Colores de los productos*/
-  `id_product` int NOT NULL,
+  `id_product` int NOT NULL AUTO_INCREMENT,
   `color` int NOT NULL,
   `quantify` int DEFAULT NULL,
   KEY `id_product` (`id_product`),
@@ -188,7 +188,7 @@ INSERT INTO productsxcolors (id_product,color,quantify) VALUES
 
 /*Fecha de orden */
 CREATE TABLE `order_header` (/*Fecha de orden*/
-  `id_order` int NOT NULL,
+  `id_order` int NOT NULL AUTO_INCREMENT,
   `date_order` datetime NOT NULL,
   `customer` int NOT NULL,
   PRIMARY KEY (`id_order`),
@@ -211,7 +211,7 @@ INSERT INTO order_header (id_order,date_order,customer) VALUES
 
 /*Detalle de la orden del cliente*/
 CREATE TABLE `orders_detail` (/*Detalle de la orden del cliente*/
-  `id_detail` int NOT NULL,
+  `id_detail` int NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
   `order` int NOT NULL,
   `product` int NOT NULL,

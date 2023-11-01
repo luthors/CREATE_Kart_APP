@@ -2,8 +2,7 @@ import {config} from "dotenv"
 
 config()
 
-export const PORT = process.env.PORT || 4200/*PORT: Es el servidor */
-
+export const PORT = process.env.PORT || 3011/*PORT: Es el servidor */
 export const DB_USER = process.env.DB_USER || 'root'
 export const DB_HOST = process.env.DB_HOST || 'localhost'
 export const DB_DATABASE = process.env.DB_DATABASE || 'compras_create'

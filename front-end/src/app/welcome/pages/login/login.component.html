@@ -1,3 +1,7 @@
+<!---->
+<script src="login.js" defer></script>
+<!---->
+
 <app-header></app-header>
 
 <div class="body">
@@ -11,24 +15,23 @@
             </a>
         </div>
     </div>
-    <div class="form-information">
+    <div id="login-form" class="form-information">
         <div class="form-information-childs">
             <h2>Iniciar Sesion</h2>
             <p>Inicia Sesion con una cuenta</p>
             <form class="form">
                 <label>
                     <i class='bx bx-envelope' ></i>
-                    <input type="email" placeholder="Correo Electronico">
+                    <input type="email" name="emailUser" placeholder="Correo Electronico">
                 </label>
                 <label>
                     <i class='bx bx-lock-alt' ></i>
-                    <input type="password" placeholder="Contraseña">
+                    <input type="password" name="passwordUser" placeholder="Contraseña">
                 </label>
-                <button>Ingresar</button>
+                <button class="submit">Ingresar</button>
+                <p class="error escondido">Error al iniciar sesión</p>
             </form>
         </div>
     </div>
 </div>
 </div>
-
-

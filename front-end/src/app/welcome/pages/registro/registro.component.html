@@ -1,3 +1,7 @@
+<!---->
+<script src="register.js" defer></script>
+<!---->
+
 <app-header></app-header>
 
 <div class="body">
@@ -15,7 +19,7 @@
             <div class="form-information-childs">
                 <h2>Crear una cuenta</h2>
                 <p>Ingresa tus datos para registrarte</p>
-                <form class="form was-validated" (ngSubmit)="procesar()" #formContact="ngForm">
+                <form id="register-form" class="form was-validated" (ngSubmit)="procesar()" #formContact="ngForm">
 
                     <!-- tipo de documento -->
                     <label >
