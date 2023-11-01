@@ -131,3 +131,11 @@
     background-color: #7a7a9a;
 }
 
+.form p.error{
+    color: rgb(219, 255, 135);
+    padding: 10px;
+}
+
+.escondido{
+    display: none;
+}

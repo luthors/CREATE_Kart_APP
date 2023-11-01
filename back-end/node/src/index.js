@@ -1,14 +1,6 @@
-import express from 'express'
-import customersRoutes from './routes/customers.routes.js';
-import indexRoutes from "./routes/index.routes.js"
+/* Arranca todo el programa, llama a la app, se inicializa el servidor localhost */
+import app from './app.js'
+import {PORT} from './config.js'
 
-const app = express()
-
-app.use(express.json())/*Primero se recibe los datos se convierten a json o un objeto js y luego se pasa a las rutas */
-
-/*Rutas */
-app.use(indexRoutes)
-app.use('/api',customersRoutes)
-
-app.listen(4200, ()=>{
-    console.log('SERVER  Corriendo el servidor http://localhost:4200/') })
+app.listen(PORT)
+    console.log('SERVER  Corriendo el servidor http://localhost:3001/', PORT)
