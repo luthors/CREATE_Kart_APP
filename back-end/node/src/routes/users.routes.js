@@ -19,7 +19,7 @@ router.patch('/roles/:id' , updateRoles)
 /*Endpoints para consultar desde aplicaciones clientes*/
 router.get('/users' , getUsers)//Leer clientes
 router.get('/users/:id' , getUsersId)//Leer clientes
-router.post('/users' ,createUsers)//Crear clientes
+router.post('/auth/register' ,createUsers)//Crear clientes
 router.delete('/users/:id' , deleteUsers)//Eliminar clientes
 router.patch('/users/:id' , updateUsers)//Actualizar clientes
 

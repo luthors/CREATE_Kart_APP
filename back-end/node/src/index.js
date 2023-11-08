@@ -1,5 +1,6 @@
 /* Arranca todo el programa, llama a la app, se inicializa el servidor localhost */
 import app from './app.js'
+
 import {PORT} from './config.js'
 
 app.listen(PORT)

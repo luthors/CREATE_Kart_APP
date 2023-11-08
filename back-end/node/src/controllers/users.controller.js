@@ -127,9 +127,10 @@ export const getUsersId = async (req, res) => {
 
 /*______________________________________________________________*/
 export const createUsers = async (req, res) => { 
+    
     try {
-        /*Ver los datos que el cliente envía al realizar la petición*/
-        let {id_user, type_doc, doc_number, name, last_name, email, password, id_role} = req.body /*Extraer los datos para pasarlo a la consulta INSERT INTO */
+        console.log(req.body)    /*Ver los datos que el cliente envía al realizar la petición*/
+        let {id_user, type_doc, doc_number, name, last_name, email, password, id_role} = req.body.user /*Extraer los datos para pasarlo a la consulta INSERT INTO */
         const passHash = await encrypt(password); /*Encriptar password */
         password=passHash; /* */
         const [rows] = await pool.query('INSERT INTO users(id_user, type_doc, doc_number, name, last_name, email, password, id_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [id_user, type_doc, doc_number, name, last_name, email, password, id_role])/*Biblioteca: (?, ?) Se buscaran en el orden de las ?, se realizará una consullta en orden. Const rows se guarda la respuesta. */

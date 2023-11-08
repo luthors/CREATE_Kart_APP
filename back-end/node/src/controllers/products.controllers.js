@@ -483,7 +483,7 @@ export const getProductsxsize = async (req, res) => /*res.send ('obteniendo clie
         res.json(rows)
     } catch (error) {
         return res.status(500).json({
-            message: 'Something goes wrong'
+            message: ''
         })
         
     }

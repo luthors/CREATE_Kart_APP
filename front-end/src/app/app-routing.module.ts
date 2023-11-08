@@ -3,10 +3,25 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'',
-    loadChildren:()=> import('./welcome/welcome.module').then(m =>m.WelcomeModule)
+    path:'auth',
+    // guard
+    loadChildren:()=> import('./auth/auth.module').then(m =>m.AuthModule),
   },
-  
+  {
+    path:'dashboard',
+    // guard
+    loadChildren:()=> import('./dashboard/dashboard.module').then(m =>m.DashboardModule),
+  },
+  {
+    path:'**',
+    // guard
+    redirectTo: 'auth',
+  }
+
+  //   path:'',
+  //   loadChildren:()=> import('./welcome/welcome.module').then(m =>m.WelcomeModule)
+  // },
+
 ];
 
 @NgModule({
