@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../interfaces';
+import { Router } from "@angular/router";//redireccionar a página
 
 @Component({
   templateUrl: './register-page.component.html',
@@ -13,7 +14,7 @@ export class RegisterPageComponent {
 
   authService = inject( AuthService );
 
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder, private router: Router){//Redireccionar a página: 
     this.crearformulario();
   }
 
@@ -92,6 +93,10 @@ export class RegisterPageComponent {
       this.authService.register(usuario)
         .subscribe(success => {
           console.log(success);
+
+          //Redireccionar a página
+          this.router.navigate(['http://localhost:4200/'])
+          
         })
         
         // this.person.reset();
