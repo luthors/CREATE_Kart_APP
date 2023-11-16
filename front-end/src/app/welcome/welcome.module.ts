@@ -5,9 +5,8 @@ import { RouterModule } from '@angular/router';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../shared/shared.module';
-import { LoginComponent } from './pages/login/login.component';
-import { RegistroComponent } from './pages/registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -16,9 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    LoginComponent,
-    RegistroComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class WelcomeModule { }

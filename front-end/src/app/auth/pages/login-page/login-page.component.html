@@ -26,7 +26,7 @@
                     <i class='bx bx-envelope' ></i>
                     <input type="email" placeholder="Correo Electronico" formControlName="email">
                     <!-- *ngIf="correoNovalid" -->
-                    <div class="alerta" >
+                    <div class="alerta" *ngIf="correoNovalid">
                         <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
                     </div>
                 </label>
@@ -34,11 +34,11 @@
                     <i class='bx bx-lock-alt' ></i>
                     <input type="password" placeholder="Contraseña" formControlName="password">
                     <!-- *ngIf="contrasenaNovalid" -->
-                    <div class="alerta">
+                    <div class="alerta" *ngIf="contrasenaNovalid">
                         <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
                     </div>
                 </label>
-                <button class="submit" [disabled]="myForm.invalid" >Ingresar</button>
+                <button class="submit">Ingresar</button>
                 <p class="error escondido">Error al iniciar sesión</p>
             </form>
         </div>

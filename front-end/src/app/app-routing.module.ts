@@ -12,15 +12,15 @@ const routes: Routes = [
     // guard
     loadChildren:()=> import('./dashboard/dashboard.module').then(m =>m.DashboardModule),
   },
-  {
-    path:'**',
-    // guard
-    redirectTo: 'auth',
-  }
-
-  //   path:'',
-  //   loadChildren:()=> import('./welcome/welcome.module').then(m =>m.WelcomeModule)
+  // {
+  //   path:'**',
+  //   // guard
+  //   redirectTo: 'auth',
   // },
+  {
+    path:'',
+    loadChildren:()=> import('./welcome/welcome.module').then(m =>m.WelcomeModule)
+  },
 
 ];
 

@@ -13,18 +13,35 @@ export class LoginPageComponent {
   private fb=inject( FormBuilder );
   private authService=inject( AuthService );
 
+  get correoNovalid(){
+    return this.myForm.get('email')?.invalid && this.myForm.get('email')?.touched
+  }
+  get contrasenaNovalid(){
+    return this.myForm.get('password')?.invalid && this.myForm.get('password')?.touched
+  }
+
   public myForm = this.fb.group({
     email:    ['', [ Validators.required, Validators.email ] ],
     password: ['', [ Validators.required, Validators.minLength(6) ] ]
   })
 
   login() {
-    const { email, password } = this.myForm.value;
-    this.authService.login( email, password )
-    .subscribe(success => {
-      console.log(success);
-    })
-    console.log(this.myForm.value);
+
+    if (this.myForm.invalid){
+      return Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      }) 
+
+    }else{
+      const { email, password } = this.myForm.value;
+      this.authService.login( email, password )
+      .subscribe(success => {
+        console.log(success);
+      })
+      console.log(this.myForm.value);
+
+    }
+    
   }
 
 }
