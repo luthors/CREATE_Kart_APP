@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginPageComponent {
 
+  private token:string='';
+
   private fb=inject( FormBuilder );
   private authService=inject( AuthService );
 
@@ -36,8 +38,9 @@ export class LoginPageComponent {
       const { email, password } = this.myForm.value;
       this.authService.login( email, password )
       .subscribe(success => {
-        console.log(success);
-      })
+        this.token=success.toString();
+        console.log("esperando respuesta del back... "+success);
+        })
       console.log(this.myForm.value);
 
     }

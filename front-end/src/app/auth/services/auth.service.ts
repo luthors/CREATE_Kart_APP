@@ -28,8 +28,9 @@ export class AuthService {
   login( email: string|null|undefined, password: string|null|undefined ) : Observable<boolean> {
 
     // const urlLogin = `${ this.baseUrl }/auth/login`;
-    const urlLogin = 'http://localhost:3001/auth/login';
-    const body = { email, password };
+    const urlLogin = 'http://localhost:3001/api/auth/login';
+    const user= { email, password };
+    const body = { user};
 
     return this.http.post<LoginResponse>( urlLogin, body )
       .pipe(
@@ -47,7 +48,7 @@ export class AuthService {
   register (user:User): Observable<User>{
     const urlRegister = 'http://localhost:3001/api/auth/register';
     const body = { user };
-    console.log(body)
+    console.log("dentro del servicio aut register"+body)
     return this.http.post<User>( urlRegister, body )
       .pipe(
 
