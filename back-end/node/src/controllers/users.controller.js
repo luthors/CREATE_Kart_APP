@@ -111,7 +111,7 @@ export const getUsersLogin = async (req, res) => /*res.send ('obteniendo cliente
         console.log("email:" + rows[0].email +"Rol:" +rows[0].id_role)
         const token=generateToken(rows[0].email,rows[0].id_role)
         console.log(token)
-        res.status(202).json({"Token":token})
+        res.status(202).json({"user": rows[0],"token":token})
     }
     else
     {
