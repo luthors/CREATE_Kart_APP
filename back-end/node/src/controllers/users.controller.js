@@ -1,10 +1,12 @@
 import {pool} from "../db.js"
 import encrypt from "../utils/bcrypt.js";
+import compareEncript from "../utils/bcrypt.js";
+import generateToken from "../utils/token.js";
 
 /*Roles */
 export const getRoles = async (req, res) => /*res.send ('obteniendo clientes')*/{
     try {
-        const [rows] = await pool.query('SELECT*FROM roles')
+        const [rows] = await pool.query('SELECT * FROM roles')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({/*Si ocurre un error devolver status.(500) que es un conflicto con el servidor pero puede seguir ejecutandose*/
@@ -17,7 +19,7 @@ export const getRoles = async (req, res) => /*res.send ('obteniendo clientes')*/
  /*______________________________________________________________*/
  export const getRolesId = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT*FROM roles WHERE id_role=?', [req.params.id])
+        const [rows] = await pool.query('SELECT * FROM roles WHERE id_role=?', [req.params.id])
         console.log(rows)
 
         if (rows.length <=0) return res.status(404).json({
@@ -97,13 +99,32 @@ export const updateRoles = async (req, res) => {
 
 /*Users*/
 /*______________________________________________________________*/
-export const getUsers = async (req, res) => /*res.send ('obteniendo clientes')*/{
+export const getUsersLogin = async (req, res) => /*res.send ('obteniendo clientes')*/{
    try {
-    const [rows] = await pool.query('SELECT*FROM users')
-    res.json(rows)
+    console.log(req.body) 
+    let {email, password} = req.body.user 
+    const passHash = await encrypt(password); /*Encriptar password */
+    password=passHash; /* */
+    const [rows] = await pool.query('SELECT * FROM users WHERE email=?  limit 1', [email])
+    
+    if(compareEncript(password,rows[0].password)){
+        console.log("email:" + rows[0].email +"Rol:" +rows[0].id_role)
+        const token=generateToken(rows[0].email,rows[0].id_role)
+        console.log(token)
+        res.status(202).json({"Token":token})
+    }
+    else
+    {
+        res.status(403).json({
+            message: 'User not match'
+        })
+    }
+    console.log("respuesta BD:" + rows)
    } catch (error) {
-    return res.status(500).json({
-        message: 'Something goes wrong'
+    console.log(error)
+    return res.status(503).json({
+        message: 'Something goes wrong',
+        technicalMessage: error
     })
    }
 }
@@ -134,7 +155,7 @@ export const createUsers = async (req, res) => {
         const passHash = await encrypt(password); /*Encriptar password */
         password=passHash; /* */
         const [rows] = await pool.query('INSERT INTO users(id_user, type_doc, doc_number, name, last_name, email, password, id_role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [id_user, type_doc, doc_number, name, last_name, email, password, id_role])/*Biblioteca: (?, ?) Se buscaran en el orden de las ?, se realizará una consullta en orden. Const rows se guarda la respuesta. */
-        res.send({/*Al recibir la respuesta se crea un insertId, se coloca el id:rows.insertId para que se muestre el id auto-incrementado y name, salary para toda la información.*/ 
+        res.status(201).send({/*Al recibir la respuesta se crea un insertId, se coloca el id:rows.insertId para que se muestre el id auto-incrementado y name, salary para toda la información.*/ 
             id:rows.insertId,
             id_user,
             type_doc, 
@@ -151,6 +172,7 @@ export const createUsers = async (req, res) => {
         })
     }
 }
+
 
 /*______________________________________________________________*/
 export const deleteUsers = async (req, res) => {
