@@ -1,6 +1,6 @@
 /*Agrupar todas las rutas*/
 import {Router} from "express";
-import {createUsers, updateUsers, deleteUsers, getUsersId,getUsersLogin} from '../controllers/users.controller.js';
+import {getUsers,createUsers, updateUsers, deleteUsers, getUsersId,getUsersLogin} from '../controllers/users.controller.js';
 import {getRoles, getRolesId, createRoles, deleteRoles, updateRoles } from '../controllers/users.controller.js';
 
 const router = Router()
@@ -17,6 +17,7 @@ router.patch('/roles/:id' , updateRoles)
 /*_________________________________ */
 /* Users */
 /*Endpoints para consultar desde aplicaciones clientes*/
+router.get('/users' , getUsers)//Leer todos los clientes
 router.get('/users/:id' , getUsersId)//Leer clientes
 router.post('/auth/register' ,createUsers)//Crear clientes
 router.post('/auth/login' ,getUsersLogin)//Consultar login
