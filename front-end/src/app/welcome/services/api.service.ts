@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  private urlApi ='http://localhost:3001/api/destacados';
+  // private urlApi ='http://localhost:3001/api/destacados';
 
   constructor(private http: HttpClient) { }
 
-  public getData(): Observable<any>{
-    return this.http.get<any>(this.urlApi);
+  public get(url:string){
+    return this.http.get(url);
   }
 }

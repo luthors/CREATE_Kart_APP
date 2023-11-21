@@ -1,0 +1,21 @@
+<!-- <div class="card">
+
+    <img class="image" src="https://m.media-amazon.com/images/I/610wDtRMWUL._AC_SY695_.jpg" alt="">
+    <h3>Titulo</h3>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
+    <h6>Precio</h6>
+    <p>color</p>
+    <button class="buy">add to car</button>  
+
+</div> -->
+
+<div class="card">
+
+    <!-- <img class="image" src="../../../../assets/moda4.jpg" alt=""> -->
+    <img class="image" [src]="dataEntrante?.url" alt="">
+    <h3>{{dataEntrante?.title}}</h3>
+    <p>{{dataEntrante?.descrip}}</p>
+    <h6>{{dataEntrante?.price}}</h6>
+    <button class="buy">add to car</button>  
+
+</div>
