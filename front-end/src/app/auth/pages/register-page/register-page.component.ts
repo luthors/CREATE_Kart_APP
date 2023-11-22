@@ -92,13 +92,13 @@ export class RegisterPageComponent {
       console.log("usuario cargado:", usuario);
       this.authService.register(usuario)
         .subscribe(success => {
-          console.log("sucribe al register"+success);
-
-          //Redireccionar a página
-          //this.router.navigate(['http://localhost:4200/'])
-          
+          console.log("sucribess al register"+success);           
+        },err =>{
+          console.log("suscriberr al register"+err);
         })
-        console.log("Fuera del suscribe")
+        //Redireccionar a página
+        //this.router.navigate(['http://localhost:4200/'])
+        
         
         // this.person.reset();
 
