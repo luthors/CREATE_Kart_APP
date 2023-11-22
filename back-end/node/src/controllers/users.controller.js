@@ -115,7 +115,7 @@ export const getUsers = async (req, res) => /*res.send ('obteniendo clientes')*/
 export const getUsersLogin = async (req, res) => /*res.send ('obteniendo clientes')*/{
    try {
     console.log(req.body) 
-    let {email, password} = req.body.user 
+    let {email, password} = req.body.user
     const passHash = await encrypt(password); /*Encriptar password */
     password=passHash; /* */
     const [rows] = await pool.query('SELECT * FROM users WHERE email=?  limit 1', [email])

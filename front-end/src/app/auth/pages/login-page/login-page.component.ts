@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+//import { Router } from "@angular/router";
 
 
 
@@ -15,6 +16,7 @@ export class LoginPageComponent {
   private fb=inject( FormBuilder );
   private authService=inject( AuthService );
 
+
   get correoNovalid(){
     return this.myForm.get('email')?.invalid && this.myForm.get('email')?.touched
   }
@@ -24,7 +26,7 @@ export class LoginPageComponent {
 
   public myForm = this.fb.group({
     email:    ['', [ Validators.required, Validators.email ] ],
-    password: ['', [ Validators.required, Validators.minLength(6) ] ]
+    password: ['', [ Validators.required, Validators.minLength(3) ] ]
   })
 
   login() {
@@ -41,6 +43,7 @@ export class LoginPageComponent {
         this.token=success.toString();
         console.log("esperando respuesta del back... "+success);
         })
+
       console.log(this.myForm.value);
 
     }

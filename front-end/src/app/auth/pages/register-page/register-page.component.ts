@@ -95,7 +95,7 @@ export class RegisterPageComponent {
           console.log("sucribe al register"+success);
 
           //Redireccionar a página
-          //this.router.navigate(['http://localhost:4200/'])
+          this.router.navigate(['/'])
           
         })
         console.log("Fuera del suscribe")
