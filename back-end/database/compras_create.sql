@@ -113,6 +113,7 @@ CREATE TABLE `products` (/*Productos*/
   `stock` int NOT NULL,
   `category` int NOT NULL,
   `size` int NOT NULL,
+  `url` varchar(200) NOT NULL,
   PRIMARY KEY (`id_product`),
   KEY `brand_product` (`brand_product`),
   KEY `category` (`category`),
@@ -128,6 +129,15 @@ INSERT INTO products (id_product,title,descrip,brand_product,color,quantify,pric
 (5, 'Zapatos deportivos', 'Zapatillas deportivas ideales para correr', 4, 4, 20, 90000.0, 15, 3, 2),
 (6, 'Abrigo de invierno', 'Abrigo de lana con capucha para el invierno', 3, 5, 8, 150000.0, 7, 3, 4),
 (7, 'Jeans de mezclilla', 'Jeans clásicos de mezclilla para hombres', 7, 3, 10, 55000.0, 10, 2, 6);
+
+
+UPDATE products SET url = 'https://static.pullandbear.net/2/photos/2023/I/0/2/p/3685/508/407/3685508407_1_1_3.jpg?t=1697539571399' WHERE id_product = 1;
+UPDATE products SET url ='https://static.kiabi.es//images/falda-de-volantes-fucsia-acg96_1_frb1.jpg' WHERE id_product = 2;
+UPDATE products SET url ='https://www.camiseriaeuropea.com/cdn/shop/products/696_001.jpg?v=1633559189' WHERE id_product = 3;
+UPDATE products SET url ='https://cdn-images.farfetch-contents.com/18/44/08/85/18440885_39661253_1000.jpg'WHERE id_product = 4;
+UPDATE products SET url ='https://m.media-amazon.com/images/I/610wDtRMWUL._AC_SY695_.jpg' WHERE id_product = 5;
+UPDATE products SET url ='https://m.media-amazon.com/images/I/614H1mn1+dL._AC_UY1000_.jpg' WHERE id_product = 6;
+UPDATE products SET url ='https://media.vogue.mx/photos/5ecaae20a44477bd60bb5b4d/master/w_1600%2Cc_limit/jeans-Zara-.jpg' WHERE id_product = 7;
 
 
 /*Talla de los productos */
@@ -212,8 +222,8 @@ INSERT INTO order_header (id_order,date_order,customer) VALUES
 /*Detalle de la orden del cliente*/
 CREATE TABLE `orders_detail` (/*Detalle de la orden del cliente*/
   `id_detail` int NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
-  `order` int NOT NULL,
+  `date_` datetime NOT NULL,
+  `order_` int NOT NULL,
   `product` int NOT NULL,
   `quantify` int NOT NULL,
   `total` float NOT NULL,
@@ -224,3 +234,16 @@ CREATE TABLE `orders_detail` (/*Detalle de la orden del cliente*/
   CONSTRAINT `product` FOREIGN KEY (`product`) REFERENCES `products` (`id_product`)
 ) ENGINE=InnoDB;
 
+INSERT INTO orders_detail (date_,order_,product,quantify,total) VALUES
+("2023-08-12",1,1,1,30000.0),
+("2023-07-11",2,2,3,240000.0),
+("2023-06-01",3,4,1,120000.0),
+("2023-08-02",4,3,2,90000.0),
+("2023-04-21",5,7,1,55000.0),
+("2023-05-26",6,6,2,300000.0),
+("2023-01-30",7,2,2,160000.0),
+("2023-01-30",8,5,2,180000.0),
+("2023-02-28",9,3,3,135000.0),
+("2023-08-13",7,2,2,110000.0);
+
+SELECT*FROM orders_detail;

@@ -228,8 +228,3 @@ export const updateUsers = async (req, res) => {
         })
     }
 }
-
-
-
-
-
