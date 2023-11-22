@@ -8,7 +8,8 @@ import { ApiService } from '../../services/api.service';
 })
 export class HomeComponent implements OnInit{
 
-  data: any[]= [];
+  title = 'portafolio-app';
+  public listaProductos:any =[]
 
   constructor (private apiService: ApiService){}
 
@@ -16,11 +17,9 @@ export class HomeComponent implements OnInit{
       this.llenarData();
   }
 
-  llenarData(){
-    this.apiService.getData().subscribe(data => [
-      this.data = data,
-      console.log(data)
-
+  public llenarData(){
+    this.apiService.get('http://localhost:3001/api/destacados').subscribe(data => [
+      this.listaProductos=data
     ])
   }
 

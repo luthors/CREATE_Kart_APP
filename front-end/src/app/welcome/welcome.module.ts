@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { DestacadosComponent } from './pages/destacados/destacados.component';
 
 
 
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DestacadosComponent
   ],
   imports: [
     CommonModule,
