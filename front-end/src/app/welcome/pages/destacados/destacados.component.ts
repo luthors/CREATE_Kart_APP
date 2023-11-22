@@ -12,8 +12,8 @@ export class DestacadosComponent implements OnInit {
   constructor(){}
 
   ngOnInit(): void {
-      this.image ='https://www.camiseriaeuropea.com/cdn/shop/products/696_001.jpg?v=1633559189'
-      console.log('entrando data: ', this.dataEntrante);
+      // this.image ='https://www.camiseriaeuropea.com/cdn/shop/products/696_001.jpg?v=1633559189'
+      //console.log('entrando data: ', this.dataEntrante);
   }
 
 }

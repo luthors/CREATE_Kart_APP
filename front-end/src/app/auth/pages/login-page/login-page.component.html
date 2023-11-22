@@ -38,10 +38,28 @@
                         <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
                     </div>
                 </label>
-                <button class="submit">Ingresar</button>
-                <p class="error escondido">Error al iniciar sesión</p>
-            </form>
+                <button class="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar</button>
+                <!-- <p class="error escondido">Error al iniciar sesión</p> -->
+            </form>            
         </div>
     </div>
 </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1"         aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="errorauth">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Error</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tu contraseña es incorrrecta o aun no estas registrado
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" routerLink="/auth/register" data-bs-dismiss="modal">Registrarse</button>
+            </div>
+        </div>
+    </div>
 </div>
