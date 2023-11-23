@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, MinValidator, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../interfaces';
@@ -14,7 +14,7 @@ export class RegisterPageComponent {
   authError!:boolean;
   authService = inject( AuthService );
 
-  constructor(private fb:FormBuilder, private router: Router){//Redireccionar a página: 
+  constructor(private fb:FormBuilder, private router: Router){//Redireccionar a página
     this.crearformulario();
   }
 
@@ -56,12 +56,8 @@ export class RegisterPageComponent {
       apellido:['', Validators.required],
       correo:['', [Validators.required, Validators.email]],
       role:[2],
-      contrasena:['', [Validators.required, ]],
+      contrasena:['', [Validators.required, Validators.minLength(6)]],
       passConf:['', [Validators.required]]
-
-    },{
-
-      Validators:this.passwordIguales('contrasena','passConf')
 
     })
 
@@ -69,8 +65,6 @@ export class RegisterPageComponent {
 
   registro(){
     let usuario:User;
-
-    this.passNovalido();
 
       if (this.person.invalid){
         this.authError=false
@@ -89,14 +83,7 @@ export class RegisterPageComponent {
         "id_role":this.person.value.role
       }
 
-      this.authService.register(usuario)
-        .subscribe(success => {
-          console.log("sucribe al register"+success);
-
-          //Redireccionar a página
-          this.router.navigate(['/'])
-          
-        .subscribe(success => {          
+      this.authService.register(usuario).subscribe(success => {          
           this.authError=false;
           this.person.reset();           
         },err =>{
@@ -104,7 +91,8 @@ export class RegisterPageComponent {
         })
         
         
-        
+        //Redireccionar a página
+        this.router.navigate(['/'])
         
 
     }

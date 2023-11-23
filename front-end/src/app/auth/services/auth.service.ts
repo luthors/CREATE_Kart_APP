@@ -25,7 +25,7 @@ export class AuthService {
 
     constructor() { }
 
-  login( email: string|null|undefined, password: string|null|undefined ) : Observable<boolean> {
+  login( email: string|null|undefined, password: string|null|undefined ) : Observable<any> {
 
     // const urlLogin = `${ this.baseUrl }/auth/login`;
     const urlLogin = 'http://localhost:3001/api/auth/login';

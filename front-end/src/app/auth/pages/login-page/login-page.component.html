@@ -21,7 +21,7 @@
             <p>Inicia Sesion con una cuenta</p>
 
             <form class="form"
-            [formGroup]="myForm" (ngSubmit)="login()">
+            [formGroup]="myForm" >
                 <label>
                     <i class='bx bx-envelope' ></i>
                     <input type="email" placeholder="Correo Electronico" formControlName="email">
@@ -38,7 +38,7 @@
                         <i class='bx bx-error-circle bx-tada bx-rotate-90' style='color:#9a0707'></i>
                     </div>
                 </label>
-                <button class="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Ingresar</button>
+                <button class="submit" (click)="login()">Ingresar</button>
                 <!-- <p class="error escondido">Error al iniciar sesión</p> -->
             </form>            
         </div>
