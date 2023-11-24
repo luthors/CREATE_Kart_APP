@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from "@angular/router";//Redireccionar
+//import { Router } from "@angular/router";
 
 
 
@@ -11,13 +11,11 @@ import { Router } from "@angular/router";//Redireccionar
 })
 export class LoginPageComponent {
 
-  public token!:string;
-  errorauth!:boolean
+  private token:string='';
+  errorauth:boolean=false;
 
   private fb=inject( FormBuilder );
   private authService=inject( AuthService );
-  
-  private router = inject (Router);//Redireccionar
 
 
   get correoNovalid(){
@@ -29,7 +27,7 @@ export class LoginPageComponent {
 
   public myForm = this.fb.group({
     email:    ['', [ Validators.required, Validators.email ] ],
-    password: ['', [ Validators.required, Validators.minLength(6) ] ]
+    password: ['', [ Validators.required, Validators.minLength(3) ] ]
   })
 
   login() {
@@ -43,16 +41,11 @@ export class LoginPageComponent {
       const { email, password } = this.myForm.value;
       this.authService.login( email, password )
       .subscribe(success => {
-        this.errorauth=false;
-        this.token=success.token;
-        this.router.navigate(['/'])//Redireccionar
+        this.token=success.toString();
         // console.log("esperando respuesta del back... "+success);
         },err =>{
           this.errorauth=true;
-          console.log("hay un problema"+err)
         })
-
-      console.log(this.myForm.value);
 
     }
     

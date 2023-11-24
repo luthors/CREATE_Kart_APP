@@ -11,7 +11,7 @@ import { Router } from "@angular/router";//redireccionar a página
 })
 export class RegisterPageComponent {
   person!:FormGroup;
-  authError!:boolean;
+  authError:boolean=false;
   authService = inject( AuthService );
 
   constructor(private fb:FormBuilder, private router: Router){//Redireccionar a página
@@ -67,7 +67,6 @@ export class RegisterPageComponent {
     let usuario:User;
 
       if (this.person.invalid){
-        this.authError=false
         return Object.values(this.person.controls).forEach(control=>{
         control.markAllAsTouched();
       })
@@ -83,20 +82,14 @@ export class RegisterPageComponent {
         "id_role":this.person.value.role
       }
 
-      this.authService.register(usuario).subscribe(success => {          
-          this.authError=false;
-          this.person.reset();           
+      this.authService.register(usuario).subscribe(success => {
+          this.person.reset();  
+          //Redireccionar a página
+        this.router.navigate(['/'])        
         },err =>{
           this.authError=true;
         })
-        
-        
-        //Redireccionar a página
-        this.router.navigate(['/'])
-        
-
     }
-    // this.person.reset();
   }
 
   passNovalido(){

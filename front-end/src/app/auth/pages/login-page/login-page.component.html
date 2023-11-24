@@ -39,27 +39,18 @@
                     </div>
                 </label>
                 <button class="submit" (click)="login()">Ingresar</button>
-                <!-- <p class="error escondido">Error al iniciar sesión</p> -->
             </form>            
         </div>
     </div>
 </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1"         aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="errorauth">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Error</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Tu contraseña es incorrrecta o aun no estas registrado
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" routerLink="/auth/register" data-bs-dismiss="modal">Registrarse</button>
-            </div>
-        </div>
+<div [ngClass]="{'overlaySV': errorauth, 'overlayNV': !errorauth}">
+    <div class="popup">
+        <a routerLink='/' class="btn-cerrar-popup">
+            <i class='bx bx-window-close' style='color:#2d2c2c'></i>
+        </a>
+        <h3>Error al iniciar sesion</h3>
+        <p>Tu contraseña es invalida o aun no estas registrado</p>
+        <button routerLink='/auth/register'>Registarse</button>
     </div>
+</div>
 </div>
