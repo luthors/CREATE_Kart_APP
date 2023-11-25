@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, MinValidator, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, MinValidator, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../interfaces';
@@ -47,7 +47,6 @@ export class RegisterPageComponent {
   }
 
   crearformulario(){
-    // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{5,}$')
     this.person=this.fb.group({
 
       tip_doc:['', Validators.required],
@@ -56,13 +55,25 @@ export class RegisterPageComponent {
       apellido:['', Validators.required],
       correo:['', [Validators.required, Validators.email]],
       role:[2],
-      contrasena:['', [Validators.required, Validators.minLength(6)]],
-      passConf:['', [Validators.required]]
-
-    })
-
+      contrasena:['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/)]],
+      passConf:['', [Validators.required, this.validarConfirmacion('contrasena')]]
+    });
   }
 
+  //Funcion para validar contraseña
+  validarConfirmacion(campo: string): ValidatorFn {
+
+    return (control:AbstractControl): {
+      [key: string]:any } | null => {
+        const campoAComparar = control.root.get(campo);
+        if (campoAComparar && control.value !== campoAComparar.value){
+          return {'noCoincide':true}
+        }
+        return null;        
+      };
+  }
+
+  //funcion submit del boton registrar
   registro(){
     let usuario:User;
 
@@ -82,39 +93,14 @@ export class RegisterPageComponent {
         "id_role":this.person.value.role
       }
 
+      //llamando servicio para insertar regitro en la BD
       this.authService.register(usuario).subscribe(success => {
           this.person.reset();  
           //Redireccionar a página
-        this.router.navigate(['/'])        
-        },err =>{
-          this.authError=true;
-        })
+          this.router.navigate(['/'])        
+          },err =>{
+            this.authError=true;
+          })
     }
-  }
-
-  passNovalido(){
-    const pass1 = this.person.get('contrasena')?.value;
-    const pass2 = this.person.get('passConf')?.value;
-    if(pass1 !== pass2){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  passwordIguales(pass1Name:string, pass2Name:string){
-
-    return (formGroup:FormGroup)=>{
-      const pass1Control = formGroup.get(pass1Name)
-      const pass2Control = formGroup.get(pass2Name)
-
-      if(pass1Control?.value === pass2Control?.value){
-        pass2Control?.setErrors(null);
-      }else{
-        pass2Control?.setErrors({noEsIgual:true})
-      }
-    }
-
-  }
-
+  }  
 }

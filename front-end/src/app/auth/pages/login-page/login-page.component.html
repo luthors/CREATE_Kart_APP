@@ -21,7 +21,7 @@
             <p>Inicia Sesion con una cuenta</p>
 
             <form class="form"
-            [formGroup]="myForm" >
+            [formGroup]="usuario" >
                 <label>
                     <i class='bx bx-envelope' ></i>
                     <input type="email" placeholder="Correo Electronico" formControlName="email">
@@ -49,7 +49,7 @@
             <i class='bx bx-window-close' style='color:#2d2c2c'></i>
         </a>
         <h3>Error al iniciar sesion</h3>
-        <p>Tu contraseña es invalida o aun no estas registrado</p>
+        <p>Tu contraseña es inválida o aun no estás registrado</p>
         <button routerLink='/auth/register'>Registarse</button>
     </div>
 </div>

@@ -10,7 +10,8 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url(../../../../assets/moda4.jpg);
+  background-color: #737171;
+  /* background-image: url(../../../../assets/moda4.jpg); */
   background-size: cover;
 }
 

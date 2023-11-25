@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 //import { Router } from "@angular/router";
 
 
@@ -10,44 +11,49 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-
+  usuario!:FormGroup;//nuevo
   private token:string='';
   errorauth:boolean=false;
-
-  private fb=inject( FormBuilder );
   private authService=inject( AuthService );
+
+  constructor(private fb:FormBuilder, private router: Router){
+    this.crearformulario();
+  }
 
 
   get correoNovalid(){
-    return this.myForm.get('email')?.invalid && this.myForm.get('email')?.touched
+    return this.usuario.get('email')?.invalid && this.usuario.get('email')?.touched
   }
   get contrasenaNovalid(){
-    return this.myForm.get('password')?.invalid && this.myForm.get('password')?.touched
+    return this.usuario.get('password')?.invalid && this.usuario.get('password')?.touched
   }
 
-  public myForm = this.fb.group({
-    email:    ['', [ Validators.required, Validators.email ] ],
-    password: ['', [ Validators.required, Validators.minLength(3) ] ]
-  })
+  crearformulario(){
+    this.usuario=this.fb.group({
 
+
+      email:    ['', [ Validators.required, Validators.email ] ],
+      password: ['', [ Validators.required, Validators.minLength(6) ] ]
+    });
+  }
+
+  //funcion submit del boton iniciar sesion
   login() {
 
-    if (this.myForm.invalid){
-      return Object.values(this.myForm.controls).forEach(control=>{
+    if (this.usuario.invalid){
+      return Object.values(this.usuario.controls).forEach(control=>{
         control.markAllAsTouched();
       }) 
 
     }else{
-      const { email, password } = this.myForm.value;
+      const { email, password } = this.usuario.value;
       this.authService.login( email, password )
       .subscribe(success => {
         this.token=success.toString();
-        // console.log("esperando respuesta del back... "+success);
+        this.router.navigate(['/'])
         },err =>{
           this.errorauth=true;
         })
-
-    }
-    
+    }    
   }
 }
