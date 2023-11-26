@@ -1,6 +1,6 @@
 import {pool} from "../db.js"
-import encrypt from "../utils/bcrypt.js";
-import compareEncript from "../utils/bcrypt.js";
+//import encrypt from "../utils/bcrypt.js";
+import {encrypt,compareEncript} from "../utils/bcrypt.js";
 import generateToken from "../utils/token.js";
 
 /*Roles */
@@ -111,36 +111,52 @@ export const getUsers = async (req, res) => /*res.send ('obteniendo clientes')*/
     }
  }
 
+/*Login */
+ export const getUsersLogin = async (req, res) => {
+    try {
+        console.log(req.body);
+        let { email, password } = req.body.user;
 
-export const getUsersLogin = async (req, res) => /*res.send ('obteniendo clientes')*/{
-   try {
-    console.log(req.body) 
-    let {email, password} = req.body.user
-    const passHash = await encrypt(password); /*Encriptar password */
-    password=passHash; /* */
-    const [rows] = await pool.query('SELECT * FROM users WHERE email=?  limit 1', [email])
-    
-    if(compareEncript(password,rows[0].password)){
-        console.log("email:" + rows[0].email +"Rol:" +rows[0].id_role)
-        const token=generateToken(rows[0].email,rows[0].id_role)
-        console.log(token)
-        res.status(202).json({"user": rows[0],"token":token})
+        const [rows] = await pool.query('SELECT * FROM users WHERE email=?  LIMIT 1', [email]);
+
+        // Agrega console logs para depurar
+        console.log("Contraseña proporcionada:", password);
+        console.log("Hash almacenado en la base de datos:", rows[0].password);
+        console.log("respuesta BD:", rows);
+
+        try {
+            const passwordMatches = await compareEncript(password, rows[0].password);
+
+            if (passwordMatches) {
+                console.log("Contraseña correcta");
+
+                const token = generateToken(rows[0].email, rows[0].id_role);
+                console.log("Token generado:", token);
+
+                res.status(202).json({ "user": rows[0], "token": token });
+            } else {
+                // Contraseña incorrecta
+                console.log("Contraseña incorrecta");
+                res.status(403).json({
+                    message: 'Incorrect password'
+                });
+            }
+        } catch (error) {
+            console.error("Error comparando contraseñas:", error);
+            res.status(500).json({
+                message: 'Internal Server Error'
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(503).json({
+            message: 'Something goes wrong',
+            technicalMessage: error
+        });
     }
-    else
-    {
-        res.status(403).json({
-            message: 'User not match'
-        })
-    }
-    console.log("respuesta BD:" + rows)
-   } catch (error) {
-    console.log(error)
-    return res.status(503).json({
-        message: 'Something goes wrong',
-        technicalMessage: error
-    })
-   }
-}
+};
+
+
 
 /*______________________________________________________________*/
 export const getUsersId = async (req, res) => {
@@ -160,6 +176,7 @@ export const getUsersId = async (req, res) => {
 }
 
 /*______________________________________________________________*/
+/*Register */
 export const createUsers = async (req, res) => { 
     
     try {

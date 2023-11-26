@@ -1,16 +1,26 @@
 /*Encriptar contraseña*/
 import pkg from "bcryptjs";
 
-const {hash} = pkg;
-const encrypt = async (password) =>{
+const { compare, hash } = pkg;
 
-    const passwordEncrypt = await hash(password,8);
-    return passwordEncrypt;
-}
-const compareEncript = async (password1,password2) =>{
+const encrypt = async (password) => {
+    try {
+        const passwordEncrypt = await hash(password, 8);
+        return passwordEncrypt;
+    } catch (error) {
+        console.error("Error encriptando la contraseña:", error);
+        throw error;
+    }
+};
 
-    const comparte = await pkg.compare(password1,password2)
-    return comparte;
-}
+const compareEncript = async (password, hashedPassword) => {
+    try {
+        const result = await compare(password, hashedPassword);
+        return result;
+    } catch (error) {
+        console.error("Error comparando contraseñas:", error);
+        throw error;
+    }
+};
 
-export default encrypt;
+export { encrypt, compareEncript };
