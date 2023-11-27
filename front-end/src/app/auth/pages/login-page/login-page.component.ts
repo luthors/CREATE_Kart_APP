@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-//import { Router } from "@angular/router";
 
 
 
@@ -55,5 +54,10 @@ export class LoginPageComponent {
           this.errorauth=true;
         })
     }    
+  }
+  // funcion para cerrar popup de error al inicio de sesion
+  cambiarEstado(){
+    this.errorauth=false;
+    this.usuario.reset();
   }
 }

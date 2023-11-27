@@ -1,5 +1,4 @@
-
-h3{
+/* h3{
     text-align: center;
     font-size: 30px;
     margin: 0;
@@ -51,7 +50,6 @@ button{
     padding: 15px;
     border: 0;
     outline: none;
-    /* cursor: pointer; */
     margin-top: 5px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -66,4 +64,28 @@ button{
     .content{
         width: 100%;
     }
+} */
+/* *{
+    margin: 0px;
+    padding: 0px;
+    font-family: helvetica;
+} */
+
+/* .card{
+    height: 500px;
+    margin: 50px;
+    box-shadow: 5px 5px 20px black;
+    overflow: hidden;
 }
+.image{
+    height: 500px;
+    width: 350px;
+    border-radius: 3px;
+}
+.intro{
+    height: 200px;
+    width: 350px;
+    padding: 6px;
+    box-sizing: border-box;
+    position: absolute;
+} */

@@ -2,7 +2,7 @@
 <script src="register.js" defer></script>
 <!---->
 
-<!-- <app-header></app-header> -->
+<app-header></app-header>
 
 <div class="body">
     <div class="container-form">
@@ -115,7 +115,7 @@
     <div [ngClass]="{'overlaySV': authError, 'overlayNV': !authError}">
         <div class="popup">
             <a routerLink='/' class="btn-cerrar-popup">
-                <i class='bx bx-window-close' style='color:#2d2c2c'></i>
+                <i class='bx bx-x'></i>
             </a>
             <h3>Registro inválido</h3>
             <p>Tu correo ya esta registrado en la base de datos</p>
