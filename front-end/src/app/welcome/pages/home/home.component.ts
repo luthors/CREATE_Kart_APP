@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-home',
@@ -10,20 +8,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 export class HomeComponent implements OnInit{
 
   title = 'portafolio-app';
-  public listaProductos:any =[]
 
-  constructor (private apiService: ApiService){}
+  constructor (){}
 
-  ngOnInit(): void {
-      this.llenarData();
-  }
-
-  public llenarData(){
-    this.apiService.get('http://localhost:3001/api/destacados').subscribe(data => [
-      this.listaProductos=data
-    ])
-  }
-
-  slideConfig={"slidesToShow":2, "slidesToScroll":1, "infinite":true, "nextArrow":false, "prevArrow":false};
-
+  ngOnInit(): void {}
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-destacados',
@@ -7,13 +9,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DestacadosComponent implements OnInit {
 
-  @Input() dataEntrante:any;
-  // public image:string | undefined;
-  constructor(){}
+  // @Input() dataEntrante:any;
+  public listaProductos:any =[]
+  
+  constructor(private apiService: ApiService){}
 
   ngOnInit(): void {
-      // this.image ='https://www.camiseriaeuropea.com/cdn/shop/products/696_001.jpg?v=1633559189'
-      //console.log('entrando data: ', this.dataEntrante);
+    this.llenarData();
   }
+  public llenarData(){
+    this.apiService.get('http://localhost:3001/api/destacados').subscribe(data => [
+      this.listaProductos=data
+    ])
+  }
+
+  slideConfig={"slidesToShow":2, "slidesToScroll":1, "infinite":true, "nextArrow":false, "prevArrow":false};
 
 }
