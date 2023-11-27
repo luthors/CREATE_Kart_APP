@@ -89,3 +89,12 @@ button{
     box-sizing: border-box;
     position: absolute;
 } */
+
+.card{
+    height: 100%;
+    width: 400px;
+    margin: 50px;
+    box-shadow: 5px 5px 20px black;
+    overflow: hidden;
+    /* display: flex; */
+}

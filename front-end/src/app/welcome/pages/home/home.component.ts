@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-home',
@@ -22,5 +23,7 @@ export class HomeComponent implements OnInit{
       this.listaProductos=data
     ])
   }
+
+  slideConfig={"slidesToShow":2, "slidesToScroll":1, "infinite":true, "nextArrow":false, "prevArrow":false};
 
 }

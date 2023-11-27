@@ -10,11 +10,13 @@
 
 <h3>Lo más vendido</h3>
 
-<div class="body">
-    <div class="galery"> 
-        <app-destacados [dataEntrante]="detalleProducto" *ngFor="let detalleProducto of listaProductos"></app-destacados>
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem *ngFor="let detalleProducto of listaProductos" class="slide"> 
+        <app-destacados [dataEntrante]="detalleProducto"></app-destacados>
     </div>
-</div>
+</ngx-slick-carousel>
+
+
 
 
 <!--Borrar-->

@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DestacadosComponent } from './pages/destacados/destacados.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 
@@ -26,7 +27,8 @@ import { DestacadosComponent } from './pages/destacados/destacados.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SlickCarouselModule
   ]
 })
 export class WelcomeModule { }

@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DestacadosComponent implements OnInit {
 
   @Input() dataEntrante:any;
-  public image:string | undefined;
+  // public image:string | undefined;
   constructor(){}
 
   ngOnInit(): void {
