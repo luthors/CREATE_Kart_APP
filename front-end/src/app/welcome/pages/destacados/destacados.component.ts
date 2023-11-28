@@ -23,6 +23,31 @@ export class DestacadosComponent implements OnInit {
     ])
   }
 
-  slideConfig={"slidesToShow":2, "slidesToScroll":1, "infinite":true, "nextArrow":false, "prevArrow":false};
+  slideConfig={
+    "slidesToShow":3,
+    "slidesToScroll":1, 
+    "infinite":true, 
+    "nextArrow":false, 
+    "prevArrow":false,
+    "responsive":[
+      {
+        "breakpoint":992,
+        "settings":{
+          "slidesToShow":2,
+          "slidesToScroll":1,
+          "arrows":true,
+          "infinite":true
+        }
+      },
+      {
+        "breakpoint":768,
+        "settings":{
+          "slidesToShow":1,
+          "slidesToScroll":1,
+          "arrows":true,
+          "infinite":true
+        }
+      }
+    ]};
 
 }

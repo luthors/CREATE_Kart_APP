@@ -2,6 +2,7 @@
 video{
     width: 100%;
     position: relative;
+    padding-bottom: 0px;
 }
 
 h3{
@@ -12,6 +13,6 @@ h3{
     letter-spacing: 2px;
     transition: 1.5s;
     text-decoration: none;
-    padding: 50px;
-    text-align: center;
+    padding: 20px;
+    text-align: left;
 }
