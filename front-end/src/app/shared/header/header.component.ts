@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -25,5 +27,14 @@ export class HeaderComponent {
     console.log('this.search --> ',this.search)
 
   }
+
+  logout(){
+    this.authService.Logout;
+    this.isLoggedIn = false;
+    this.username = '';
+    this.router.navigate(['/'])
+  }
+
+
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal, EventEmitter } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { AuthStatus, LoginResponse, User } from '../interfaces';
@@ -9,6 +9,9 @@ import { AuthStatus, LoginResponse, User } from '../interfaces';
 })
 export class AuthService {
 
+  private isLoggedIn: boolean = false;
+  private username: string = '';
+  authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private readonly baseUrl: string = environment.baseUrl;
   private http = inject( HttpClient );
@@ -23,7 +26,7 @@ export class AuthService {
 
 
 
-    constructor() { }
+  constructor() { }
 
   login( email: string|null|undefined, password: string|null|undefined ) : Observable<any> {
 
@@ -39,10 +42,29 @@ export class AuthService {
           this._authStatus.set( AuthStatus.authenticated );
           localStorage.setItem( 'token', token );
           console.log({ user, token });
+          this.isLoggedIn = true;
+          this.username = user.name;
+          this.authChanged.emit(true);
         }),
 
         map( () => true )
       )
+      
+  }
+
+  Logout(){
+    // logica cerrar sesion
+    this.isLoggedIn = false;
+    this.username = '';
+    this.authChanged.emit(false);
+  }
+
+  get isLoggedInUser() {
+    return this.isLoggedIn;
+  }
+
+  get getUsername() {
+    return this.username;
   }
 
   register (user:User): Observable<User>{
@@ -50,11 +72,8 @@ export class AuthService {
     const body = { user };
     console.log("dentro del servicio aut register"+body)
     return this.http.post<User>( urlRegister, body )
-      .pipe(
-
+      .pipe(  
         map(  () => user   ),
-
       )
-
   }
 }
