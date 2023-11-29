@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -9,9 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent {
+
+export class LoginPageComponent implements OnInit{
+
   usuario!:FormGroup;//nuevo
   private token:string='';
+
   errorauth:boolean=false;
   private authService=inject( AuthService );
 
@@ -19,6 +22,8 @@ export class LoginPageComponent {
     this.crearformulario();
   }
 
+  ngOnInit() {
+  }
 
   get correoNovalid(){
     return this.usuario.get('email')?.invalid && this.usuario.get('email')?.touched
@@ -32,7 +37,7 @@ export class LoginPageComponent {
 
 
       email:    ['', [ Validators.required, Validators.email ] ],
-      password: ['', [ Validators.required, Validators.minLength(6) ] ]
+      password: ['', [ Validators.required] ]
     });
   }
 

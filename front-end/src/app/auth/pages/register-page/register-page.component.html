@@ -2,7 +2,7 @@
 <script src="register.js" defer></script>
 <!---->
 
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 
 <div class="body">
     <div class="container-form">
@@ -114,7 +114,7 @@
     </div>
     <div [ngClass]="{'overlaySV': authError, 'overlayNV': !authError}">
         <div class="popup">
-            <a routerLink='/' class="btn-cerrar-popup">
+            <a (click)="cambiarEstado()" class="btn-cerrar-popup">
                 <i class='bx bx-x'></i>
             </a>
             <h3>Registro inválido</h3>
@@ -122,4 +122,16 @@
             <button routerLink='/auth/login'>Iniciar Sesion</button>
         </div>
     </div>
+    <div [ngClass]="{'overlaySV': authGood, 'overlayNV': !authGood}">
+        <div class="popup">
+            <a (click)="cambiarEstado()" class="btn-cerrar-popup">
+                <i class='bx bx-x'></i>
+            </a>
+            <h3>Registro Exitoso!</h3>
+            <p>Bienvenido a nuestra comunidad, para empezar por favor inicia sesion</p>
+            <button routerLink='/auth/login'>Iniciar Sesion</button>
+        </div>
+    </div>
 </div>
+
+<!-- <app-footer></app-footer> -->
