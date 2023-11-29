@@ -11,6 +11,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   up:boolean=true;
   search: String=''; //Variable para buscar
+  isLoggedIn: boolean = false;
+  username: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {
+    this.isLoggedIn = this.authService.isLoggedInUser;
+    this.username = this.authService.getUsername;
+  }
 
   @HostListener('window:scroll',['$event']) onscroll(){
     if(window.scrollY > 100){
@@ -34,7 +41,5 @@ export class HeaderComponent {
     this.username = '';
     this.router.navigate(['/'])
   }
-
-
 
 }
