@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
+// import { LocalstorageService } from 'src/app/auth/services/localstorage.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +13,7 @@ export class HeaderComponent {
   up:boolean=true;
   search: String=''; //Variable para buscar
   isLoggedIn: boolean = false;
+ 
   username: string = '';
 
   constructor(private authService: AuthService, private router: Router) {
@@ -36,7 +38,7 @@ export class HeaderComponent {
   }
 
   logout(){
-    this.authService.Logout;
+    this.authService.Logout();
     this.isLoggedIn = false;
     this.username = '';
     this.router.navigate(['/'])
