@@ -88,3 +88,7 @@ header ul li{
     color: #fff;
     text-align: center;
 }
+
+input::placeholder{
+    text-align: center;
+}

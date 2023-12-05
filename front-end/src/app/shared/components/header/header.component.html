@@ -2,10 +2,16 @@
   <nav (scroll)="onscroll()" [ngClass]="{'navbarup':up,'navbardown':!up}">
     <a [ngClass]="{'logoup':up,'logodown':!up}" routerLink="/">CREATE SHOP</a>
     <ul>
+
       <!--Search-->
-      <li><a [ngClass]="{'linkup':up,'linkdown':!up}"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-      <input aria-label="Search" type="search" placeholder="Buscar producto"  class="form-control"  (keyup)="loadProducts()"  ><!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
+      <input aria-label="Search" type="search" placeholder="Buscar producto"  class="form-control" (keyup)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
       <!--[(ngModel)]: Modelo de Angular-->
+      <!--<li><a [ngClass]="{'linkup':up,'linkdown':!up}"><i class="fa-solid fa-magnifying-glass" id="searchIcon"></i></a></li>-->
+      &nbsp;<!--Espacios-->
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;
       <li><a [ngClass]="{'linkup':up,'linkdown':!up}"><i class="fa-solid fa-cart-shopping"></i></a></li>
       <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/login'><i class="fa-solid fa-user"></i></a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}">Hello {{username}}!</a></li>

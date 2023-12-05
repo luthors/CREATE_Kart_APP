@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; //Searchh
 
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -14,12 +13,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     SlickCarouselModule,
     SharedModule,
     HttpClientModule,
