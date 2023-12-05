@@ -26,7 +26,9 @@ export class AuthService {
 
 
 
-  constructor() { }
+  constructor() { 
+    this.obtenerUsuario();
+  }
 
   login( email: string|null|undefined, password: string|null|undefined ) : Observable<any> {
 
@@ -41,9 +43,10 @@ export class AuthService {
           this._currentUser.set( user );
           this._authStatus.set( AuthStatus.authenticated );
           localStorage.setItem( 'token', token );
-          console.log({ user, token });
-          this.isLoggedIn = true;
-          this.username = user.name;
+          localStorage.setItem('usuario',JSON.stringify(user));
+          // console.log({ user, token });
+          // this.isLoggedIn = true;
+          // this.username = user.name;
           this.authChanged.emit(true);
         }),
 
@@ -51,11 +54,30 @@ export class AuthService {
       )
       
   }
+  obtenerUsuario(){
+    if (localStorage.length === 0) {
+      this.username='';
+      this.isLoggedIn = false;
+    } else {
+      this.isLoggedIn = true;
+      console.log(this.isLoggedIn)
+      let usuario=localStorage.getItem('usuario')
+      console.log(usuario);
+      if (usuario!==null){
+        let usuariojson=JSON.parse(usuario);
+        this.username=usuariojson.name;        
+      } else{
+        this.username='';
+      }
+    }
+    
+  }
 
   Logout(){
     // logica cerrar sesion
-    this.isLoggedIn = false;
-    this.username = '';
+    localStorage.clear();
+    // this.isLoggedIn = false;
+    // this.username = '';
     this.authChanged.emit(false);
   }
 

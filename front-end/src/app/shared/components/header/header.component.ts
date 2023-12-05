@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core'; //Search OnInit
 import { AuthService } from 'src/app/auth/services/auth.service';
+// import { LocalstorageService } from 'src/app/auth/services/localstorage.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/welcome/services/api.service'; //Search
 
@@ -13,6 +14,7 @@ export class HeaderComponent {
   up:boolean=true;
   search: String=''; //Variable para buscar
   isLoggedIn: boolean = false;
+ 
   username: string = '';
 
   constructor(private authService: AuthService, private router: Router, private apiService: ApiService) {//Se incorporó private apiService: ApiService
@@ -29,7 +31,7 @@ export class HeaderComponent {
   }
 
   logout(){
-    this.authService.Logout;
+    this.authService.Logout();
     this.isLoggedIn = false;
     this.username = '';
     this.router.navigate(['/'])
