@@ -1,0 +1,47 @@
+
+<app-header></app-header>
+
+<header>
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <img class="image" src="" alt="">
+        <h1>Nombre del producto</h1>
+        <h2>$</h2>
+        <p>Descripción del producto</p>
+        <br>
+        <h2>Talla</h2>
+        <select name="tallas" id="tallas_">
+            <option value="xs">XS</option>
+            <option value="xs">S</option>
+            <option value="xs">M</option>
+            <option value="xs">L</option>
+            <option value="xs">XL</option>
+            <option value="xs">XXL</option>
+        </select>
+        <br>
+        <h2>Cantidad</h2>
+        <div>
+            <button (click)="numero = numero - 1">-</button>
+            <span>{{ numero }}</span>
+            <button (click)="numero = numero + 1">+</button>
+        </div>
+        <h2>Color</h2>
+        <div>
+            <div class="color-selector">
+                <div class="color-circle" style="background-color: #ff00ea;"></div>
+            </div>
+        </div>
+        <br>
+        <button class="boton">Añadir al carrito</button>
+        
+        
+    </div>
+</header>
+
+
+
+
+
+
