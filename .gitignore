@@ -13,6 +13,10 @@ app/**/*.js.map
 node_modules/
 bower_components/
 
+#enviroments
+back-end\node\.env.development
+back-end\node\.env.production
+
 # IDEs and editors
 .idea/
 
