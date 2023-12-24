@@ -14,8 +14,8 @@ export class HeaderComponent {
   up:boolean=true;
   search: String=''; //Variable para buscar
   isLoggedIn: boolean = false;
- 
   username: string = '';
+  viewCart: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private apiService: ApiService) {//Se incorporó private apiService: ApiService
     this.isLoggedIn = this.authService.isLoggedInUser;
@@ -37,9 +37,13 @@ export class HeaderComponent {
     this.router.navigate(['/'])
   }
 
+  onToggleCart(event: Event){
+    event.preventDefault();
+    this.viewCart=!this.viewCart;
+  }
+
   ngOnInit(): void {//Search
     this.loadSearch()
-
   }
   
   //Search

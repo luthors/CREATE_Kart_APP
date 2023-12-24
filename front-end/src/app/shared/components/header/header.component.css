@@ -92,3 +92,49 @@ header ul li{
 input::placeholder{
     text-align: center;
 }
+
+.cart {
+    position: relative;
+    margin-right: 1rem;
+    margin: 0;
+}
+
+.cart-items {
+    position: relative;
+    margin-bottom: -1.2rem;
+    left: 0.5px;
+    top: -0.8rem;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255,0.1);
+    border-radius: 50%;
+    background-color: red;
+    height: 20px;
+    width: 20px;
+}
+
+.cart-items p {
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.cart-list{
+    display: none;
+}
+.show{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    right: 0px;
+    top: 83px;
+    min-width: 40%;
+}
+.show > app-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+}

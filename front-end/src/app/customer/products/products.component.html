@@ -9,7 +9,9 @@
         <div class="info">
             <h4>{{detalleProducto.title}}</h4>
             <p>$ {{detalleProducto.price}}</p>
-            <a href="">add to car</a>
+            <button class="btn-add" (click)="addToCart(detalleProducto)">
+                <i class="fa-solid fa-cart-plus"></i>
+            </button>
         </div>      
     </div>
 </div>    

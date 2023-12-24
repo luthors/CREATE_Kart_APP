@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiProductsAllService } from '../services/api-products-all.service';
+import { Product } from '../interfaces/product.interface';
 
 @Component({
   selector: 'app-products',
@@ -30,5 +31,9 @@ export class ProductsComponent implements OnInit {
     this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
       this.listaProductos=data
     ])
+  }
+
+  addToCart(product:Product){
+    return this.apiProductsAllService.addProduct(product);
   }
 }

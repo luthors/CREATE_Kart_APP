@@ -12,10 +12,23 @@
       &nbsp;
       &nbsp;
       &nbsp;
-      <li><a [ngClass]="{'linkup':up,'linkdown':!up}"><i class="fa-solid fa-cart-shopping"></i></a></li>
+      <!-- Carrito -->
+      <li class="cart">
+        <!-- <div class="cart-items">
+          <p>0</p>
+        </div> -->
+        <a [ngClass]="{'linkup':up,'linkdown':!up}" (click)="onToggleCart($event)">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+      </li>
+      <!-- -- -->
       <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/login'><i class="fa-solid fa-user"></i></a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}">Hello {{username}}!</a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i></a></li>
     </ul>
   </nav>
+  <div [ngClass]="{ 'show' : viewCart, 'cart-list':!viewCart}" >
+    <app-cart></app-cart>
+  </div>
 </header>
+
