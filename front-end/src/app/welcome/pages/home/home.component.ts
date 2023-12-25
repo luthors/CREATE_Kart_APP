@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,9 @@ export class HomeComponent implements OnInit{
 
   title = 'portafolio-app';
 
-  constructor (){}
+  constructor (private renderer: Renderer2){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.renderer.setStyle(document.body, 'background-color', '#fff');
+  }
 }

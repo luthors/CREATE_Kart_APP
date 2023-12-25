@@ -1,7 +1,7 @@
 <body>
 <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
     <div ngxSlickItem *ngFor="let detalleProducto of listaProductos" class="slide card"> 
-        <img class="image" src="{{detalleProducto.url}}" alt="mensaje"> 
+        <img class="image" src="{{detalleProducto.url}}" alt="mensaje" (click)="productDetail(detalleProducto)"> 
         <div class="info">
             <h3>{{detalleProducto.title}}</h3>
         </div> 

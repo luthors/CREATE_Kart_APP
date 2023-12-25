@@ -6,14 +6,14 @@
 <br>
 <br>
 <div class="image-container">
-    <img class="image" src="" alt="">
+    <img class="image" src="{{product.url}}">
 </div>
         
 <div class="content-container">
-    <h1>Nombre del producto</h1>
+    <h1> {{product.title}}</h1>
     <h4>Marca</h4>
-    <h2>$</h2>
-    <p>Descripción del producto</p>
+    <h2>$ {{product.price}}</h2>
+    <p>{{product.descrip}}</p>
 
     <h2>Talla</h2>
     <select name="tallas" id="tallas_">
@@ -26,12 +26,12 @@
     </select>
 
 <br>
-    <h2>Cantidad</h2>
+    <!-- <h2>Cantidad</h2>
     <div>
         <button class="botonCantidad" (click)="numero = numero - 1">-</button>
         <span>{{ numero }}</span>
         <button class="botonCantidad" (click)="numero = numero + 1">+</button>
-    </div>
+    </div> -->
 
     <h2>Color</h2>
     <div class="color-selector">
@@ -40,7 +40,7 @@
         <div class="color-circle" style="background-color: rgb(0, 255, 115);"></div>
     </div>
 <br>
-        <button class="boton">Añadir al carrito</button>
+        <button class="boton"(click)="addToCart(product)" >Añadir al carrito</button>
     </div>
 </div>
 

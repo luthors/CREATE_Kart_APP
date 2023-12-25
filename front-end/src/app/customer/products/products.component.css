@@ -18,3 +18,13 @@
     height: 210px;
     width: 100%;
 }
+.boton{
+    background-color: black;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 5px;
+    font-weight: bold;
+    
+}

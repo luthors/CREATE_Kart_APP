@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { ApiProductsAllService } from 'src/app/customer/services/api-products-all.service';
+import { Product } from 'src/app/customer/interfaces/product.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-destacados',
@@ -12,7 +14,7 @@ export class DestacadosComponent implements OnInit {
 
   public listaProductos:any =[]
   
-  constructor(private apiService: ApiService){}
+  constructor(private apiService: ApiService, private apiProductsAllService: ApiProductsAllService, private router: Router){}
 
   ngOnInit(): void {
     this.llenarData();
@@ -21,6 +23,10 @@ export class DestacadosComponent implements OnInit {
     this.apiService.get('http://localhost:3001/api/destacados').subscribe(data => [
       this.listaProductos=data
     ])
+  }
+  productDetail(product:Product){
+    this.apiProductsAllService.setProductDetails(product);
+    this.router.navigate(['/products/detailsproducts'])
   }
 
   slideConfig={

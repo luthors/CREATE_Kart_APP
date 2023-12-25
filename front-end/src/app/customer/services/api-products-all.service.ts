@@ -14,12 +14,24 @@ export class ApiProductsAllService {
   //Carrito Observable
   private myCart = new BehaviorSubject<Product[]>([]);
   myCart$ = this.myCart.asObservable();
+  //para enviar al detalle de producto
+  private productDet:any;
   
 
   constructor(private http:HttpClient) { }
 
   public get(url:string){
     return this.http.get(url);
+  }
+
+  // Método para establecer el objeto a compartir
+  setProductDetails(product: any) {
+    this.productDet=product;
+    console.log(this.productDet)
+  }
+  // Método para obtener el objeto compartido
+  getProductDetails() {
+    return this.productDet;
   }
 
   addProduct(product: Product){

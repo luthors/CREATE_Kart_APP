@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiProductsAllService } from '../services/api-products-all.service';
 import { Product } from '../interfaces/product.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -12,7 +13,7 @@ export class ProductsComponent implements OnInit {
 
   public listaProductos:any =[]
 
-  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2){}
+  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router){}
 
   ngOnInit(): void {
     this.llenarData();
@@ -35,5 +36,9 @@ export class ProductsComponent implements OnInit {
 
   addToCart(product:Product){
     return this.apiProductsAllService.addProduct(product);
+  }
+  productDetail(product:Product){
+    this.apiProductsAllService.setProductDetails(product);
+    this.router.navigate(['/products/detailsproducts'])
   }
 }
