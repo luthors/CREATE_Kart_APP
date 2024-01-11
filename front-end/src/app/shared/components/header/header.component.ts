@@ -45,7 +45,8 @@ export class HeaderComponent {
   ngOnInit(): void {//Search
     this.loadSearch()
   }
-  
+
+
   //Search
   //Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadSearch", cargar búsqueda.
   //Filter se puede filtrar por marca, precio, color, talla.
@@ -53,11 +54,16 @@ export class HeaderComponent {
     console.log('this.search --> ',this.search)
     /*Si es tipo string y validar si el tamaño de la cadena de texto está vacia,  ?searchNY=${}  Recibir en la url de mi api de lo que venga la variable.  */
     const filter = (typeof this.search == 'string' && this.search.length > 0) ? `${this.search}`: ''
+    console.log('URL for search:', `/api/search/${filter}`);
     this.apiService.getSearchProducts(filter).subscribe(
       /* Dentro del subscribe se definen de forma visual */
-      response => console.log('response', response)
+      response => {
+        console.log('response', response)
+      },
+      error => {
+        console.error('Error en la búsqueda:', error);
+    }
 
     )
   }
-
 }

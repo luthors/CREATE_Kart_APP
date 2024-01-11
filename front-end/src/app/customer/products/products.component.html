@@ -8,11 +8,14 @@
         </figure> 
         <div class="info">
             <h4>{{detalleProducto.title}}</h4>
-            <p>$ {{detalleProducto.price}}</p>
-            <button class="boton" (click)="addToCart(detalleProducto)">
-                <!-- <i class="fa-solid fa-cart-plus"></i> -->
-                añadir al carrito
-            </button>
+            <p class="price">$ {{detalleProducto.price}}</p>
+            <div class="d-grid gap-2 col-10 mx-auto mb-3">
+                <button class="btn btn boton" (click)="addToCart(detalleProducto)">
+                    <span class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                    <!-- <i class="fa-solid fa-cart-plus"></i> -->
+                    Añade a la cesta
+                </button>
+            </div>
         </div>      
     </div>
 </div>    

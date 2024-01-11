@@ -1,6 +1,7 @@
 
 <app-header></app-header>
 
+
 <div class="container">
 <br>
 <br>
@@ -12,10 +13,10 @@
 <div class="content-container">
     <h1> {{product.title}}</h1>
     <h4>Marca</h4>
-    <h2>$ {{product.price}}</h2>
+    <h2 class="mt-5">$ {{product.price}}</h2>
     <p>{{product.descrip}}</p>
 
-    <h2>Talla</h2>
+    <h2 >Talla</h2>
     <select name="tallas" id="tallas_">
         <option value="xs">XS</option>
         <option value="s">S</option>
@@ -24,8 +25,6 @@
         <option value="xl">XL</option>
         <option value="xxl">XXL</option>
     </select>
-
-<br>
     <!-- <h2>Cantidad</h2>
     <div>
         <button class="botonCantidad" (click)="numero = numero - 1">-</button>
@@ -33,14 +32,18 @@
         <button class="botonCantidad" (click)="numero = numero + 1">+</button>
     </div> -->
 
-    <h2>Color</h2>
+    <h2 class="mt-3">Color</h2>
     <div class="color-selector">
         <div class="color-circle" style="background-color: #ff00ea;"></div>
         <div class="color-circle" style="background-color: #d9ff00;"></div>
         <div class="color-circle" style="background-color: rgb(0, 255, 115);"></div>
     </div>
 <br>
-        <button class="boton"(click)="addToCart(product)" >Añadir al carrito</button>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn boton" (click)="addToCart(product)" >
+            <span class="cart-icon text-light"><i class="fa-solid fa-cart-shopping"></i></span>
+            Añade a la cesta </button>
+    </div> 
     </div>
 </div>
 
@@ -59,6 +62,8 @@
             <h2>item 3</h2><!--Se reemplaza con la imagen-->
         </div>
 </div>
+
+
 
 
 

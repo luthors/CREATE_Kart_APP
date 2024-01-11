@@ -12,6 +12,14 @@ import {getOrdersDetail, getOrdersDetailId, createOrdersDetail, deleteOrdersDeta
 
 const router = Router()
 
+/*Productos */
+router.get('/products', getProducts)
+router.get('/products/:id', getProductsId)
+router.post('/products', createProducts)
+router.delete('/products/:id' , deleteProducts)
+router.patch('/products/:id' , updateProducts)
+
+
 /*Marcas*/
 router.get('/brand', getBrand)
 router.get('/brand/:id', getBrandId)
@@ -42,14 +50,6 @@ router.get('/sizes/:id', getSizesId)
 router.post('/sizes', createSizes)
 router.delete('/sizes/:id' , deleteSizes)
 router.patch('/sizes/:id' , updateSizes)
-
-
-/*Productos */
-router.get('/products', getProducts)
-router.get('/products/:id', getProductsId)
-router.post('/products', createProducts)
-router.delete('/products/:id' , deleteProducts)
-router.patch('/products/:id' , updateProducts)
 
 
 /*Talla de los productos */

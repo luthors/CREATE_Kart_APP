@@ -4,10 +4,8 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { ProductsComponent } from './products/products.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from '../auth/pages/profile/profile.component';
 import { DetailsProductsComponent } from './details-products/details-products.component';
-
-
 
 
 @NgModule({

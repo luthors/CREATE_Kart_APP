@@ -131,6 +131,10 @@ INSERT INTO products (id_product,title,descrip,brand_product,color,quantify,pric
 (7, 'Jeans de mezclilla', 'Jeans clásicos de mezclilla para hombres', 7, 3, 10, 55000.0, 10, 2, 6);
 
 
+INSERT INTO products (id_product,title,descrip,brand_product,color,quantify,price,stock,category,size,url) VALUES 
+(8, 'Prueba eliminar 1', 'Eliminar 1', 7, 3, 10, 75000.0, 5, 2, 6, 'https://i.pinimg.com/564x/86/de/fc/86defc4fc76a413073a272a751668c8b.jpg'),
+(9, 'Prueba eliminar 2', 'Eliminar 2', 7, 3, 10, 95000.0, 10, 2, 6, 'https://i.pinimg.com/564x/65/c6/9f/65c69f94a2064e57f1baa8a378601e8f.jpg');
+
 UPDATE products SET url = 'https://static.pullandbear.net/2/photos/2023/I/0/2/p/3685/508/407/3685508407_1_1_3.jpg?t=1697539571399' WHERE id_product = 1;
 UPDATE products SET url ='https://static.kiabi.es//images/falda-de-volantes-fucsia-acg96_1_frb1.jpg' WHERE id_product = 2;
 UPDATE products SET url ='https://www.camiseriaeuropea.com/cdn/shop/products/696_001.jpg?v=1633559189' WHERE id_product = 3;

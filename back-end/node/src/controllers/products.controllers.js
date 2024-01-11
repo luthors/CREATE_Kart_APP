@@ -1,5 +1,120 @@
 import {pool} from "../db.js"
 
+/*Productos*/
+export const getProducts = async (req, res) => /*res.send ('obteniendo clientes')*/{
+    try {
+        const [rows] = await pool.query('SELECT*FROM products')
+        res.json(rows)
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+        
+    }
+ }
+
+ /*______________________________________________________________*/
+export const getProductsId = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT*FROM products WHERE id_product=?', [req.params.id])
+        console.log(rows)
+    
+        if (rows.length <=0) return res.status(404).json({
+            message: 'Product not found'
+        })
+        res.json(rows[0])/*Para observar en el navegador localhost */
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+}
+
+export const createProducts = async (req, res) => { 
+    try {
+        const {id_product, title, descrip, brand_product, color, quantify, price, stock, category, size} = req.body 
+
+        const [rows] = await pool.query('INSERT INTO products(id_product, title, descrip, brand_product, color, quantify, price, stock, category, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_product, title, descrip, brand_product, color, quantify, price, stock, category, size])
+        
+        res.send({
+            id:rows.insertId,
+            id_product, 
+            title, 
+            descrip,
+            brand_product, 
+            color, quantify, 
+            price, 
+            stock, 
+            category, 
+            size
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+}
+
+/*______________________________________________________________*/
+export const deleteProducts = async (req, res) => {
+    try {
+        const [result] = await pool.query('DELETE FROM products WHERE id_product = ?', [req.params.id])
+        console.log(result);
+    
+        if(result.affectedRows <= 0) { return res.status(404).json({
+            message: 'Product not found'
+        })
+    }
+
+    res.status(200).json({
+        message: 'Product deleted'
+    });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+}
+
+/*______________________________________________________________*/
+export const updateProducts = async (req, res) => {
+    try {
+        /*Actualizar datos */
+        const {id} = req.params
+        const {title, descrip, brand_product, color, quantify, price, stock, category, size} = req.body 
+        
+        const [result] = await pool.query('UPDATE products SET title = IFNULL(?, title), descrip = IFNULL(?, descrip), brand_product = IFNULL(?, brand_product), color = IFNULL(?, color), quantify = IFNULL(?, quantify), price = IFNULL(?, price), stock = IFNULL(?, stock), category = IFNULL(?, category), size = IFNULL(?, size) WHERE id_product= ?', [title, descrip, brand_product, color, quantify, price, stock, category, size, id])
+
+        console.log(result);
+        
+        if (result.affectedRows === 0) return res.status(404).json({
+            message:('Product not found')
+        })
+
+        /*Ver los datos actualizados */
+        const [rows] = await pool.query('SELECT * FROM products WHERE id_product = ?', [id])/*Va a pasar el id actualizado */
+        res.json(rows[0])/*[0] para quitar el arreglo y solo obtener el objeto con la información */
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+
+}
+
+/*___________________________________________________________ */
+
+
+
+
+
+
+
+
+
+
 /*Marcas */
 export const getBrand = async (req, res) => /*res.send ('obteniendo clientes')*/{
     try {
@@ -365,106 +480,6 @@ export const updateSizes = async (req, res) => {
 
         /*Ver los datos actualizados */
         const [rows] = await pool.query('SELECT * FROM sizes WHERE id_size = ?', [id])/*Va a pasar el id actualizado */
-        res.json(rows[0])/*[0] para quitar el arreglo y solo obtener el objeto con la información */
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-    }
-
-}
-
-
-
-/*Productos*/
-export const getProducts = async (req, res) => /*res.send ('obteniendo clientes')*/{
-    try {
-        const [rows] = await pool.query('SELECT*FROM products')
-        res.json(rows)
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-        
-    }
- }
-
- /*______________________________________________________________*/
-export const getProductsId = async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT*FROM products WHERE id_product=?', [req.params.id])
-        console.log(rows)
-    
-        if (rows.length <=0) return res.status(404).json({
-            message: 'Product not found'
-        })
-        res.json(rows[0])/*Para observar en el navegador localhost */
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-    }
-}
-
-export const createProducts = async (req, res) => { 
-    try {
-        const {id_product, title, descrip, brand_product, color, quantify, price, stock, category, size} = req.body 
-
-        const [rows] = await pool.query('INSERT INTO products(id_product, title, descrip, brand_product, color, quantify, price, stock, category, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_product, title, descrip, brand_product, color, quantify, price, stock, category, size])
-        
-        res.send({
-            id:rows.insertId,
-            id_product, 
-            title, 
-            descrip,
-            brand_product, 
-            color, quantify, 
-            price, 
-            stock, 
-            category, 
-            size
-        })
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-    }
-}
-
-/*______________________________________________________________*/
-export const deleteProducts = async (req, res) => {
-    try {
-        const [result] = await pool.query('DELETE FROM products WHERE id_product = ?', [req.params.id])
-        console.log(result);
-    
-        if(result.affectedRows <= 0) return res.status(404).json({
-            message: 'Product not found'
-        })
-            res.send('Product deleted')
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
-    }
-}
-
-/*______________________________________________________________*/
-export const updateProducts = async (req, res) => {
-    try {
-        /*Actualizar datos */
-        const {id} = req.params
-        const {title, descrip, brand_product, color, quantify, price, stock, category, size} = req.body 
-        
-        const [result] = await pool.query('UPDATE products SET title = IFNULL(?, title), descrip = IFNULL(?, descrip), brand_product = IFNULL(?, brand_product), color = IFNULL(?, color), quantify = IFNULL(?, quantify), price = IFNULL(?, price), stock = IFNULL(?, stock), category = IFNULL(?, category), size = IFNULL(?, size) WHERE id_product= ?', [title, descrip, brand_product, color, quantify, price, stock, category, size, id])
-
-        console.log(result);
-
-        if (result.affectedRows === 0) return res.status(404).json({
-            message:('Product not found')
-        })
-
-        /*Ver los datos actualizados */
-        const [rows] = await pool.query('SELECT * FROM products WHERE id_product = ?', [id])/*Va a pasar el id actualizado */
         res.json(rows[0])/*[0] para quitar el arreglo y solo obtener el objeto con la información */
     } catch (error) {
         return res.status(500).json({

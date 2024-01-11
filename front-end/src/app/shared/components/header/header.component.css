@@ -90,8 +90,17 @@ header ul li{
 }
 
 input::placeholder{
-    text-align: center;
+    text-align: left;
+    font-size: 15.5px;/*Tamaño de letra*/
+    font-family:Geneva, Verdana, sans-serif;/*Tipo de letra*/
+    margin: auto;
 }
+
+.input-search {
+    height: 36px; /* Ajusta la altura según tus necesidades */
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    padding: 10px;
+  }
 
 .cart {
     position: relative;
@@ -137,4 +146,10 @@ input::placeholder{
     display: flex;
     flex-direction: column;
     justify-content: center;    
+}
+
+#navbarNav{ /*Estilo id*/
+    font-family: Geneva, Verdana, sans-serif;
+    font-size: 23px;/*Tamaño de letra*/
+    border-color: white;
 }
