@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AdminSharedModule } from './admin-shared/admin-shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,7 +22,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     HttpClientModule,
     AdminSharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-left'
+    }) // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

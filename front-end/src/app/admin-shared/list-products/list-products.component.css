@@ -1,8 +1,5 @@
 .title{
     margin-top: 10px;
-}
-
-.buttonAgregar{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
