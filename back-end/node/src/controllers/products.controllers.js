@@ -32,9 +32,9 @@ export const getProductsId = async (req, res) => {
 
 export const createProducts = async (req, res) => { 
     try {
-        const {id_product, title, descrip, brand_product, color, quantify, price, stock, category, size} = req.body 
+        const {id_product, title, descrip, brand_product, color, quantify, price, stock, category, size, url} = req.body 
 
-        const [rows] = await pool.query('INSERT INTO products(id_product, title, descrip, brand_product, color, quantify, price, stock, category, size) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_product, title, descrip, brand_product, color, quantify, price, stock, category, size])
+        const [rows] = await pool.query('INSERT INTO products(id_product, title, descrip, brand_product, color, quantify, price, stock, category, size, url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_product, title, descrip, brand_product, color, quantify, price, stock, category, size, url])
         
         res.send({
             id:rows.insertId,
@@ -46,7 +46,8 @@ export const createProducts = async (req, res) => {
             price, 
             stock, 
             category, 
-            size
+            size,
+            url
         })
         
     } catch (error) {

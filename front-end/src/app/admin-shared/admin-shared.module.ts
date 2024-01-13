@@ -6,6 +6,7 @@ import { ListProductsComponent } from "./list-products/list-products.component";
 import { AddEditProductComponent } from "./add-edit-product/add-edit-product.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ProgressBarComponent } from "./progress-bar/progress-bar.component";
+import { HttpClientModule } from "@angular/common/http";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ProgressBarComponent } from "./progress-bar/progress-bar.component";
     imports: [
         CommonModule,
         RouterModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule
     ],
     exports: [
         NavbarComponent,

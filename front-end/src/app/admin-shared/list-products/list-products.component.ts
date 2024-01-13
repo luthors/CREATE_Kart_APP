@@ -41,7 +41,10 @@ export class ListProductsComponent implements OnInit{
     this.loading = true;
     this._productService.deleteProduct(id_product).subscribe(() => {
       this.getListProducts(); //Vuele a mostrar la lista de productos
-      this.toastr.warning('El producto fue eliminado con exito', 'Producto eliminado');
+      this.toastr.warning('El producto fue eliminado con exito.', 'Producto eliminado' ,{
+        tapToDismiss: true,
+        closeButton: true
+      });
     },
     (error) => {
       if (error instanceof HttpErrorResponse && error.status === 200) {

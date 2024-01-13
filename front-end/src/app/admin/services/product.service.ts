@@ -27,4 +27,18 @@ export class ProductService{
     return this.http.delete<void>(`${this.myAppUrl}${this.myApiUrl}${id_product}`)
   }
 
+  /*Añadir producto */
+  saveProduct(product: productsInterface): Observable<void>{
+    return this.http.post<void>(`${this.myAppUrl}${this.myApiUrl}`,product)
+  }
+  
+  /*Actualizar producto */
+  getProductUpdate(id_product: number): Observable<productsInterface>{
+    return this.http.get<productsInterface>(`${this.myAppUrl}${this.myApiUrl}${id_product}`)
+  }
+
+  updateProduct(id_product: number, product: productsInterface): Observable<void>{
+    return this.http.patch<void>(`${this.myAppUrl}${this.myApiUrl}${id_product}`, product)
+  }
+
 }

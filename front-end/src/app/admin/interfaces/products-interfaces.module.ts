@@ -2,11 +2,12 @@ export interface productsInterface {
     id_product?: number;//?Opcional
     title: string;
     descrip: string;
-    //marca: string;
-    //color: number; //
-    //cantidad: number;
+    brand_product: number;
+    color: number; //
+    quantify: number;
     price: number;
     stock: number;
-    //categoria: number;
-    //talla: number; //
+    category: number;
+    size: number; //
+    url: string;
 }
