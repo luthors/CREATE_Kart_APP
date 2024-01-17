@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
+import { environment } from 'src/environments/environments';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiProductsAllService {
-
+  baseApi = environment.baseUrl;
   //Lista Productos
   private myList:Product[]=[];
   //Carrito Observable
@@ -23,7 +25,7 @@ export class ApiProductsAllService {
   public get(url:string){
     return this.http.get(url);
   }
-
+  
   // Método para establecer el objeto a compartir
   setProductDetails(product: any) {
     this.productDet=product;
@@ -33,6 +35,17 @@ export class ApiProductsAllService {
   getProductDetails() {
     return this.productDet;
   }
+
+  //productos de mujeres
+  getProductsByWoman(){
+    return this.http.get(`${this.baseApi}/api/category/mujer`)
+  }
+//traer los productos de hombres
+  getProductsByMan(){
+    return this.http.get(`${this.baseApi}/api/category/hombre`)
+  }
+
+
 
   addProduct(product: Product){
     // console.log(product)

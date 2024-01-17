@@ -6,13 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from '../auth/pages/profile/profile.component';
 import { DetailsProductsComponent } from './details-products/details-products.component';
+import { WomanComponent } from './filter/woman/woman.component';
+import { ManComponent } from './filter/man/man.component';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
     ProfileComponent,
-    DetailsProductsComponent
+    DetailsProductsComponent,
+    WomanComponent,
+    ManComponent
   ],
   imports: [
     CommonModule,
