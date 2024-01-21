@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
-import { ProfileComponent } from '../auth/pages/profile/profile.component';
 import { DetailsProductsComponent } from './details-products/details-products.component';
 
 const routes: Routes =[
@@ -14,7 +13,6 @@ const routes: Routes =[
     path: 'detailsproducts',
     component:DetailsProductsComponent
   }
-
 ]
 
 

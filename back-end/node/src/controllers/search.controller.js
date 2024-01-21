@@ -13,7 +13,7 @@ import {pool} from "../db.js"
         if (rows.length <=0) return res.status(404).json({
             message: 'Product not found'
         })
-        res.json(rows[0])/*Para observar en el navegador localhost */
+        res.json(rows)/*Para observar en el navegador localhost */
     } catch (error) {
         return res.status(500).json({
             message: 'Something goes wrong'

@@ -5,7 +5,7 @@
     
     <ul>
 
-      <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
+      <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup.enter)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
       <!--[(ngModel)]: Modelo de Angular-->
 
       &nbsp;<!--Espacios-->
@@ -32,19 +32,10 @@
       <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/profile'><i class="fa-solid fa-user-pen"></i></a></li>
 
       <!--Barra de despliegue-->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span [ngClass]="{'linkup':up,'linkdown':!up}"><i class="fa-solid fa-bars"></i></span>
-      </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <div class="d-flexbox justify-content-center">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" routerLink="/products" id="link">All products</a>
-              </li><!--active: activar el button, disabled: button desactivado. -->
-            </ul>
-          </div>
-        </div>
-
+      <li class="nav-item">
+          <a routerLink="/products" class="link">All Products</a>
+      </li><!--active: activar el button, disabled: button desactivado. -->
+        
       <!--
       -->
 

@@ -2,7 +2,8 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiProductsAllService } from '../services/api-products-all.service';
 import { Product } from '../interfaces/product.interface';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/welcome/services/api.service';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,7 @@ export class ProductsComponent implements OnInit {
 
   public listaProductos:any =[]
 
-  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router){}
+  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private apiService: ApiService){}
 
   ngOnInit(): void {
     this.llenarData();
@@ -28,15 +29,36 @@ export class ProductsComponent implements OnInit {
    
   }
 
+    /*Search */
   public llenarData(){
-    this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
-      this.listaProductos=data
-    ])
+    this.route.queryParams.subscribe(params => {
+      const filter = params["filter"];
+
+      if (filter) {
+        this.apiService.getSearchProducts(filter).subscribe(
+          (response) => {
+            this.listaProductos = response;
+          },
+          error => {
+            console.error('Error en la búsqueda:', error);
+        }
+    
+        )
+      } else {
+        this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
+        this.listaProductos=data
+      ]);
+
+      }
+    });
+
+   
   }
 
   addToCart(product:Product){
     return this.apiProductsAllService.addProduct(product);
   }
+  
   productDetail(product:Product){
     this.apiProductsAllService.setProductDetails(product);
     this.router.navigate(['/products/detailsproducts'])

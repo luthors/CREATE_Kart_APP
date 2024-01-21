@@ -153,3 +153,13 @@ input::placeholder{
     font-size: 23px;/*Tamaño de letra*/
     border-color: white;
 }
+
+.link{
+      padding: 10px;
+      text-decoration: none;
+      /* font-weight: bold; */
+      border-radius: 5px;
+      text-decoration: underline;
+      font-size: 25px;
+      font-style: italic;
+    }
