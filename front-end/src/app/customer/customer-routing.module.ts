@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { DetailsProductsComponent } from './details-products/details-products.component';
+import { WomanComponent } from './filter/woman/woman.component';
+import { ManComponent } from './filter/man/man.component';
+
 
 const routes: Routes =[
   {
@@ -12,6 +15,14 @@ const routes: Routes =[
   {
     path: 'detailsproducts',
     component:DetailsProductsComponent
+  },
+  {
+    path:'woman',
+    component:WomanComponent
+  },
+  {
+    path:'man',
+    component:ManComponent
   }
 ]
 

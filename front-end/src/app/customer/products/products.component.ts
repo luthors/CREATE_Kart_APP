@@ -4,6 +4,10 @@ import { ApiProductsAllService } from '../services/api-products-all.service';
 import { Product } from '../interfaces/product.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/welcome/services/api.service';
+import { environment } from 'src/environments/environments';
+import { ChangeDetectorRef } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-products',
@@ -11,13 +15,17 @@ import { ApiService } from 'src/app/welcome/services/api.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
+  baseUrl = environment.baseUrl
+  categories : any[] = [];
+  products : any[] = [];
   public listaProductos:any =[]
 
-  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private apiService: ApiService){}
+  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private apiService: ApiService, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {
     this.llenarData();
+
+
     // Estilos del body
     this.renderer.setStyle(document.body, 'background-color', 'black');
     // this.renderer.setStyle(document.body, 'width','100%');
@@ -26,7 +34,6 @@ export class ProductsComponent implements OnInit {
     this.renderer.setStyle(document.body, 'justify-content','center');
     this.renderer.setStyle(document.body, 'align-items','center'); 
     // this.renderer.setStyle(document, 'box-sizing', 'border-box');
-   
   }
 
     /*Search */
@@ -54,7 +61,7 @@ export class ProductsComponent implements OnInit {
 
    
   }
-
+  
   addToCart(product:Product){
     return this.apiProductsAllService.addProduct(product);
   }
@@ -63,4 +70,10 @@ export class ProductsComponent implements OnInit {
     this.apiProductsAllService.setProductDetails(product);
     this.router.navigate(['/products/detailsproducts'])
   }
+
+  
+
+
 }
+
+

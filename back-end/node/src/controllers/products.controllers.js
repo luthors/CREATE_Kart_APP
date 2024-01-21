@@ -3,7 +3,7 @@ import {pool} from "../db.js"
 /*Productos*/
 export const getProducts = async (req, res) => /*res.send ('obteniendo clientes')*/{
     try {
-        const [rows] = await pool.query('SELECT*FROM products')
+        const [rows] = await pool.query('SELECT id_product, title,descrip,name_brand,name_category,name_color,quantify,price,stock,sizes.size,url FROM products INNER JOIN  brand ON products.brand_product = brand.id_brand INNER JOIN category ON products.category = category.id_category INNER JOIN sizes ON products.size = sizes.id_size INNER JOIN colors ON products.color = colors.id_color')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({
@@ -214,7 +214,7 @@ export const updateBrand = async (req, res) => {
 /*Categoria*/
 export const getCategory = async (req, res) => /*res.send ('obteniendo clientes')*/{
     try {
-        const [rows] = await pool.query('SELECT*FROM category')
+        const [rows] = await pool.query('select name_category from category;')
         res.json(rows)
     } catch (error) {
         return res.status(500).json({/*Si ocurre un error devolver status.(500) que es un conflicto con el servidor pero puede seguir ejecutandose*/
@@ -223,6 +223,25 @@ export const getCategory = async (req, res) => /*res.send ('obteniendo clientes'
         
     }
  }
+ 
+/*______________________________________________________________*/
+
+export const getProductsByCategoryAndBrand = async (req, res) => {
+    try {
+        const category = req.params.category;
+        const [rows] = await pool.query("SELECT id_product, title, descrip, name_brand, name_category, name_color, quantify, price, stock, sizes.size, url FROM products INNER JOIN brand ON products.brand_product = brand.id_brand INNER JOIN category ON products.category = category.id_category INNER JOIN sizes ON products.size = sizes.id_size INNER JOIN colors ON products.color = colors.id_color WHERE name_category = ? OR name_category = 'unisex'",[category])
+        console.log(rows)
+
+        if (rows.length <=0) return res.status(404).json({
+            message: 'category not found'
+        })
+        res.json(rows)/*Para observar en el navegador localhost */
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+}
 
 /*______________________________________________________________*/
 export const getCategoryId = async (req, res) => {

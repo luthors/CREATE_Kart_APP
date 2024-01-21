@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {getBrand, getBrandId, createBrand, deleteBrand, updateBrand} from '../controllers/products.controllers.js'
+import {getBrand, getBrandId, createBrand, deleteBrand, updateBrand, getProductsByCategoryAndBrand} from '../controllers/products.controllers.js'
 import {getCategory, getCategoryId, createCategory, deleteCategory, updateCategory} from '../controllers/products.controllers.js'
 import {getColors, getColorsId, createColors, deleteColors, updateColors} from '../controllers/products.controllers.js'
 import {getSizes, getSizesId, createSizes, deleteSizes, updateSizes} from '../controllers/products.controllers.js'
@@ -29,6 +29,7 @@ router.patch('/brand/:id' , updateBrand)
 
 
 /*Categoria*/
+router.get('/category/:category',getProductsByCategoryAndBrand)
 router.get('/category', getCategory)
 router.get('/category/:id', getCategoryId)
 router.post('/category', createCategory)
