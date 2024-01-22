@@ -5,7 +5,7 @@
     
     <ul>
 
-      <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
+      <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup.enter)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
       <!--[(ngModel)]: Modelo de Angular-->
 
       &nbsp;<!--Espacios-->
