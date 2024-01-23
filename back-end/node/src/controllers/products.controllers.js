@@ -249,7 +249,7 @@ export const getProductsByCategoryAndBrand = async (req, res) => {
 export const getProductsWithColorsandSizes = async (req, res) => {
     try {
         const id = req.params.id
-        const [rows] = await pool.query("SELECT p.id_product,p.title, p.descrip,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE p.id_product = ? GROUP BY p.id_product, p.title, p.color;",[id])
+        const [rows] = await pool.query("SELECT p.id_product,p.title,p.url, p.descrip,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE p.id_product = ? GROUP BY p.id_product, p.title, p.color;",[id])
 
         if (rows.length <= 0) return res.status(404).json({
             message: 'category not found'
