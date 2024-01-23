@@ -25,6 +25,10 @@ export class ApiProductsAllService {
   public get(url:string){
     return this.http.get(url);
   }
+
+  getProductById(id: number){
+    return this.http.get(`${this.baseApi}/api/productbyid/${id}`);
+  }
   
   // Método para establecer el objeto a compartir
   setProductDetails(product: any) {
@@ -46,6 +50,7 @@ export class ApiProductsAllService {
   }
 
 
+// Metodos carrito de compras
 
   addProduct(product: Product){
     // console.log(product)

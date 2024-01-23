@@ -3,7 +3,9 @@
 <div class="container">
     <div *ngFor="let detalleProducto of listaProductos" class="card"> 
         <figure>
-            <img class="image" src="{{detalleProducto.url}}" (click)="productDetail(detalleProducto)">
+            <!-- <img class="image" src="{{detalleProducto.url}}" (click)="productDetail(detalleProducto)"> -->
+            <!-- "['/products', detailsproducts.id]">{{ detalleProducto.id}} -->
+            <img class="image" src="{{detalleProducto.url}}" (click)="productDetail(detalleProducto)" >
         </figure> 
         <div class="info">
             <h4>{{detalleProducto.title}}</h4>

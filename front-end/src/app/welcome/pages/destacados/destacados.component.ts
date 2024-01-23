@@ -24,10 +24,10 @@ export class DestacadosComponent implements OnInit {
       this.listaProductos=data
     ])
   }
-  productDetail(product:Product){
-    this.apiProductsAllService.setProductDetails(product);
-    this.router.navigate(['/products/detailsproducts'])
-  }
+  // productDetail(product:Product){
+  //   this.apiProductsAllService.setProductDetails(product);
+  //   this.router.navigate(['/products/detailsproducts'])
+  // }
 
   slideConfig={
     "slidesToShow":3,
