@@ -230,7 +230,7 @@ export const getCategory = async (req, res) => /*res.send ('obteniendo clientes'
 export const getProductsByCategoryAndBrand = async (req, res) => {
     try {
         const category = req.params.category;
-        const [rows] = await pool.query("SELECT id_product, title, descrip, name_brand, name_category, name_color, quantify, price, stock, sizes.size, url FROM products INNER JOIN brand ON products.brand_product = brand.id_brand INNER JOIN category ON products.category = category.id_category INNER JOIN sizes ON products.size = sizes.id_size INNER JOIN colors ON products.color = colors.id_color WHERE name_category = ? OR name_category = 'unisex'", [category])
+        const [rows] = await pool.query("SELECT p.id_product,p.title,p.url, p.descrip,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE name_category =? OR name_category = 'unisex'  GROUP BY p.id_product, p.title, p.color;",[category])
         console.log(rows)
 
         if (rows.length <= 0) return res.status(404).json({
