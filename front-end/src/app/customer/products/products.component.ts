@@ -68,7 +68,10 @@ export class ProductsComponent implements OnInit {
   
   productDetail(product:Product){
     // this.apiProductsAllService.setProductDetails(product);
-    this.router.navigate(['/products/detailsproducts', product.id_product])
+    if (product.id_product){
+      this.router.navigate(['/products/detailsproducts', product.id_product])
+    }
+    
   }
 
   

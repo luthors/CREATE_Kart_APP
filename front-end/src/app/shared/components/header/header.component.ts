@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 // import { LocalstorageService } from 'src/app/auth/services/localstorage.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/welcome/services/api.service'; //Search
+import { ApiProductsAllService } from 'src/app/customer/services/api-products-all.service';
 
 @Component({
   selector: 'app-header',
@@ -10,16 +11,15 @@ import { ApiService } from 'src/app/welcome/services/api.service'; //Search
   styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   up:boolean=true;
   search: String=''; //Variable para buscar
   isLoggedIn: boolean = false;
   username: string = '';
   viewCart: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private apiService: ApiService) {//Se incorporó private apiService: ApiService
-    this.isLoggedIn = this.authService.isLoggedInUser;
-    this.username = this.authService.getUsername;
+
+  constructor(public authService: AuthService, private router: Router, private apiService: ApiService, private productsAllService: ApiProductsAllService) {//Se incorporó private apiService: ApiService
   }
 
   @HostListener('window:scroll',['$event']) onscroll(){
@@ -32,9 +32,13 @@ export class HeaderComponent {
 
   logout(){
     this.authService.Logout();
-    this.isLoggedIn = false;
-    this.username = '';
+    this.productsAllService.cartClear();
+    // this.isLoggedIn = false;
+    // this.username = '';
     this.router.navigate(['/'])
+  }
+  loginpage(){
+    this.router.navigate(['/auth/login'])
   }
 
   onToggleCart(event: Event){
@@ -43,7 +47,13 @@ export class HeaderComponent {
   }
 
   ngOnInit(): void {//Search
-    this.loadSearch()
+    this.loadSearch();
+    // this.isLoggedIn = this.authService.isLoggedInUser;
+    this.authService.isLoggedIn$.subscribe(isLoggedIn=>{
+      this.isLoggedIn=isLoggedIn
+    })
+    // obtener norble del usuario logeado    
+    this.username = this.authService.getUsername;
   }
 
 

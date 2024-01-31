@@ -20,7 +20,14 @@ export class ApiProductsAllService {
   private productDet:any;
   
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+
+    const carritoGuardado = localStorage.getItem('cart');
+    if (carritoGuardado) {
+      this.myList = JSON.parse(carritoGuardado);
+      this.myCart.next(this.myList);
+    }
+  }
 
   public get(url:string){
     return this.http.get(url);
@@ -57,6 +64,8 @@ export class ApiProductsAllService {
     if(this.myList.length ===0){
       product.cantidad =1;
       this.myList.push(product)
+      // Guardar el carrito actualizado en el almacenamiento local
+      localStorage.setItem('cart', JSON.stringify(this.myList));
       this.myCart.next(this.myList);
     }else{
       const productMod = this.myList.find((element)=>{
@@ -64,10 +73,14 @@ export class ApiProductsAllService {
       })
       if(productMod){
         productMod.cantidad=productMod.cantidad+1;
+        // Guardar el carrito actualizado en el almacenamiento local
+        localStorage.setItem('cart', JSON.stringify(this.myList));
         this.myCart.next(this.myList);
       }else{
         product.cantidad=1;
         this.myList.push(product)
+        // Guardar el carrito actualizado en el almacenamiento local
+        localStorage.setItem('cart', JSON.stringify(this.myList));
         this.myCart.next(this.myList);
       }
     }
@@ -77,6 +90,8 @@ export class ApiProductsAllService {
       return product.id_product != id
     })
     this.myCart.next(this.myList);
+    // Guardar el carrito actualizado en el almacenamiento local
+    localStorage.setItem('cart', JSON.stringify(this.myList));
   }
   findProductById(id:number){
     return this.myList.find((element)=> {
@@ -90,6 +105,11 @@ export class ApiProductsAllService {
   totalUnits(){
     const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad);},0);
     return total;
+  }
+  cartClear(){
+    this.myList=[];
+    // localStorage.setItem('cart', JSON.stringify(this.myList));
+    this.myCart.next(this.myList);
   }
 
 }

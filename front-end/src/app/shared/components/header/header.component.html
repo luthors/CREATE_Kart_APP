@@ -1,10 +1,11 @@
 <header>
   <nav (scroll)="onscroll()" [ngClass]="{'navbarup':up,'navbardown':!up}">
-    <a [ngClass]="{'logoup':up,'logodown':!up}" routerLink="/">CREATE SHOP</a>
-    <!--Search-->
-    
-    <ul>
 
+    <!-- logo -->
+    <a [ngClass]="{'logoup':up,'logodown':!up}" routerLink="/">CREATE SHOP</a>
+
+    <ul>
+      <!--Search-->
       <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup.enter)="loadSearch()" [(ngModel)]="search"> <!--Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts".-->
       <!--[(ngModel)]: Modelo de Angular-->
 
@@ -24,12 +25,13 @@
         </a>
       </li>
       <!-- -- -->
-      <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/login'><i class="fa-solid fa-user"></i></a></li>
+      <!-- routerLink='auth/login' -->
+      <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" (click)="loginpage()" ><i class="fa-solid fa-user"></i></a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}">Hello {{username}}!</a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i></a></li>
       
       <!-- Editar perfil -->
-      <li *ngIf="!isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/profile'><i class="fa-solid fa-user-pen"></i></a></li>
+      <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/profile'><i class="fa-solid fa-user-pen"></i></a></li>
 
       <!--Barra de despliegue-->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
