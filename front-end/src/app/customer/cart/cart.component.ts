@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { ApiProductsAllService } from '../services/api-products-all.service';
 import { NonNullableFormBuilder } from '@angular/forms';
+import { DialogService } from '../services/dialog.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class CartComponent implements OnInit {
 
   myCart$=this.productsAllService.myCart$
 
-  constructor(private productsAllService:ApiProductsAllService){}
+  constructor(private productsAllService:ApiProductsAllService, private dialogService: DialogService){}
 
   ngOnInit(): void {
       
@@ -46,5 +47,11 @@ export class CartComponent implements OnInit {
   totalCart(){
     const result =this.productsAllService.totalCart();
     return result;
+  }
+
+
+  /* Ventana dialogo email */
+  openDialogCustom(){
+    this.dialogService.openDialogCustom()
   }
 }

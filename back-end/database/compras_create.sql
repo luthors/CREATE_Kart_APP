@@ -251,3 +251,36 @@ INSERT INTO orders_detail (date_,order_,product,quantify,total) VALUES
 ("2023-08-13",7,2,2,110000.0);
 
 SELECT*FROM orders_detail;
+
+/*Consultas*/
+SELECT
+    p.id_product,
+    p.title,
+    p.descrip, 
+    b.name_brand, 
+    cg.name_category, 
+    p.quantify, 
+    p.price, 
+    p.stock,
+    JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,
+    JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors
+FROM
+    products p
+JOIN
+    productsxsize ps ON p.id_product = ps.id_product
+JOIN
+    productsxcolors pc ON p.id_product = pc.id_product
+JOIN
+    sizes s ON ps.size = s.id_size
+JOIN 
+    colors c ON pc.color = c.id_color
+JOIN
+    brand b ON p.brand_product = b.id_brand
+JOIN
+    category cg ON p.category = cg.id_category
+WHERE
+    p.id_product = 3
+GROUP BY
+    p.id_product, p.title, p.color;
+    
+select * from productsxcolors where id_product = 3
