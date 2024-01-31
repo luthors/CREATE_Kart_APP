@@ -27,12 +27,11 @@ export class DetailsProductsComponent implements OnInit {
     // this.product=this.apiProductsAllService.getProductDetails();
     const id = Number(this.route.snapshot.paramMap.get('id'));  
     console.log(id)  
-   this.apiProductsAllService.getProductById(id).subscribe((res: any)=>{
+    this.apiProductsAllService.getProductById(id).subscribe((res: any)=>{
       this.product = res[0]
       console.log(this.product)
     
       })
-    console.log(this.product);
   }
 
   // public llenarData(){
