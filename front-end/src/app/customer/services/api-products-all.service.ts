@@ -59,31 +59,50 @@ export class ApiProductsAllService {
 
 // Metodos carrito de compras
 
-  addProduct(product: Product){
-    // console.log(product)
-    if(this.myList.length ===0){
-      product.cantidad =1;
-      this.myList.push(product)
-      // Guardar el carrito actualizado en el almacenamiento local
-      localStorage.setItem('cart', JSON.stringify(this.myList));
-      this.myCart.next(this.myList);
-    }else{
-      const productMod = this.myList.find((element)=>{
-        return element.id_product === product.id_product
-      })
-      if(productMod){
-        productMod.cantidad=productMod.cantidad+1;
-        // Guardar el carrito actualizado en el almacenamiento local
-        localStorage.setItem('cart', JSON.stringify(this.myList));
-        this.myCart.next(this.myList);
-      }else{
-        product.cantidad=1;
-        this.myList.push(product)
-        // Guardar el carrito actualizado en el almacenamiento local
-        localStorage.setItem('cart', JSON.stringify(this.myList));
-        this.myCart.next(this.myList);
+  // addProduct(product: Product){
+  //   // console.log(product)
+  //   if(this.myList.length ===0){
+  //     product.cantidad =1;
+  //     this.myList.push(product)
+  //     // Guardar el carrito actualizado en el almacenamiento local
+  //     localStorage.setItem('cart', JSON.stringify(this.myList));
+  //     this.myCart.next(this.myList);
+  //   }else{
+  //     const productMod = this.myList.find((element)=>{
+  //       return element.id_product === product.id_product
+  //     })
+  //     if(productMod ){
+  //       productMod.cantidad=productMod.cantidad+1;
+  //       // Guardar el carrito actualizado en el almacenamiento local
+  //       localStorage.setItem('cart', JSON.stringify(this.myList));
+  //       this.myCart.next(this.myList);
+  //     }else{
+  //       product.cantidad=1;
+  //       this.myList.push(product)
+  //       // Guardar el carrito actualizado en el almacenamiento local
+  //       localStorage.setItem('cart', JSON.stringify(this.myList));
+  //       this.myCart.next(this.myList);
+  //     }
+  //   }
+  // }
+
+  addProduct(product: Product) {
+    const existingProduct = this.myList.find((element) => element.id_product === product.id_product);
+  
+    if (existingProduct) {
+      // Si el producto ya existe en el carrito
+      if (this.canAddUnitWithoutExceedingStock(existingProduct.id_product)) {
+        existingProduct.cantidad = existingProduct.cantidad + 1;
+      } else {
+        console.log("No se puede agregar más cantidad. Stock máximo alcanzado.");
       }
+    } else {
+      // Si el producto no existe en el carrito
+      product.cantidad = 1;
+      this.myList.push(product);
     }
+    this.myCart.next(this.myList);
+    localStorage.setItem('cart', JSON.stringify(this.myList));
   }
   deleteProduct(id:number){
     this.myList=this.myList.filter((product)=>{
@@ -106,10 +125,26 @@ export class ApiProductsAllService {
     const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad);},0);
     return total;
   }
+  
   cartClear(){
     this.myList=[];
-    // localStorage.setItem('cart', JSON.stringify(this.myList));
+    localStorage.setItem('cart', JSON.stringify(this.myList));
     this.myCart.next(this.myList);
   }
+
+  //saber si el carrito está vacío;
+  isCartEmpty(): boolean {
+    return this.myList.length === 0;
+  };
+  //obtener los productos del carro
+  getCart(): Observable<Product[]> {
+    return this.myCart.asObservable();
+  };
+  //no superar el total de los productos
+  canAddUnitWithoutExceedingStock(productId: number): boolean {
+    const product = this.findProductById(productId);
+    return product ? product.cantidad + 1 <= product.quantify : false;
+  }
+
 
 }

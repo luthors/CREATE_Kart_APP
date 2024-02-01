@@ -13,7 +13,7 @@ export class AuthService {
   // Observable para nombre en el inicio de sesion
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
-
+  private idUser: string='';
   private username: string = '';
   // authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -63,6 +63,7 @@ export class AuthService {
   obtenerUsuario(){
     if (localStorage.length === 0) {
       this.username='';
+      this.idUser='';
       this.isLoggedInSubject.next(false)
     } else {      
       let usuario=localStorage.getItem('usuario')
@@ -70,7 +71,8 @@ export class AuthService {
       if (usuario!==null){
         this.isLoggedInSubject.next(true)
         let usuariojson=JSON.parse(usuario);
-        this.username=usuariojson.name;        
+        this.username=usuariojson.name; 
+        this.idUser=usuariojson.id_user;       
       } else{
         this.username='';
       }
@@ -93,6 +95,9 @@ export class AuthService {
 
   get getUsername() {
     return this.username;
+  }
+  getUserId(){
+    return this.idUser;
   }
 
   register (user:User): Observable<User>{

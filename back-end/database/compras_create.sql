@@ -284,3 +284,123 @@ GROUP BY
     p.id_product, p.title, p.color;
     
 select * from productsxcolors where id_product = 3
+
+--- _________________________________________________________________________________
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: compras_create
+-- ------------------------------------------------------
+-- Server version	8.0.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `order_header`
+--
+
+DROP TABLE IF EXISTS `order_header`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_header` (
+  `id_order` int NOT NULL AUTO_INCREMENT,
+  `date_order` datetime NOT NULL,
+  `customer` int NOT NULL,
+  PRIMARY KEY (`id_order`),
+  UNIQUE KEY `id_order_UNIQUE` (`id_order`),
+  KEY `customer` (`customer`),
+  CONSTRAINT `customer` FOREIGN KEY (`customer`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_header`
+--
+
+LOCK TABLES `order_header` WRITE;
+/*!40000 ALTER TABLE `order_header` DISABLE KEYS */;
+INSERT INTO `order_header` VALUES (1,'2023-08-12 00:00:00',2),(2,'2023-07-11 00:00:00',3),(3,'2023-06-01 00:00:00',6),(4,'2023-08-02 00:00:00',1),(7,'2023-08-01 00:00:00',5),(8,'2023-01-30 00:00:00',4),(11,'2024-01-29 16:31:47',13),(27,'2024-01-30 17:15:26',12),(28,'2024-01-30 17:20:04',14),(29,'2024-01-31 18:11:14',15),(30,'2024-01-31 18:14:40',16);
+/*!40000 ALTER TABLE `order_header` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-31 19:14:14
+
+---__________________________________________________________________________________
+
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: compras_create
+-- ------------------------------------------------------
+-- Server version	8.0.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `orders_detail`
+--
+
+DROP TABLE IF EXISTS `orders_detail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders_detail` (
+  `id_detail` int NOT NULL AUTO_INCREMENT,
+  `date_` datetime NOT NULL,
+  `order_` int NOT NULL,
+  `product` int NOT NULL,
+  `quantify` int NOT NULL,
+  `total` float NOT NULL,
+  `adress` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_detail`),
+  KEY `order__idx` (`order_`),
+  KEY `product_idx` (`product`),
+  CONSTRAINT `order_` FOREIGN KEY (`order_`) REFERENCES `order_header` (`id_order`),
+  CONSTRAINT `product` FOREIGN KEY (`product`) REFERENCES `products` (`id_product`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders_detail`
+--
+
+LOCK TABLES `orders_detail` WRITE;
+/*!40000 ALTER TABLE `orders_detail` DISABLE KEYS */;
+INSERT INTO `orders_detail` VALUES (29,'2023-08-12 00:00:00',1,1,1,30000,NULL),(30,'2023-07-11 00:00:00',2,2,3,240000,NULL),(31,'2023-06-01 00:00:00',3,4,1,120000,NULL),(32,'2023-08-02 00:00:00',4,3,2,90000,NULL),(33,'2023-01-30 00:00:00',7,2,2,160000,NULL),(34,'2023-01-30 00:00:00',8,5,2,180000,NULL),(71,'2024-01-31 17:58:28',28,1,2,60000,NULL),(72,'2024-01-31 17:58:28',28,3,1,45000,NULL),(75,'2024-01-31 18:14:40',30,2,3,240000,NULL),(76,'2024-01-31 18:14:40',30,3,3,135000,NULL),(77,'2024-01-31 18:14:40',30,7,1,55000,NULL);
+/*!40000 ALTER TABLE `orders_detail` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-01-31 19:31:09

@@ -750,21 +750,41 @@ export const getOrderHeaderId = async (req, res) => {
         })
     }
 }
+//_____________________________________________________________
+export const getOrderIdOnlyIdCustomer = async (req, res) => {
+    try {
+        
+        let id = +req.params.id;
+        console.log(id);
+
+        const [rows] = await pool.query('SELECT CASE WHEN EXISTS (SELECT 1 FROM order_header WHERE customer = ?) THEN (SELECT id_order FROM order_header WHERE customer = ?) ELSE 0  END AS id_order;', [id,id])
+        console.log(rows)
+    
+        if (rows.length <=0) return res.status(404).json({
+            message: 'Order header not found'
+        })
+        res.json(rows[0])/*Para observar en el navegador localhost */
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Something goes wrong'
+        })
+    }
+}
 
 /*______________________________________________________________*/
-export const createOrderHeader = async (req, res) => {
+export const createOrderHeader = async (req, res) => { 
     try {
-        const { id_order, date_order, customer } = req.body
-
-        const [rows] = await pool.query('INSERT INTO order_header (id_order, date_order, customer) VALUES (?, ?, ?)', [id_order, date_order, customer])
-
+        
+        let {date_order, customer} = req.body; 
+        const [rows] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [ customer])
+        
         res.send({
-            id: rows.insertId,
-            id_order,
-            date_order,
+            id_order:rows.insertId,
+            date_order, 
             customer
         })
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: 'Something goes wrong'
         })
@@ -847,22 +867,21 @@ export const getOrdersDetailId = async (req, res) => {
 }
 
 /*______________________________________________________________*/
-export const createOrdersDetail = async (req, res) => {
+export const createOrdersDetail = async (req, res) => { 
     try {
-        const { id_detail, date, order, product, quantify, total } = req.body
-
-        const [rows] = await pool.query('INSERT INTO orders_detail (id_detail, date, order, product, quantify, total) VALUES (?, ?, ?, ?, ?, ?)', [id_detail, date, order, product, quantify, total])
-
+        console.log(req.body);
+        const {date_,order_, product, quantify, total} = req.body ;
+        const [rows] = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [order_, product, quantify, total])
         res.send({
-            id: rows.insertId,
-            id_detail,
-            date,
-            order,
-            product,
-            quantify,
+            id_detail:rows.insertId, 
+            date_, 
+            order_, 
+            product, 
+            quantify, 
             total
         })
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             message: 'Something goes wrong'
         })
