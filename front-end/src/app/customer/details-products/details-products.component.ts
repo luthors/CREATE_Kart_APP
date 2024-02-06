@@ -12,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailsProductsComponent implements OnInit {
   
   product:any;
+  loadedData:boolean=false;
   // public listaProductos:any =[]
+  public colors:any =[];
+  public tallas:any =[];
 
   constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private route: ActivatedRoute){}
 
@@ -30,8 +33,21 @@ export class DetailsProductsComponent implements OnInit {
     this.apiProductsAllService.getProductById(id).subscribe((res: any)=>{
       this.product = res[0]
       console.log(this.product)
+      this.colors=this.product.colors
+      console.log(this.colors)
+      this.tallas=this.product.sizes
+      console.log(this.tallas)
+      this.loadedData=true
     
       })
+  }
+
+  getColorKeys() {
+    return Object.keys(this.colors);
+  }
+
+  getTallasKeys(){
+    return Object.keys(this.tallas);
   }
 
   // public llenarData(){

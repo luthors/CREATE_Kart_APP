@@ -79,6 +79,25 @@ p {
 
 }
 
+.Negro{
+    background-color: black;
+}
+.Amarillo{
+    background-color: yellow;
+}
+.Rojo{
+    background-color: red;
+}
+.Azul{
+    background-color: blue;
+}
+.Verde{
+    background-color: green;
+}
+.Blanco{
+    background-color: white;
+}
+
 .item{
     margin: 10px;/*Espacios entre las imágenes*/
     padding: 10px; /*Espacio del borde de la letra escrita.*/

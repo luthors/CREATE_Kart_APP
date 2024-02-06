@@ -42,8 +42,11 @@ export class WomanComponent implements OnInit {
     return this.apiProductsAllService.addProduct(product);
   }
   productDetail(product:Product){
-    this.apiProductsAllService.setProductDetails(product);
-    this.router.navigate(['/products/detailsproducts'])
+    // this.apiProductsAllService.setProductDetails(product);
+    // this.router.navigate(['/products/detailsproducts'])
+    if (product.id_product){
+      this.router.navigate(['/products/detailsproducts', product.id_product])
+    }
   }
 
 

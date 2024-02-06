@@ -2,7 +2,7 @@
 <app-header></app-header>
 
 
-<div class="container">
+<div class="container" *ngIf="loadedData">
 <br>
 <br>
 <br>
@@ -18,12 +18,13 @@
 
     <h2 >Talla</h2>
     <select name="tallas" id="tallas_">
-        <option value="xs">XS</option>
+        <option *ngFor="let talla of getTallasKeys()">{{talla}}</option>
+        <!-- <option value="xs">XS</option>
         <option value="s">S</option>
         <option value="m">M</option>
         <option value="l">L</option>
         <option value="xl">XL</option>
-        <option value="xxl">XXL</option>
+        <option value="xxl">XXL</option> -->
     </select>
     <!-- <h2>Cantidad</h2>
     <div>
@@ -33,10 +34,9 @@
     </div> -->
 
     <h2 class="mt-3">Color</h2>
-    <div class="color-selector">
-        <div class="color-circle" style="background-color: #ff00ea;"></div>
-        <div class="color-circle" style="background-color: #d9ff00;"></div>
-        <div class="color-circle" style="background-color: rgb(0, 255, 115);"></div>
+    <div class="color-selector" >
+        <div class="color-circle" *ngFor="let color of getColorKeys()"   class="{{ color }}"></div>
+        <!-- <p>{{color}}</p> -->
     </div>
 <br>
     <div class="d-flex justify-content-center">
