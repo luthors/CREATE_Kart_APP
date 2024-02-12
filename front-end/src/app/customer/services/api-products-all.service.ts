@@ -104,6 +104,7 @@ export class ApiProductsAllService {
     this.myCart.next(this.myList);
     localStorage.setItem('cart', JSON.stringify(this.myList));
   }
+
   deleteProduct(id:number){
     this.myList=this.myList.filter((product)=>{
       return product.id_product != id
@@ -112,15 +113,18 @@ export class ApiProductsAllService {
     // Guardar el carrito actualizado en el almacenamiento local
     localStorage.setItem('cart', JSON.stringify(this.myList));
   }
+
   findProductById(id:number){
     return this.myList.find((element)=> {
       return element.id_product===id;
     })
   }
+
   totalCart(){
     const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad*product.price);},0);
     return total;
   }
+  
   totalUnits(){
     const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad);},0);
     return total;

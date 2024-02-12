@@ -55,11 +55,11 @@ export class AuthService {
           this.isLoggedInSubject.next(true);
           this.obtenerUsuario();
         }),
-
         map( () => true )
       )
       
-  }
+  };
+  
   obtenerUsuario(){
     if (localStorage.length === 0) {
       this.username='';

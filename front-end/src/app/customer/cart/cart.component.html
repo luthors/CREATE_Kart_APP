@@ -29,5 +29,6 @@
     <div class="cartTotal">
         <p class="cartTotal-total">Total: $ {{totalCart()}}</p>
     </div>
-    <button class="cart-btn" (click)="openDialogCustom()" [disabled]="isCartEmpty" (click)="checkout()" >ir a pagar</button>
+    <button class="cart-btn"  [disabled]="isCartEmpty" (click)="cleanCart" (click)="createOrderDetails()" (click)="openDialogCustom()" >ir a pagar</button>
+    <!--  -->
 </div>

@@ -19,66 +19,30 @@ export class CartComponent implements OnInit {
   public listaProductos:any =[];
   myCart$=this.productsAllService.myCart$;
   //se obtiene el id del cliente por medio de un método Auth
-  idCustomer: number = +this.getUser.getUserId();
   //inicializa el id del cliente para saber
   //si ya existe o no
   id_Order: number = 0;
+  orderlist:any= [];
 
-  constructor(private productsAllService:ApiProductsAllService, private dialogService: DialogService,private getUser: AuthService,private Order:OrderCartService){}
+  constructor(private productsAllService:ApiProductsAllService, private dialogService: DialogService,private Order:OrderCartService){}
 
   ngOnInit(): void { }
 
   //método para confirmar la compra
-  checkout() {
-    // RECORDATORIO:cambiar por una validación token
-    if (this.idCustomer === 0) {
-      console.log("Por favor, inicie sesión");
-    } else {
-      this.getOrderAndCreateHeader();
-    }
-  }
-  //método para crear el encabezado de la compra y si
-  //y llamar a crear los productos
-  getOrderAndCreateHeader() {
-    this.Order.getOrderById(this.idCustomer).subscribe((order: any) => {
-      this.id_Order = order.id_order;
-      if (this.id_Order === 0) {
-        //se crea la forma del encabezado
-        const newOrderHeader: OrderHeader = { "customer": this.idCustomer };
-        //se registra el encabezado
-        this.Order.createOrderHeader(newOrderHeader).subscribe(
-          response => {
-            console.log('Registro exitoso:', response);
-            //se busca el id del cliente
-            this.Order.getOrderById(this.idCustomer).subscribe((order: any) => {
-              this.id_Order = order.id_order;
-              // se crea los detalles
-              this.createOrderDetails();
-            });
-          });
-      } else {
-        const newOrderHeader: OrderHeader = { "customer": this.idCustomer };
-        console.log(newOrderHeader);
-        console.log(this.id_Order);
-        this.createOrderDetails();
-      }
-
-    });
-  }
-
+  
   // crea la orden de cada productos y luego las registra
   createOrderDetails() {
     this.productsAllService.getCart().subscribe(
       cartProducts => {
         cartProducts.forEach(element => {
           const newOrderDetail: OrderDetail = {
-            "order_": this.id_Order,
             product: element.id_product,
             quantify: element.cantidad,
             total: element.cantidad * element.price
           };
-          this.createOrderDetail(newOrderDetail);
+          this.orderlist.push(newOrderDetail);
         });
+        this.createOrderDetail(this.orderlist);
       },
       error => {
         console.error("Error al registrar la orden", error);
@@ -86,11 +50,10 @@ export class CartComponent implements OnInit {
     );
   }
   // se encarga de registrar los productos
-  createOrderDetail(newOrderDetail: OrderDetail) {
+  createOrderDetail(newOrderDetail:any) {
     this.Order.createOrderDetail(newOrderDetail).subscribe(response => {
       console.log('Registro realizado', response);
     });
-    this.productsAllService.cartClear();
   }
 
   totalProducts(price:number, units:number){
@@ -100,6 +63,7 @@ export class CartComponent implements OnInit {
   deleteProduct(id:number){
     this.productsAllService.deleteProduct(id);
   };
+
 
   updateUnits(operation:string, id:number){
     const product =this.productsAllService.findProductById(id);
@@ -130,6 +94,11 @@ export class CartComponent implements OnInit {
   get isCartEmpty() {
     return this.productsAllService.isCartEmpty();
   };
+
+  get cleanCart() {
+    return this.productsAllService.cartClear();
+  };
+
 
   //obtener los productos
   getProducts(){
