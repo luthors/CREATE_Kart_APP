@@ -416,3 +416,13 @@ DROP COLUMN `adress`;
 ALTER TABLE `compras_create`.`orders_detail` 
 ADD COLUMN `size` VARCHAR(45) NULL AFTER `total`,
 ADD COLUMN `color` VARCHAR(45) NULL AFTER `size`;
+
+
+--- HACERLO EN EXCLUSIVAMENTE EN ESTE ORDEN, NADA DE VARIAR
+-- desactivar temporalmente el modo de actualización segura.
+SET SQL_SAFE_UPDATES = 0;
+
+update products set quantify = 50 where quantify<3;
+
+-- activar el modo de actualización segura.
+SET SQL_SAFE_UPDATES = 1;

@@ -54,8 +54,9 @@ export class ApiProductsAllService {
 //traer los productos de hombres
   getProductsByMan(){
     return this.http.get(`${this.baseApi}/api/category/hombre`)
-  }
+  };
 
+  
 
 // Metodos carrito de compras
 
@@ -88,18 +89,25 @@ export class ApiProductsAllService {
 
   addProduct(product: Product) {
     const existingProduct = this.myList.find((element) => element.id_product === product.id_product);
-  
+
     if (existingProduct) {
       // Si el producto ya existe en el carrito
       if (this.canAddUnitWithoutExceedingStock(existingProduct.id_product)) {
         existingProduct.cantidad = existingProduct.cantidad + 1;
       } else {
         console.log("No se puede agregar más cantidad. Stock máximo alcanzado.");
+        
       }
     } else {
+      if(this.canAddUnitWithoutExceedingStock(product.id_product)){
+        product.cantidad = 1;
+        this.myList.push(product);
+      }else{
+        console.log("No se puede agregar no hay cantidad suficiente");
+        
+      }
       // Si el producto no existe en el carrito
-      product.cantidad = 1;
-      this.myList.push(product);
+      
     }
     this.myCart.next(this.myList);
     localStorage.setItem('cart', JSON.stringify(this.myList));
@@ -147,7 +155,7 @@ export class ApiProductsAllService {
   //no superar el total de los productos
   canAddUnitWithoutExceedingStock(productId: number): boolean {
     const product = this.findProductById(productId);
-    return product ? product.cantidad + 1 <= product.quantify : false;
+    return product ? product.cantidad + 1 <= product.quantify && product.quantify > 0 : false;
   }
 
 

@@ -16,20 +16,26 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class CartComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  public listaProductos:any =[];
-  myCart$=this.productsAllService.myCart$;
-  //se obtiene el id del cliente por medio de un método Auth
-  //inicializa el id del cliente para saber
-  //si ya existe o no
-  id_Order: number = 0;
-  orderlist:any= [];
+  public listaProductos: any = [];
+  myCart$ = this.productsAllService.myCart$;
+  orderlist: any = [];
 
-  constructor(private productsAllService:ApiProductsAllService, private dialogService: DialogService,private Order:OrderCartService){}
 
-  ngOnInit(): void { }
+  constructor(private productsAllService: ApiProductsAllService, private dialogService: DialogService, private Order: OrderCartService) { }
+
+  ngOnInit(): void {
+
+  }
+
+
+
+  
+
+
+  
 
   //método para confirmar la compra
-  
+
   // crea la orden de cada productos y luego las registra
   createOrderDetails() {
     this.productsAllService.getCart().subscribe(
@@ -45,44 +51,44 @@ export class CartComponent implements OnInit {
         this.createOrderDetail(this.orderlist);
       },
       error => {
-        console.error("Error al registrar la orden", error);
+        console.error("Error al clasificar la orden", error);
       }
     );
   }
   // se encarga de registrar los productos
-  createOrderDetail(newOrderDetail:any) {
+  createOrderDetail(newOrderDetail: any) {
     this.Order.createOrderDetail(newOrderDetail).subscribe(response => {
       console.log('Registro realizado', response);
     });
   }
 
-  totalProducts(price:number, units:number){
-    return price*units;
+  totalProducts(price: number, units: number) {
+    return price * units;
   };
 
-  deleteProduct(id:number){
+  deleteProduct(id: number) {
     this.productsAllService.deleteProduct(id);
   };
 
 
-  updateUnits(operation:string, id:number){
-    const product =this.productsAllService.findProductById(id);
-    if(product){
-      if (operation === "minus" && product.cantidad>0){
-        product.cantidad=product.cantidad-1;
+  updateUnits(operation: string, id: number) {
+    const product = this.productsAllService.findProductById(id);
+    if (product) {
+      if (operation === "minus" && product.cantidad > 0) {
+        product.cantidad = product.cantidad - 1;
       }//el metodo de la api impide que se agregue una cantidad
       //mayor a la existente
-      if(operation === "add" && this.productsAllService.canAddUnitWithoutExceedingStock(id)){
-        product.cantidad=product.cantidad+1;
+      if (operation === "add" && this.productsAllService.canAddUnitWithoutExceedingStock(id) === false) {
+        product.cantidad = product.cantidad + 1;
       }
-      if (product.cantidad===0) {
-        this.deleteProduct(id);        
+      if (product.cantidad === 0) {
+        this.deleteProduct(id);
       }
     }
   };
 
-  totalCart(){
-    const result =this.productsAllService.totalCart();
+  totalCart() {
+    const result = this.productsAllService.totalCart();
     return result;
   };
 
@@ -101,16 +107,16 @@ export class CartComponent implements OnInit {
 
 
   //obtener los productos
-  getProducts(){
+  getProducts() {
     this.productsAllService.get(`${this.baseUrl}/api/products`).subscribe(data => [
-      this.listaProductos=data,
+      this.listaProductos = data,
       console.log(this.listaProductos)
     ])
   };
 
 
   /* Ventana dialogo email */
-  openDialogCustom(){
+  openDialogCustom() {
     this.dialogService.openDialogCustom()
   };
 }
