@@ -69,6 +69,7 @@ export class CartComponent implements OnInit {
     this.Order.createOrderDetail(newOrderDetail).subscribe(response => {
       console.log('Registro realizado', response);
     });
+    
   }
 
   totalProducts(price: number, units: number) {

@@ -1,5 +1,6 @@
 import { pool } from "../db.js";
 import jwt from "jsonwebtoken";
+import { envioCorreo } from "./email.controller.js";
 
 /*Productos*/
 export const getProducts = async (req, res) => /*res.send ('obteniendo clientes')*/ {
@@ -752,16 +753,32 @@ export const getOrderHeaderId = async (req, res) => {
     }
 }
 //_____________________________________________________________
+const getProductsDetails = async (orderDetails) => {
+    try {
+        let productsDetails = [];
+    for (const item of orderDetails) {
+        const [product] = await pool.query('SELECT title, price, url FROM products WHERE id_product = ?', [item.product]);
+        if (product.length > 0) {
+            productsDetails.push({
+                ...product[0]
+            });
+        }
+    }
+    return productsDetails;
 
+    } catch (error) {
+        console.log('error al buscar detalles', error);
+    }
+}
 
 const getUserInfoFromToken = async (token) => {
     try {
         const jwtSignature = "createShop";
         const decoded = jwt.verify(token, jwtSignature);
         const usuario = String(decoded.usuario);
-        const [rows] = await pool.query('SELECT id_user, email FROM users WHERE email=? LIMIT 1', [usuario])
+        const [rows] = await pool.query('SELECT id_user,name, email FROM users WHERE email=? LIMIT 1', [usuario])
         if (rows.length > 0) {
-            return  rows[0] ;
+            return rows[0];
         } else {
             return { success: false, message: 'Usuario no encontrado.' };
         };
@@ -774,20 +791,22 @@ const getUserInfoFromToken = async (token) => {
 export const createOrderHeader = async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
-        console.log('Esta vaina porque siempre se me daña,gas...',authHeader);
+        console.log('Esta vaina porque siempre se me daña,gas...', authHeader);
         const token = authHeader.split(' ')[1];
         const user = await getUserInfoFromToken(token);
-        console.log('datos de usuario',user);
+        console.log('datos de usuario', user);
         // let {date_order, customer} = req.body; 
-        const [insertOrderHeader] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [user.id_user]);
-        const orderHeaderId = insertOrderHeader.insertId;
+        // const [insertOrderHeader] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [user.id_user]);
+        // const orderHeaderId = insertOrderHeader.insertId;
         const orderDetails = req.body;
-        for (const item of orderDetails) {
-            const query = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [orderHeaderId, item.product, item.quantify, item.total]);
-            console.log(query);
-            await pool.query('UPDATE products p SET p.quantify = p.quantify - ? WHERE p.id_product = ?',[item.quantify,item.product]);
-        };
+        // for (const item of orderDetails) {
+        //     const query = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [orderHeaderId, item.product, item.quantify, item.total]);
+        //     console.log(query);
+        //     await pool.query('UPDATE products p SET p.quantify = p.quantify - ? WHERE p.id_product = ?',[item.quantify,item.product]);
+        // };
         //ACA SE DEBE HACER EL LLAMADO AL CORREO ELECTRONICO
+        const productsDetails = await getProductsDetails(orderDetails);
+        envioCorreo(user, productsDetails);
         res.send({
             id_order: orderHeaderId,
         });

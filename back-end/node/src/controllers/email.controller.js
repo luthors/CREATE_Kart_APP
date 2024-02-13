@@ -1,7 +1,8 @@
 import nodemailer from 'nodemailer';
 
-export const envioCorreo = (req, res) => {
+export const envioCorreo = (user, orderDetails) => {
     try {
+<<<<<<< Updated upstream
         let body = req.body;
 
         // Obtener la fecha y hora actual en tiempo real
@@ -29,13 +30,15 @@ export const envioCorreo = (req, res) => {
         return res.status(200).json({
             message: 'correo enviado exitosamente'
         });
+=======
+        console.log(user, orderDetails);
+        const htmlContent = `<h1>Hola ${user.name}, tu orden ha sido recibida y está siendo procesada</h1><p>Este es un correo electrónico de prueba con contenido HTML.</p>`;
+        sendEmail(user.email, 'Orden pedido', htmlContent);
+        console.log('Envío correo exitosamente');
+>>>>>>> Stashed changes
     } catch (error) {
-        return res.status(500).json({
-            message: 'Something goes wrong'
-        })
+        console.log('error al enviar correo',error);
     }
-    
-
 };
 
 const sendEmail = async (to, subject, htmlBody) => {

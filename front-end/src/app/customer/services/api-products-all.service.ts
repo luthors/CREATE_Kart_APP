@@ -12,15 +12,15 @@ import { map } from 'rxjs/operators';
 export class ApiProductsAllService {
   baseApi = environment.baseUrl;
   //Lista Productos
-  private myList:Product[]=[];
+  private myList: Product[] = [];
   //Carrito Observable
   private myCart = new BehaviorSubject<Product[]>([]);
   myCart$ = this.myCart.asObservable();
   //para enviar al detalle de producto
-  private productDet:any;
-  
+  private productDet: any;
 
-  constructor(private http:HttpClient) { 
+
+  constructor(private http: HttpClient) {
 
     const carritoGuardado = localStorage.getItem('cart');
     if (carritoGuardado) {
@@ -29,17 +29,17 @@ export class ApiProductsAllService {
     }
   }
 
-  public get(url:string){
+  public get(url: string) {
     return this.http.get(url);
   }
 
-  getProductById(id: number){
+  getProductById(id: number) {
     return this.http.get(`${this.baseApi}/api/productbyid/${id}`);
   }
-  
+
   // Método para establecer el objeto a compartir
   setProductDetails(product: any) {
-    this.productDet=product;
+    this.productDet = product;
     console.log(this.productDet)
   }
   // Método para obtener el objeto compartido
@@ -48,17 +48,17 @@ export class ApiProductsAllService {
   }
 
   //productos de mujeres
-  getProductsByWoman(){
+  getProductsByWoman() {
     return this.http.get(`${this.baseApi}/api/category/mujer`)
   }
-//traer los productos de hombres
-  getProductsByMan(){
+  //traer los productos de hombres
+  getProductsByMan() {
     return this.http.get(`${this.baseApi}/api/category/hombre`)
   };
 
-  
 
-// Metodos carrito de compras
+
+  // Metodos carrito de compras
 
   // addProduct(product: Product){
   //   // console.log(product)
@@ -96,25 +96,27 @@ export class ApiProductsAllService {
         existingProduct.cantidad = existingProduct.cantidad + 1;
       } else {
         console.log("No se puede agregar más cantidad. Stock máximo alcanzado.");
-        
+
       }
     } else {
-      if(this.canAddUnitWithoutExceedingStock(product.id_product)){
-        product.cantidad = 1;
-        this.myList.push(product);
-      }else{
-        console.log("No se puede agregar no hay cantidad suficiente");
-        
-      }
+      // if(this.canAddUnitWithoutExceedingStock(product.id_product)){
+      //   product.cantidad = 1;
+      //   this.myList.push(product);
+      // }else{
+      //   console.log("No se puede agregar no hay cantidad suficiente");
+
+      // }
+      product.cantidad = 1;
+      this.myList.push(product);
       // Si el producto no existe en el carrito
-      
+
     }
     this.myCart.next(this.myList);
     localStorage.setItem('cart', JSON.stringify(this.myList));
   }
 
-  deleteProduct(id:number){
-    this.myList=this.myList.filter((product)=>{
+  deleteProduct(id: number) {
+    this.myList = this.myList.filter((product) => {
       return product.id_product != id
     })
     this.myCart.next(this.myList);
@@ -122,24 +124,24 @@ export class ApiProductsAllService {
     localStorage.setItem('cart', JSON.stringify(this.myList));
   }
 
-  findProductById(id:number){
-    return this.myList.find((element)=> {
-      return element.id_product===id;
+  findProductById(id: number) {
+    return this.myList.find((element) => {
+      return element.id_product === id;
     })
   }
 
-  totalCart(){
-    const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad*product.price);},0);
+  totalCart() {
+    const total = this.myList.reduce(function (acc, product) { return acc + (product.cantidad * product.price); }, 0);
     return total;
   }
-  
-  totalUnits(){
-    const total = this.myList.reduce(function(acc,product){return acc + (product.cantidad);},0);
+
+  totalUnits() {
+    const total = this.myList.reduce(function (acc, product) { return acc + (product.cantidad); }, 0);
     return total;
   }
-  
-  cartClear(){
-    this.myList=[];
+
+  cartClear() {
+    this.myList = [];
     localStorage.setItem('cart', JSON.stringify(this.myList));
     this.myCart.next(this.myList);
   }
@@ -162,7 +164,7 @@ export class ApiProductsAllService {
   //no superar el total de los productos
   canAddUnitWithoutExceedingStock(productId: number): boolean {
     const product = this.findProductById(productId);
-    return product ? product.cantidad + 1 <= product.quantify && product.quantify > 0 : false;
+    return product ? product.cantidad + 1 <= product.quantify : false;
   }
 
 
