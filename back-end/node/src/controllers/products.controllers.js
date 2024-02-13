@@ -1,9 +1,10 @@
-import { pool } from "../db.js"
+import { pool } from "../db.js";
+import jwt from "jsonwebtoken";
 
 /*Productos*/
 export const getProducts = async (req, res) => /*res.send ('obteniendo clientes')*/ {
     try {
-        const [rows] = await pool.query('SELECT id_product, title,descrip,name_brand,name_category,name_color,quantify,price,stock,sizes.size,url FROM products INNER JOIN  brand ON products.brand_product = brand.id_brand INNER JOIN category ON products.category = category.id_category INNER JOIN sizes ON products.size = sizes.id_size INNER JOIN colors ON products.color = colors.id_color')
+        const [rows] = await pool.query('SELECT id_product, title,descrip,name_brand,name_category,name_color,quantify,price,url FROM products INNER JOIN  brand ON products.brand_product = brand.id_brand INNER JOIN category ON products.category = category.id_category INNER JOIN colors ON products.color = colors.id_color WHERE quantify>0')
         res.json(rows)
     } catch (error) {
         console.log(error)
@@ -231,7 +232,7 @@ export const getCategory = async (req, res) => /*res.send ('obteniendo clientes'
 export const getProductsByCategoryAndBrand = async (req, res) => {
     try {
         const category = req.params.category;
-        const [rows] = await pool.query("SELECT p.id_product,p.title,p.url, p.descrip,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE name_category =? OR name_category = 'unisex'  GROUP BY p.id_product, p.title, p.color;",[category])
+        const [rows] = await pool.query("SELECT p.id_product,p.title,p.url, p.descrip,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE (name_category =? OR name_category = 'unisex') AND p.quantify>0  GROUP BY p.id_product, p.title, p.color;", [category])
         console.log(rows)
 
         if (rows.length <= 0) return res.status(404).json({
@@ -250,7 +251,7 @@ export const getProductsByCategoryAndBrand = async (req, res) => {
 export const getProductsWithColorsandSizes = async (req, res) => {
     try {
         const id = req.params.id
-        const [rows] = await pool.query("SELECT p.id_product,p.title, p.descrip,p.url,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE p.id_product = ? GROUP BY p.id_product, p.title, p.color;",[id])
+        const [rows] = await pool.query("SELECT p.id_product,p.title, p.descrip,p.url,b.name_brand,cg.name_category,p.quantify,p.price,p.stock,JSON_OBJECTAGG(s.size, ps.quantify) AS sizes,JSON_OBJECTAGG(c.name_color, pc.quantify) AS colors FROM products p JOIN productsxsize ps ON p.id_product = ps.id_product JOIN productsxcolors pc ON p.id_product = pc.id_product JOIN sizes s ON ps.size = s.id_size JOIN  colors c ON pc.color = c.id_color JOIN brand b ON p.brand_product = b.id_brand JOIN category cg ON p.category = cg.id_category WHERE p.id_product = ? GROUP BY p.id_product, p.title, p.color;", [id])
 
         if (rows.length <= 0) return res.status(404).json({
             message: 'category not found'
@@ -750,24 +751,51 @@ export const getOrderHeaderId = async (req, res) => {
         })
     }
 }
+//_____________________________________________________________
+
+
+const getUserInfoFromToken = async (token) => {
+    try {
+        const jwtSignature = "createShop";
+        const decoded = jwt.verify(token, jwtSignature);
+        const usuario = String(decoded.usuario);
+        const [rows] = await pool.query('SELECT id_user, email FROM users WHERE email=? LIMIT 1', [usuario])
+        if (rows.length > 0) {
+            return  rows[0] ;
+        } else {
+            return { success: false, message: 'Usuario no encontrado.' };
+        };
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 /*______________________________________________________________*/
 export const createOrderHeader = async (req, res) => {
     try {
-        const { id_order, date_order, customer } = req.body
-
-        const [rows] = await pool.query('INSERT INTO order_header (id_order, date_order, customer) VALUES (?, ?, ?)', [id_order, date_order, customer])
-
+        const authHeader = req.headers.authorization;
+        console.log('Esta vaina porque siempre se me daña,gas...',authHeader);
+        const token = authHeader.split(' ')[1];
+        const user = await getUserInfoFromToken(token);
+        console.log('datos de usuario',user);
+        // let {date_order, customer} = req.body; 
+        const [insertOrderHeader] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [user.id_user]);
+        const orderHeaderId = insertOrderHeader.insertId;
+        const orderDetails = req.body;
+        for (const item of orderDetails) {
+            const query = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [orderHeaderId, item.product, item.quantify, item.total]);
+            console.log(query);
+            await pool.query('UPDATE products p SET p.quantify = p.quantify - ? WHERE p.id_product = ?',[item.quantify,item.product]);
+        };
+        //ACA SE DEBE HACER EL LLAMADO AL CORREO ELECTRONICO
         res.send({
-            id: rows.insertId,
-            id_order,
-            date_order,
-            customer
-        })
+            id_order: orderHeaderId,
+        });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: 'Something goes wrong'
-        })
+        });
     }
 }
 
@@ -849,20 +877,20 @@ export const getOrdersDetailId = async (req, res) => {
 /*______________________________________________________________*/
 export const createOrdersDetail = async (req, res) => {
     try {
-        const { id_detail, date, order, product, quantify, total } = req.body
-
-        const [rows] = await pool.query('INSERT INTO orders_detail (id_detail, date, order, product, quantify, total) VALUES (?, ?, ?, ?, ?, ?)', [id_detail, date, order, product, quantify, total])
-
+        console.log(req.body);
+        const { date_, order_, product, quantify, total } = req.body;
+        const [rows] = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [order_, product, quantify, total])
         res.send({
-            id: rows.insertId,
-            id_detail,
-            date,
-            order,
+            id_detail: rows.insertId,
+            date_,
+            order_,
             product,
             quantify,
             total
         })
+
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             message: 'Something goes wrong'
         })
