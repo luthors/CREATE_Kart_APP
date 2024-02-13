@@ -102,6 +102,7 @@ export const updateRoles = async (req, res) => {
 
 export const getUsers = async (req, res) => /*res.send ('obteniendo clientes')*/{
     try {
+        console.log(req.headers.authorization);
      const [rows] = await pool.query('SELECT*FROM users')
      res.json(rows)
     } catch (error) {

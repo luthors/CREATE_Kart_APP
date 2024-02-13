@@ -25,5 +25,15 @@
     <div class="cartTotal">
         <p class="cartTotal-total">Total: $ {{totalCart()}}</p>
     </div>
-    <button class="cart-btn" (click)="openDialogCustom()">ir a pagar</button>
+    <button class="cart-btn" (click)="onToggleEmail()">ir a pagar</button><!--(click)="openDialogCustom()"-->   
+</div>
+<!--Email-->
+<div class="email" [ngClass]="{'show' : viewEmail}">
+    <!--Cerrar la ventana-->
+    <div class="close-button p-2">
+        <button class="btn btn-light" (click)="closeModal()">X</button><!--Cerrar ventana-->
+    </div>
+    <div class="email-inner">
+        <app-email></app-email>
+    </div>
 </div>

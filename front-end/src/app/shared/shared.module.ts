@@ -28,7 +28,8 @@ import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo e
   exports: [
     HeaderComponent,
     FooterComponent,
-    CartComponent
+    CartComponent,
+    EmailComponent
   ]
 })
 export class SharedModule { }

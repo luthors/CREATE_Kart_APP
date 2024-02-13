@@ -5,22 +5,54 @@
 <div class="modal-container">
     <form [formGroup]="datos">
         <div class="row justify-content-center">
-            <div class="col-lg-20 fondo">
-                <div class="p-2">
-                    <button style="float: right;" class="btn btn-light" (click)="closeModal()">X</button><!--Cerrar ventana-->
-                </div>
+            <div class="col-lg-20">
                 <h4 class="text-center p-2">Datos del usuario</h4>
                 
                 <input type="email" placeholder="Correo" class="form-control mb-2" formControlName="correo">
-                <input type="text" placeholder="asunto" class="form-control mb-2" formControlName="asunto">
-                <textarea class="form-control mb-2" placeholder="Dirección de entrega" cols="40" rows="4"></textarea>
-                <div><p class="form-control mb-2" placeholder="mensaje" cols="40" rows="6" formControlName="mensaje">Resumen del pedido del cliente</p></div>
-    
-                <div class="text-center p-2">
-                    <button class="btn btn-dark" (click)="envioCorreo()">Confirmar</button>
+
+                <!--Mensaje: Dirección de entrega-->
+                <div>
+                    <b><br><a>Dirección de entrega: </a></b>
+                    <!--<a>Especifique (ciudad, barrio y nomenclatura de la casa), es importante para entregar su pedido. </a>-->
+                    <textarea class="form-control mb-2" placeholder="Dirección de entrega" cols="40" rows="4" formControlName="mensaje"></textarea>
+                </div>
+                
+                
+
+                <!--Resumen de pedido-->
+                <div class="form-control mb-2 mensaje-predefinido" formControlName="mensaje">
+                    <b><p style="text-align: center;">Resumen de pedido</p></b>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Decripción</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let product of cartProducts" class="table-light">
+                                <td style="border: 1px solid #dddddd;"><img src="{{ product.url }}" alt="{{ product.title }}" style="max-width: 100px; max-height: 100px;"></td>
+                                <td style="border: 1px solid #dddddd;">{{ product.title }}</td>
+                                <td style="border: 1px solid #dddddd;" class="description">{{ product.descrip }}</td>
+                                <td style="border: 1px solid #dddddd;">{{ product.price | currency }}</td>
+                                <td style="text-align: center; border: 1px solid #dddddd;">{{ product.cantidad }}</td>
+                                <td style="border: 1px solid #dddddd;">{{ product.price * product.cantidad | currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a><b>Valor total:</b> {{ calcularTotalPedido() | currency }}</a>
+                </div>
+
+                
+ 
+              <div class="text-center p-2">
+                    <button class="btn btn-dark botonEmail" (click)="envioCorreo()" >Confirmar</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-

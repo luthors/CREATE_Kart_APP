@@ -112,4 +112,11 @@ export class ApiProductsAllService {
     this.myCart.next(this.myList);
   }
 
+
+
+  // Email: Método para obtener los productos del carrito
+  getCartProducts(): Product[] {
+    return this.myCart.getValue();
+  }
+
 }
