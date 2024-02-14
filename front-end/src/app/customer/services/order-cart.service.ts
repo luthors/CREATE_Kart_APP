@@ -17,10 +17,14 @@ export class OrderCartService {
     return this.http.post(`${this.apiUrl}/api/order`,orderData);
   }
 
-  createOrderDetail(orderDataDetail:any):Observable<any>{
+  createOrderDetail(orderDataDetail:any, address: String):Observable<any>{
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
-    return this.http.post(`${this.apiUrl}/api/orderheader`,orderDataDetail,{headers:headers});
+    const data = {
+      address: address,
+      orderData: orderDataDetail
+    }
+    return this.http.post(`${this.apiUrl}/api/orderheader`, data, {headers:headers});
   }
 
 

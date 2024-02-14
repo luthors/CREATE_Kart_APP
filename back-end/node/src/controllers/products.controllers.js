@@ -756,15 +756,15 @@ export const getOrderHeaderId = async (req, res) => {
 const getProductsDetails = async (orderDetails) => {
     try {
         let productsDetails = [];
-    for (const item of orderDetails) {
-        const [product] = await pool.query('SELECT title, price, url FROM products WHERE id_product = ?', [item.product]);
-        if (product.length > 0) {
-            productsDetails.push({
-                ...product[0]
-            });
+        for (const item of orderDetails) {
+            const [product] = await pool.query('SELECT title, price, url FROM products WHERE id_product = ?', [item.product]);
+            if (product.length > 0) {
+                productsDetails.push({
+                    ...product[0]
+                });
+            }
         }
-    }
-    return productsDetails;
+        return productsDetails;
 
     } catch (error) {
         console.log('error al buscar detalles', error);
@@ -791,22 +791,20 @@ const getUserInfoFromToken = async (token) => {
 export const createOrderHeader = async (req, res) => {
     try {
         const authHeader = req.headers.authorization;
-        console.log('Esta vaina porque siempre se me daña,gas...', authHeader);
         const token = authHeader.split(' ')[1];
         const user = await getUserInfoFromToken(token);
-        console.log('datos de usuario', user);
-        // let {date_order, customer} = req.body; 
-        // const [insertOrderHeader] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [user.id_user]);
-        // const orderHeaderId = insertOrderHeader.insertId;
-        const orderDetails = req.body;
-        // for (const item of orderDetails) {
-        //     const query = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [orderHeaderId, item.product, item.quantify, item.total]);
-        //     console.log(query);
-        //     await pool.query('UPDATE products p SET p.quantify = p.quantify - ? WHERE p.id_product = ?',[item.quantify,item.product]);
-        // };
+        const [insertOrderHeader] = await pool.query('INSERT INTO order_header (date_order, customer) VALUES (NOW(), ?)', [user.id_user]);
+        const orderHeaderId = insertOrderHeader.insertId;
+        const orderDetails = req.body.orderData;
+        const userAddress = req.body.address;
+        for (const item of orderDetails) {
+            const query = await pool.query('INSERT INTO orders_detail (date_,order_, product, quantify, total) VALUES (NOW(), ?, ?, ?, ?)', [orderHeaderId, item.product, item.quantify, item.total]);
+            console.log(query);
+            await pool.query('UPDATE products p SET p.quantify = p.quantify - ? WHERE p.id_product = ?', [item.quantify, item.product]);
+        };
         //ACA SE DEBE HACER EL LLAMADO AL CORREO ELECTRONICO
         const productsDetails = await getProductsDetails(orderDetails);
-        envioCorreo(user, productsDetails);
+        envioCorreo(user, userAddress, productsDetails);
         res.send({
             id_order: orderHeaderId,
         });

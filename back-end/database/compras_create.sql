@@ -426,3 +426,6 @@ update products set quantify = 50 where quantify<3;
 
 -- activar el modo de actualización segura.
 SET SQL_SAFE_UPDATES = 1;
+
+ALTER TABLE `compras_create`.`order_header` 
+ADD COLUMN `address` VARCHAR(45) NULL AFTER `correo`;

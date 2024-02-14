@@ -40,7 +40,6 @@ export class ApiProductsAllService {
   // Método para establecer el objeto a compartir
   setProductDetails(product: any) {
     this.productDet = product;
-    console.log(this.productDet)
   }
   // Método para obtener el objeto compartido
   getProductDetails() {
@@ -57,36 +56,6 @@ export class ApiProductsAllService {
   };
 
 
-
-  // Metodos carrito de compras
-
-  // addProduct(product: Product){
-  //   // console.log(product)
-  //   if(this.myList.length ===0){
-  //     product.cantidad =1;
-  //     this.myList.push(product)
-  //     // Guardar el carrito actualizado en el almacenamiento local
-  //     localStorage.setItem('cart', JSON.stringify(this.myList));
-  //     this.myCart.next(this.myList);
-  //   }else{
-  //     const productMod = this.myList.find((element)=>{
-  //       return element.id_product === product.id_product
-  //     })
-  //     if(productMod ){
-  //       productMod.cantidad=productMod.cantidad+1;
-  //       // Guardar el carrito actualizado en el almacenamiento local
-  //       localStorage.setItem('cart', JSON.stringify(this.myList));
-  //       this.myCart.next(this.myList);
-  //     }else{
-  //       product.cantidad=1;
-  //       this.myList.push(product)
-  //       // Guardar el carrito actualizado en el almacenamiento local
-  //       localStorage.setItem('cart', JSON.stringify(this.myList));
-  //       this.myCart.next(this.myList);
-  //     }
-  //   }
-  // }
-
   addProduct(product: Product) {
     const existingProduct = this.myList.find((element) => element.id_product === product.id_product);
 
@@ -99,16 +68,10 @@ export class ApiProductsAllService {
 
       }
     } else {
-      // if(this.canAddUnitWithoutExceedingStock(product.id_product)){
-      //   product.cantidad = 1;
-      //   this.myList.push(product);
-      // }else{
-      //   console.log("No se puede agregar no hay cantidad suficiente");
-
-      // }
-      product.cantidad = 1;
-      this.myList.push(product);
-      // Si el producto no existe en el carrito
+      
+        product.cantidad = 1;
+        this.myList.push(product);
+        console.log("Producto agregado");
 
     }
     this.myCart.next(this.myList);
@@ -164,7 +127,7 @@ export class ApiProductsAllService {
   //no superar el total de los productos
   canAddUnitWithoutExceedingStock(productId: number): boolean {
     const product = this.findProductById(productId);
-    return product ? product.cantidad + 1 <= product.quantify : false;
+    return product ? product.cantidad + 1 <= product.quantify  && product.quantify > 0  : false;
   }
 
 

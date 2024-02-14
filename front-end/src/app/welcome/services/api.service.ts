@@ -19,7 +19,6 @@ export class ApiService {
 
   //Search: get products
   getSearchProducts(title:string){
-    //return this.http.get(`${this.urlSearch}/api/search`, body )
     return this.http.get(`${this.urlSearch}/api/search/${title}`);
     //Localhost: 3001/products/getSearch?searchBy= Valor del parámetro para buscar
     

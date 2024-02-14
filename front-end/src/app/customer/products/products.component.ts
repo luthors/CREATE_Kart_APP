@@ -16,11 +16,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
   baseUrl = environment.baseUrl
-  categories : any[] = [];
-  products : any[] = [];
-  public listaProductos:any =[]
+  categories: any[] = [];
+  products: any[] = [];
+  public listaProductos: any = []
 
-  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private apiService: ApiService, private cdr: ChangeDetectorRef){}
+  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router, private route: ActivatedRoute, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.llenarData();
@@ -31,13 +31,13 @@ export class ProductsComponent implements OnInit {
     // this.renderer.setStyle(document.body, 'width','100%');
     // this.renderer.setStyle(document.body, 'height','100vh');
     // this.renderer.setStyle(document.body, 'display','flex');
-    this.renderer.setStyle(document.body, 'justify-content','center');
-    this.renderer.setStyle(document.body, 'align-items','center'); 
+    this.renderer.setStyle(document.body, 'justify-content', 'center');
+    this.renderer.setStyle(document.body, 'align-items', 'center');
     // this.renderer.setStyle(document, 'box-sizing', 'border-box');
   }
 
-    /*Search */
-  public llenarData(){
+  /*Search */
+  public llenarData() {
     this.route.queryParams.subscribe(params => {
       const filter = params["filter"];
 
@@ -48,33 +48,33 @@ export class ProductsComponent implements OnInit {
           },
           error => {
             console.error('Error en la búsqueda:', error);
-        }
-    
+          }
+
         )
       } else {
         this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
-        this.listaProductos=data
-      ]);
+          this.listaProductos = data
+        ]);
 
       }
     });
 
-   
-  }
-  
-  addToCart(product:Product){
-    return this.apiProductsAllService.addProduct(product);
-  }
-  
-  productDetail(product:Product){
-    // this.apiProductsAllService.setProductDetails(product);
-    if (product.id_product){
-      this.router.navigate(['/products/detailsproducts', product.id_product])
-    }
-    
+
   }
 
-  
+  addToCart(product: Product) {
+    return this.apiProductsAllService.addProduct(product);
+  }
+
+  productDetail(product: Product) {
+    // this.apiProductsAllService.setProductDetails(product);
+    if (product.id_product) {
+      this.router.navigate(['/products/detailsproducts', product.id_product])
+    }
+
+  }
+
+
 
 
 }

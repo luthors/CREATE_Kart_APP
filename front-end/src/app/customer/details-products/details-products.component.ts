@@ -26,25 +26,15 @@ export class DetailsProductsComponent implements OnInit {
 
     // this.product=this.apiProductsAllService.getProductDetails();
     const id = Number(this.route.snapshot.paramMap.get('id'));  
-    console.log(id)  
     this.apiProductsAllService.getProductById(id).subscribe((res: any)=>{
-      this.product = res[0]
-      console.log(this.product)
+      this.product = res[0];
     
       })
   }
-
-  // public llenarData(){
-  //   this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
-  //     this.listaProductos=data
-  //   ])
-  // }
   addToCart(product:Product){
     return this.apiProductsAllService.addProduct(product);
   }
 
-/* Cantidad */
-// numero: number = 1
 
 
 }

@@ -33,8 +33,7 @@ export class WomanComponent implements OnInit {
     //para que funcione lo de las variables de entorno hay que asegurarse
     //de poner un "/" despues de copiar la baseUrl 
     this.apiProductsAllService.get(`${this.baseUrl}/products`).subscribe(data => [
-      this.listaProductos=data,
-      console.log(this.listaProductos)
+      this.listaProductos=data
     ])
   }
   
@@ -50,7 +49,6 @@ export class WomanComponent implements OnInit {
 getProductsCategory(){
   this.apiProductsAllService.getProductsByWoman().subscribe((res: any)=>{
   this.products = res
-  console.log(this.products)
   this.listaProductos = this.products
 
   })

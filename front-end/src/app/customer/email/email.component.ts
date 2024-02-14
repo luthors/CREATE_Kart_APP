@@ -4,6 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiProductsAllService } from '../services/api-products-all.service';
 import { ElementRef } from '@angular/core';/*Mensaje tabla de pedidos */
 import { Product } from '../interfaces/product.interface';
+import { OrderDetail } from '../interfaces/order.interface';
+import { OrderCartService } from '../services/order-cart.service';
 
 @Component({
   selector: 'app-email',
@@ -14,12 +16,12 @@ export class EmailComponent implements OnInit {
 
   title = 'envioCorreos';
   datos:FormGroup;
+  orderlist: any = [];
   
-
   /*Email: Detalles de los productos del carrito del cliente */
   cartProducts: Product[] = [];  /*almacenar los productos del carrito*/
 
-  constructor(private httpclient: HttpClient, private productsAllService: ApiProductsAllService, private elementRef: ElementRef){
+  constructor(private httpclient: HttpClient, private productsAllService: ApiProductsAllService, private elementRef: ElementRef, private Order: OrderCartService){
     this.datos = new FormGroup ({
       correo: new FormControl('',[Validators.required, Validators.email]),
       mensaje: new FormControl('',Validators.required)
@@ -27,54 +29,38 @@ export class EmailComponent implements OnInit {
   } 
 
   ngOnInit(): void {
-    /*Email: Detalles de los productos del carrito del cliente */
     this.cartProducts = this.productsAllService.getCartProducts();
   } 
-
   
-  envioCorreo(){
-
-    // Obtener el valor total del pedido
-    let totalPedido = this.calcularTotalPedido();
-
-    // Contenido HTML de la tabla
-    let tablaHTML = this.buildTableRows();/*this.elementRef.nativeElement.querySelector('.mensaje-predefinido').innerHTML;*/
-
-    // Valor del control del formulario mensaje
-    let mensaje = this.datos.value.mensaje;
-
-    // Concatenar el contenido de la tabla al mensaje (dirección de entrega)
-    let mensajeConTablaYTotal = `<b>Dirección de entrega:</b> ${mensaje} <br><br> 
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Imagen</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Decripción</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${tablaHTML}
-      </tbody>
-    </table>
-    <p>Valor total: $${totalPedido}</p>
-    <br><br><br> ¡Gracias por su compra!`;/*`<b> Dirección de entrega:   </b> ${mensaje} <br><br> ${tablaHTML} <br><br><br> ¡Gracias por su compra!`;*/
-    
-
-    let params = {
-      email: this.datos.value.correo,/*email: back */
-      mensaje: mensajeConTablaYTotal/*this.datos.value.mensaje*/
-    }
-    console.log(params);
-    
-
-    /*solicitud HTTP al backend */
-    this.httpclient.post('http://localhost:3001/api/envio', params).subscribe(resp=>{
-      console.log(resp); 
-    })
+  envioCorreo() {
+    this.orderlist=[];
+    console.log(this.orderlist);
+    this.productsAllService.getCart().subscribe(
+      
+      cartProducts => {
+        cartProducts.forEach(element => {
+          const newOrderDetail: OrderDetail = {
+            product: element.id_product,
+            quantify: element.cantidad,
+            total: element.cantidad * element.price
+          };
+          this.orderlist.push(newOrderDetail);
+        });
+        console.log(this.orderlist,'lista repetida');
+        this.createOrderDetail(this.orderlist);
+      },
+      error => {
+        console.error("Error al clasificar la orden", error);
+      }
+    );
+  }
+  // se encarga de registrar los productos
+  createOrderDetail(newOrderDetail: any) {
+    let address = this.datos.value.mensaje;
+    this.Order.createOrderDetail(newOrderDetail, address).subscribe(response => {
+      console.log('Registro realizado',response);
+    });
+    // this.productsAllService.cartClear();
   }
 
 
@@ -97,6 +83,10 @@ export class EmailComponent implements OnInit {
 
     return tableRows;
   }
+
+  get cleanCart() {
+    return this.productsAllService.cartClear();
+  };
 
 
 
