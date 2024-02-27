@@ -404,3 +404,28 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-01-31 19:31:09
+
+
+ALTER TABLE `compras_create`.`order_header` 
+ADD COLUMN `correo` VARCHAR(45) NULL AFTER `customer`;
+
+-- usarlo si se creó una columna en orders_detail
+ALTER TABLE `compras_create`.`orders_detail` 
+DROP COLUMN `adress`;
+
+ALTER TABLE `compras_create`.`orders_detail` 
+ADD COLUMN `size` VARCHAR(45) NULL AFTER `total`,
+ADD COLUMN `color` VARCHAR(45) NULL AFTER `size`;
+
+
+--- HACERLO EN EXCLUSIVAMENTE EN ESTE ORDEN, NADA DE VARIAR
+-- desactivar temporalmente el modo de actualización segura.
+SET SQL_SAFE_UPDATES = 0;
+
+update products set quantify = 50 where quantify<3;
+
+-- activar el modo de actualización segura.
+SET SQL_SAFE_UPDATES = 1;
+
+ALTER TABLE `compras_create`.`order_header` 
+ADD COLUMN `address` VARCHAR(45) NULL AFTER `correo`;

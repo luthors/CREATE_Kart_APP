@@ -8,7 +8,7 @@ import { ProfileComponent } from '../auth/pages/profile/profile.component';
 import { DetailsProductsComponent } from './details-products/details-products.component';
 import { WomanComponent } from './filter/woman/woman.component';
 import { ManComponent } from './filter/man/man.component';
-import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo email */
+//import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo email */
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo e
     CustomerRoutingModule,
     HttpClientModule,
     SharedModule,
-    MatDialogModule /* Ventana dialogo email*/
+    //MatDialogModule /* Ventana dialogo email*/
   ]
 })
 export class CustomerModule { }

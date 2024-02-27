@@ -55,11 +55,11 @@ export class AuthService {
           this.isLoggedInSubject.next(true);
           this.obtenerUsuario();
         }),
-
         map( () => true )
       )
       
-  }
+  };
+  
   obtenerUsuario(){
     if (localStorage.length === 0) {
       this.username='';
@@ -103,7 +103,6 @@ export class AuthService {
   register (user:User): Observable<User>{
     const urlRegister = 'http://localhost:3001/api/auth/register';
     const body = { user };
-    console.log("dentro del servicio aut register"+body)
     return this.http.post<User>( urlRegister, body )
       .pipe(  
         map(  () => user   ),

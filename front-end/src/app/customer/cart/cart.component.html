@@ -13,21 +13,32 @@
         <div class="productCart-buttons">
             <div class="productCart-buttons-operators">
                 <!-- se cambió a botones porque en los tipo texto, noe pueden implementar métodos -->
-                <button  (click)="updateUnits('minus', product.id_product)">
+                <button (click)="updateUnits('minus', product.id_product)">
                     <i class="fa-solid fa-minus"></i>
                 </button>
                 <span>{{product.cantidad}}</span>
-                <button  (click)="updateUnits('add', product.id_product)" [disabled]="!canAddUnitWithoutExceedingStock(product.id_product)" >
-                <i class="fa-solid fa-plus"></i>
+                <button (click)="updateUnits('add', product.id_product)"
+                    [disabled]="!canAddUnitWithoutExceedingStock(product.id_product)">
+                    <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
             <i class="fa-solid fa-trash" (click)="deleteProduct(product.id_product)"></i>
-            
-            
+
+
         </div>
     </article>
     <div class="cartTotal">
         <p class="cartTotal-total">Total: $ {{totalCart()}}</p>
     </div>
-    <button class="cart-btn" (click)="openDialogCustom()" [disabled]="isCartEmpty" (click)="checkout()" >ir a pagar</button>
+    <button class="cart-btn" (click)="onToggleEmail()"  >ir a pagar</button><!--(click)="openDialogCustom()"-->   
+</div>
+<!--Email-->
+<div class="email" [ngClass]="{'show' : viewEmail}">
+    <!--Cerrar la ventana-->
+    <div class="close-button p-2">
+        <button class="btn btn-light" (click)="closeModal()">X</button><!--Cerrar ventana-->
+    </div>
+    <div class="email-inner">
+        <app-email></app-email>
+    </div>
 </div>

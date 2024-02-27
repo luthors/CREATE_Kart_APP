@@ -29,16 +29,11 @@ export class DetailsProductsComponent implements OnInit {
 
     // this.product=this.apiProductsAllService.getProductDetails();
     const id = Number(this.route.snapshot.paramMap.get('id'));  
-    console.log(id)  
     this.apiProductsAllService.getProductById(id).subscribe((res: any)=>{
       this.product = res[0]
-      console.log(this.product)
       this.colors=this.product.colors
-      console.log(this.colors)
       this.tallas=this.product.sizes
-      console.log(this.tallas)
-      this.loadedData=true
-    
+      this.loadedData=true    
       })
   }
 
@@ -55,12 +50,11 @@ export class DetailsProductsComponent implements OnInit {
   //     this.listaProductos=data
   //   ])
   // }
+      
   addToCart(product:Product){
     return this.apiProductsAllService.addProduct(product);
   }
 
-/* Cantidad */
-// numero: number = 1
 
 
 }

@@ -32,7 +32,6 @@ export class ManComponent {
     //de poner un "/" despues de copiar la baseUrl 
     this.apiProductsAllService.get(`${this.baseUrl}/products`).subscribe(data => [
       this.listaProductos=data,
-      console.log(this.listaProductos)
     ])
   }
   
@@ -52,7 +51,6 @@ export class ManComponent {
 getProductsCategory(){
   this.apiProductsAllService.getProductsByMan().subscribe((res: any)=>{
   this.products = res
-  console.log(this.products)
   this.listaProductos = this.products
 
   })

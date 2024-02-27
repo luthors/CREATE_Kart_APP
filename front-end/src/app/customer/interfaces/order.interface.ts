@@ -3,7 +3,6 @@ export interface OrderHeader{
 }
 
 export interface OrderDetail{
-    order_:number,
     product:number,
     quantify:number,
     total:number

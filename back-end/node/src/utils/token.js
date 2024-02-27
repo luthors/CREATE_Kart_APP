@@ -15,4 +15,6 @@ const generateToken = (user,role) =>{
     return result;
 }
 
-export default generateToken
+
+
+export default generateToken;

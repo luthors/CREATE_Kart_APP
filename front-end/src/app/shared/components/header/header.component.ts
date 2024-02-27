@@ -61,7 +61,6 @@ export class HeaderComponent implements OnInit {
   //Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadSearch", cargar búsqueda.
   //Filter se puede filtrar por marca, precio, color, talla.
   loadSearch(){
-    console.log('this.search --> ',this.search)
     /*Si es tipo string y validar si el tamaño de la cadena de texto está vacia,  ?searchNY=${}  Recibir en la url de mi api de lo que venga la variable.  */
     const filter = (typeof this.search == 'string' && this.search.length > 0) ? `${this.search}`: '';
     if(filter){
