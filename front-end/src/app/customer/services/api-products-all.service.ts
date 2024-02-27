@@ -92,13 +92,14 @@ export class ApiProductsAllService {
     if (existingProduct) {
       // Si el producto ya existe en el carrito
       if (this.canAddUnitWithoutExceedingStock(existingProduct.id_product)) {
-        existingProduct.cantidad = existingProduct.cantidad + 1;
+        existingProduct.cantidad = existingProduct.cantidad + product.cantidad;
       } else {
         console.log("No se puede agregar más cantidad. Stock máximo alcanzado.");
+        
       }
     } else {
       // Si el producto no existe en el carrito
-      product.cantidad = 1;
+      // product.cantidad = 1
       this.myList.push(product);
     }
     this.myCart.next(this.myList);
@@ -144,6 +145,11 @@ export class ApiProductsAllService {
   canAddUnitWithoutExceedingStock(productId: number): boolean {
     const product = this.findProductById(productId);
     return product ? product.cantidad + 1 <= product.quantify : false;
+  }
+
+  updateLS(){
+    this.myCart.next(this.myList);
+    localStorage.setItem('cart', JSON.stringify(this.myList));
   }
 
 

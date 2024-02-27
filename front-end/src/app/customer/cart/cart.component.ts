@@ -106,10 +106,19 @@ export class CartComponent implements OnInit {
     if(product){
       if (operation === "minus" && product.cantidad>0){
         product.cantidad=product.cantidad-1;
+        // product.cantidad=-1
+        // this.productsAllService.addProduct(product)
+        // funcion para actualizar en el localStorage
+        this.productsAllService.updateLS()
+
       }//el metodo de la api impide que se agregue una cantidad
       //mayor a la existente
       if(operation === "add" && this.productsAllService.canAddUnitWithoutExceedingStock(id)){
         product.cantidad=product.cantidad+1;
+        // product.cantidad=1
+        // this.productsAllService.addProduct(product)
+        // funcion paa actualiza en el localStorage
+        this.productsAllService.updateLS()
       }
       if (product.cantidad===0) {
         this.deleteProduct(id);        
@@ -126,6 +135,7 @@ export class CartComponent implements OnInit {
   canAddUnitWithoutExceedingStock(productId: number): boolean {
     return this.productsAllService.canAddUnitWithoutExceedingStock(productId);
   }
+  
   //saber si el carrito está vacío
   get isCartEmpty() {
     return this.productsAllService.isCartEmpty();

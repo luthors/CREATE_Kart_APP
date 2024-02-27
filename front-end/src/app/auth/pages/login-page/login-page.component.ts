@@ -25,6 +25,15 @@ export class LoginPageComponent implements OnInit{
   ngOnInit() {
   }
 
+  validateEmail(control:any) {
+    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if (emailPattern.test(control.value) && control.value.endsWith('.com')) {
+      return null;
+    } else {
+      return { 'invalidEmail': true };
+    }
+  }
+
   get correoNovalid(){
     return this.usuario.get('email')?.invalid && this.usuario.get('email')?.touched
   }
@@ -36,8 +45,8 @@ export class LoginPageComponent implements OnInit{
     this.usuario=this.fb.group({
 
 
-      email:    ['', [ Validators.required, Validators.email ] ],
-      password: ['', [ Validators.required] ]
+      email:    ['', [ Validators.required, Validators.email, this.validateEmail] ],
+      password: ['', [ Validators.required, Validators.maxLength(35)] ]
     });
   }
 

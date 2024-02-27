@@ -9,6 +9,7 @@ import { DetailsProductsComponent } from './details-products/details-products.co
 import { WomanComponent } from './filter/woman/woman.component';
 import { ManComponent } from './filter/man/man.component';
 import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo email */
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo e
     CustomerRoutingModule,
     HttpClientModule,
     SharedModule,
-    MatDialogModule /* Ventana dialogo email*/
+    MatDialogModule, /* Ventana dialogo email*/
+    FormsModule
   ]
 })
 export class CustomerModule { }
