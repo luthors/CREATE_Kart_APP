@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/welcome/services/api.service'; //Search
 import { ApiProductsAllService } from 'src/app/customer/services/api-products-all.service';
+import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { ApiProductsAllService } from 'src/app/customer/services/api-products-al
 
 export class HeaderComponent implements OnInit {
   up:boolean=true;
+  visible:boolean=false;
   search: String=''; //Variable para buscar
   isLoggedIn: boolean = false;
   username: string = '';
@@ -28,6 +30,19 @@ export class HeaderComponent implements OnInit {
     }else{
       this.up=true;
     }
+  }
+
+  openMenu(){
+    this.visible=true
+  }
+  closeMenu(){
+    this.visible=false
+  }
+  women(){
+    this.router.navigate(['products/woman'])
+  }
+  men(){
+    this.router.navigate(['products/man'])
   }
 
   logout(){
@@ -67,5 +82,16 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/products'], { queryParams: { filter: filter}});
     }
     
+  }
+
+  getcartsize(){
+    const cart = localStorage.getItem('cart');
+    if(!cart){
+      return 0
+    }
+    const values=JSON.parse(cart);
+    const total = values.reduce((acumulador:number, item:any) => acumulador + item.cantidad, 0)
+    // const total = values.reduce(function(acc,product){return acc + (product.cantidad*product.price);},0);
+    return total;
   }
 }

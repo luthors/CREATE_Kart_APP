@@ -6,59 +6,47 @@
 <br>
 <br>
 <br>
-<div class="image-container">
-    <img class="image" src="{{product.url}}">
-</div>
+    <div class="image-container">
+        <img class="image" src="{{product.url}}">
+    </div>
         
-<div class="content-container">
-    <h1> {{product.title}}</h1>
-    <h4>{{product.name_brand}}</h4>
-    <h2 class="mt-5">$ {{product.price}}</h2>
-    <p>{{product.descrip}}</p>
+    <div class="content-container">
+        <!-- titulo -->
+        <h1> {{product.title}}</h1>
+        <!-- marca -->
+        <h4>{{product.name_brand}}</h4>
+        <!-- precio -->
+        <h2 class="mt-5">$ {{product.price}}</h2>
+        <!-- descripcion -->
+        <p>{{product.descrip}}</p>
 
-    <h2 >Talla</h2>
-    <select name="tallas" id="tallas_">
-        <option *ngFor="let talla of getTallasKeys()">{{talla}}</option>
-        <!-- <option value="xs">XS</option>
-        <option value="s">S</option>
-        <option value="m">M</option>
-        <option value="l">L</option>
-        <option value="xl">XL</option>
-        <option value="xxl">XXL</option> -->
-    </select>
-    <!-- <h2>Cantidad</h2>
-    <div>
-        <button class="botonCantidad" (click)="numero = numero - 1">-</button>
-        <span>{{ numero }}</span>
-        <button class="botonCantidad" (click)="numero = numero + 1">+</button>
-    </div> -->
-
-    <h2 class="mt-3">Color</h2>
-    <div class="color-selector" >
-        <div class="color-circle" *ngFor="let color of getColorKeys()"   class="{{ color }}"></div>
-        <!-- <p>{{color}}</p> -->
+        <!-- <form [formGroup]="productForm" (ngSubmit)="addToCart(product)"> -->
+            <!-- talla -->
+            <h2 >Talla</h2>
+            <select (ngModel)="tallaSeleccionada" (change)="ontallaChange($event)">
+                <option value="{{talla}}" *ngFor="let talla of getTallasKeys()">{{talla}}</option>
+            </select>
+            <!-- cantidad -->
+            <h2>Cantidad</h2>
+            <div>
+                <button class="botonCantidad" (click)="numero = numero - 1" [disabled]="noNegative()">-</ button>
+                <span>{{ numero }}</span>
+                <button class="botonCantidad" (click)="numero = numero + 1" [disabled]="exceedingStock(product)">+</ button>
+            </div>
+            <!-- color -->
+            <h2 class="mt-3">Color</h2>
+            <div class="color-selector" >
+                <div class="color-circle" *ngFor="let color of getColorKeys()"   class="{{ color }}" (click)="selectedColor(color)"></div>
+            <!-- <p>{{color}}</p> -->
+            </div>
+            <br>
+            <!-- añadir al carrito -->
+            <div class="d-flex justify-content-center">
+                <button class="btn btn boton" (click)="addToCart(product)" [disabled]="caracteristicasOK" >
+                    <span class="cart-icon text-light"><i class="fa-solid fa-cart-shopping"></i></span>
+                    Añade a la cesta 
+                </button>
+            </div> 
+        <!-- </form> -->
     </div>
-<br>
-    <div class="d-flex justify-content-center">
-        <button class="btn btn boton" (click)="addToCart(product)" >
-            <span class="cart-icon text-light"><i class="fa-solid fa-cart-shopping"></i></span>
-            Añade a la cesta </button>
-    </div> 
-    </div>
-</div>
-
-<div class="container">
-<div class="relacionados">
-    <h1>Productos relacionados</h1>
-    <br>
-    <div class="container-image">
-        <div class="item" id="item1">
-            <h2>item 1</h2><!--Se reemplaza con la imagen-->
-        </div>
-        <div class="item" id="item2">
-            <h2>item 2</h2><!--Se reemplaza con la imagen-->
-        </div>
-        <div class="item" id="item3">
-            <h2>item 3</h2><!--Se reemplaza con la imagen-->
-        </div>
 </div>

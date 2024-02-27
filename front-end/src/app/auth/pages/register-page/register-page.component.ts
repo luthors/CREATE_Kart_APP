@@ -19,6 +19,15 @@ export class RegisterPageComponent {
     this.crearformulario();
   }
 
+  validateEmail(control:any) {
+    const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if (emailPattern.test(control.value) && control.value.endsWith('.com')) {
+      return null;
+    } else {
+      return { 'invalidEmail': true };
+    }
+  }
+
   get tip_docNovalid(){
     return this.person.get('tip_doc')?.invalid && this.person.get('tip_doc')?.touched
   }
@@ -54,9 +63,9 @@ export class RegisterPageComponent {
       num_doc:['', Validators.required],
       nombre:['', Validators.required],
       apellido:['', Validators.required],
-      correo:['', [Validators.required, Validators.email]],
+      correo:['', [Validators.required, Validators.email, this.validateEmail]],
       role:[2],
-      contrasena:['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/)]],
+      contrasena:['', [Validators.required,Validators.maxLength(35), Validators.minLength(6), Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/)]],
       passConf:['', [Validators.required, this.validarConfirmacion('contrasena')]]
     });
   }
