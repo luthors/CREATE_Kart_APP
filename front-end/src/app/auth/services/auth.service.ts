@@ -96,6 +96,7 @@ export class AuthService {
   get getUsername() {
     return this.username;
   }
+
   getUserId(){
     return this.idUser;
   }
@@ -108,4 +109,6 @@ export class AuthService {
         map(  () => user   ),
       )
   }
+  
+  
 }

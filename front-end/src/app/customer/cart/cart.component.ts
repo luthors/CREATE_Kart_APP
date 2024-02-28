@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
-import { OrderDetail, OrderHeader } from '../interfaces/order.interface';
 import { OrderCartService } from '../services/order-cart.service';
 import { ApiProductsAllService } from '../services/api-products-all.service';
-import { NonNullableFormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environments';
 import { DialogService } from '../services/dialog.service';
+import { CartService } from '../services/cart.service';/*View productos carrito en plantilla email de button confirmar: 2 */
 
 @Component({
   selector: 'app-cart',
@@ -24,13 +21,20 @@ export class CartComponent implements OnInit {
   viewEmail: boolean=false;
   up:boolean=true;
 
-  /*Email: Detalles del carrito del cliente */
+  /*Dirección de residencia */
 
 
-  constructor(private productsAllService: ApiProductsAllService, private dialogService: DialogService, private Order: OrderCartService) { }
+  constructor(private productsAllService: ApiProductsAllService, private dialogService: DialogService, private Order: OrderCartService, private cartService: CartService) { }
 
   ngOnInit(): void {
+    /*View productos carrito en plantilla email de button confirmar: 1 */
+    this.loadCart();
+  }
 
+  /*View productos carrito en plantilla email de button confirmar: 3 */
+  loadCart() {
+    const cartProducts = this.productsAllService.getCartProducts();
+    this.cartService.updateCartProducts(cartProducts);
   }
 
   totalProducts(price: number, units: number) {
@@ -72,7 +76,11 @@ export class CartComponent implements OnInit {
     return this.productsAllService.isCartEmpty();
   };
 
-  
+  /* Valid button "ir a pagar" */
+  validCart(){
+    const token = localStorage.getItem('token');
+    return !this.isCartEmpty && this.totalCart()>0 &&  token!= null
+  }
 
 
   //obtener los productos
@@ -85,8 +93,18 @@ export class CartComponent implements OnInit {
 
   /* Ventana dialogo email */
   onToggleEmail(){
-    console.log(this.viewEmail)
-    this.viewEmail = !this.viewEmail
+    /*Lógica alert iniciar sesión y productos en el carrito.  */
+    if(this.isCartEmpty){
+      alert('No existen productos en el carrito')
+    }
+    else if(this.validCart()){
+      this.viewEmail = !this.viewEmail
+    } else {
+      alert('Por favor, iniciar sesión.')
+    }
+    
+    /* */
+
   }
 
   /*Cerrar la ventana de Email */
@@ -97,4 +115,5 @@ export class CartComponent implements OnInit {
   openDialogCustom() {
     this.dialogService.openDialogCustom()
   };
+  
 }

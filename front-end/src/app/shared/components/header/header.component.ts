@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
     // this.username = '';
     this.router.navigate(['/'])
   }
+  
   loginpage(){
     this.router.navigate(['/auth/login'])
   }

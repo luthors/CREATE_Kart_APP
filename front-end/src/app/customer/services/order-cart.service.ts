@@ -27,6 +27,4 @@ export class OrderCartService {
     return this.http.post(`${this.apiUrl}/api/orderheader`, data, {headers:headers});
   }
 
-
-
 }

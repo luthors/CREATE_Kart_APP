@@ -1,10 +1,11 @@
 <div class="productCart-wrapper">
     <article class="productCart" *ngFor="let product of myCart$ |async">
+        <img src="{{product.url}}" style="max-width: 50px; max-height: 50px; margin-right: 10px; align-items: center;">
         <div class="product-body">
             <p>{{product.title}}</p>
             <div class="product-body-info">
                 <p>$ {{product.price}}</p>
-                <p>{{product.cantidad}}</p>
+                <p>cantidad: {{product.cantidad}}</p>
             </div>
         </div>
         <div class="productCart-total">
@@ -30,7 +31,7 @@
     <div class="cartTotal">
         <p class="cartTotal-total">Total: $ {{totalCart()}}</p>
     </div>
-    <button class="cart-btn" (click)="onToggleEmail()"  >ir a pagar</button><!--(click)="openDialogCustom()"-->   
+    <button class="cart-btn" (click)="onToggleEmail()">ir a pagar</button><!--(click)="openDialogCustom()"-->   
 </div>
 <!--Email-->
 <div class="email" [ngClass]="{'show' : viewEmail}">
@@ -39,6 +40,6 @@
         <button class="btn btn-light" (click)="closeModal()">X</button><!--Cerrar ventana-->
     </div>
     <div class="email-inner">
-        <app-email></app-email>
+        <app-email [viewEmail]="viewEmail"></app-email>
     </div>
 </div>

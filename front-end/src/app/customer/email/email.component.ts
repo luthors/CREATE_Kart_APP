@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiProductsAllService } from '../services/api-products-all.service';
-import { ElementRef } from '@angular/core';/*Mensaje tabla de pedidos */
+import { ElementRef } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
-import { OrderDetail } from '../interfaces/order.interface';
 import { OrderCartService } from '../services/order-cart.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { DialogService } from '../services/dialog.service';
+import { AddressService } from '../services/address.service'; /*Dirección de residencia */
 
 @Component({
   selector: 'app-email',
@@ -14,86 +17,78 @@ import { OrderCartService } from '../services/order-cart.service';
 })
 export class EmailComponent implements OnInit {
 
-  title = 'envioCorreos';
-  datos:FormGroup;
-  orderlist: any = [];
+  @Input() viewEmail: boolean = false; // Definición de la propiedad de entrada viewEmail
   
-  /*Email: Detalles de los productos del carrito del cliente */
-  cartProducts: Product[] = [];  /*almacenar los productos del carrito*/
 
-  constructor(private httpclient: HttpClient, private productsAllService: ApiProductsAllService, private elementRef: ElementRef, private Order: OrderCartService){
+  title = 'envioCorreos';
+  datos: FormGroup;
+  
+  @Input() cartProducts: Product[] = [];
+  @Input() totalOrder: number = 0;
+  username: string = '';
+
+  constructor(private httpclient: HttpClient, private productsAllService: ApiProductsAllService, private elementRef: ElementRef, private Order: OrderCartService, public authService: AuthService, private router: Router, private dialogService: DialogService, private addressService: AddressService) {
     this.datos = new FormGroup ({
       correo: new FormControl('',[Validators.required, Validators.email]),
       mensaje: new FormControl('',Validators.required)
     })
+
+    this.username = this.authService.getUsername;
+    this.cartProducts = this.productsAllService.getCartProducts();
   } 
 
   ngOnInit(): void {
-    this.cartProducts = this.productsAllService.getCartProducts();
+
   } 
   
   envioCorreo() {
-    this.orderlist=[];
-    console.log(this.orderlist);
-    this.productsAllService.getCart().subscribe(
-      
-      cartProducts => {
-        cartProducts.forEach(element => {
-          const newOrderDetail: OrderDetail = {
-            product: element.id_product,
-            quantify: element.cantidad,
-            total: element.cantidad * element.price
-          };
-          this.orderlist.push(newOrderDetail);
-        });
-        console.log(this.orderlist,'lista repetida');
-        this.createOrderDetail(this.orderlist);
-      },
-      error => {
-        console.error("Error al clasificar la orden", error);
-      }
-    );
+    const userAddress = this.datos.value.mensaje;
+    const orderDetails = this.cartProducts.map(product => ({
+      product: product.id_product,
+      quantify: product.cantidad,
+      total: product.price * product.cantidad
+    }));
+    this.Order.createOrderDetail(orderDetails, userAddress).subscribe(response => {
+      console.log('Registro realizado', response);
+      this.addressService.updateCustomerAddress(userAddress) /*Dirección de residencia */
+      this.sendEmail();
+    });
   }
-  // se encarga de registrar los productos
+
+
+  sendEmail() {
+    console.log('Enviar correo electrónico aquí');
+    
+    this.cleanCart();
+    
+    this.router.navigateByUrl('/products/template');
+  }
+
+
   createOrderDetail(newOrderDetail: any) {
     let address = this.datos.value.mensaje;
     this.Order.createOrderDetail(newOrderDetail, address).subscribe(response => {
       console.log('Registro realizado',response);
     });
-    // this.productsAllService.cartClear();
+    this.router.navigateByUrl('/products/template');
   }
 
 
-
-  buildTableRows() {
-    let tableRows = '';
-
-    this.cartProducts.forEach(product => {
-      tableRows += `
-        <tr class="table-light">
-          <td><img src="${product.url}" alt="${product.title}" style="max-width: 100px; max-height: 100px;"></td>
-          <td>${product.descrip}</td>
-          <td>${product.title}</td>
-          <td>$ ${product.price}</td>
-          <td>${product.cantidad}</td>
-          <td>$ ${product.price * product.cantidad}</td>
-        </tr>
-      `;
-    });
-
-    return tableRows;
+  confirmarPedido() {
+    this.envioCorreo();
   }
 
-  get cleanCart() {
-    return this.productsAllService.cartClear();
-  };
 
-
+  cleanCart() {
+    this.productsAllService.cartClear();
+    this.router.navigateByUrl('/products/template');
+  }
 
   calcularTotalPedido(): number {
     let total = 0;
     this.cartProducts.forEach(product => {
       total += product.price * product.cantidad;
+      return this.totalOrder;
     });
     return total;
   }

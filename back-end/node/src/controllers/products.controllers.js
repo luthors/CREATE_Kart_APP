@@ -757,7 +757,7 @@ const getProductsDetails = async (orderDetails) => {
     try {
         let productsDetails = [];
         for (const item of orderDetails) {
-            const [product] = await pool.query('SELECT title, price, url FROM products WHERE id_product = ?', [item.product]);
+            const [product] = await pool.query('SELECT p.title, p.descrip, p.price, p.url, od.quantify, od.date_, od.total FROM products p INNER JOIN orders_detail od ON p.id_product = od.product WHERE p.id_product = ? ORDER BY date_ desc', [item.product]);
             if (product.length > 0) {
                 productsDetails.push({
                     ...product[0]
