@@ -4,31 +4,26 @@ import { ListProductsComponent } from './admin-shared/list-products/list-product
 
 const routes: Routes = [
   {
-    path:'auth',
+    path: 'auth',
     // guard
-    loadChildren:()=> import('./auth/auth.module').then(m =>m.AuthModule),
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path:'dashboard',
+    path: 'dashboard',
     // guard
-    loadChildren:()=> import('./dashboard/dashboard.module').then(m =>m.DashboardModule),
-  },
-  // {
-  //   path:'**',
-  //   // guard
-  //   redirectTo: 'auth',
-  // },
-  {
-    path:'',
-    loadChildren:()=> import('./welcome/welcome.module').then(m =>m.WelcomeModule)
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
   },
   {
-    path:'products',
-    loadChildren:()=> import('./customer/customer.module').then(m =>m.CustomerModule)
+    path: '',
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
   },
   {
-    path:'admin',
-    loadChildren:()=> import('./admin/admin.module').then(m=>m.AdminModule)
+    path: 'products',
+    loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   }
 ];
 

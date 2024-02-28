@@ -1,8 +1,8 @@
-body{
+body {
     background-color: black;
     margin: 0;
 }
-.footer{
+.footer {
     padding: 10px 0;
 }
 .footer .social {
@@ -10,7 +10,7 @@ body{
     padding-bottom: 5px;
     color: white;
 }
-.footer .social a{
+.footer .social a {
     font-size: 24px;
     color: #fff;
     border: 1px solid #fff;
@@ -22,12 +22,10 @@ body{
     margin: 0 8px;
     opacity: 0.75;
 }
-
-.footer .social a:hover{
+.footer .social a:hover {
     opacity: 0.9;
 }
-
-.tel{
+.tel {
     margin-top: 0;
     padding: 0;
     font-size: 18px;
@@ -36,8 +34,7 @@ body{
     text-align: center;
     color: #fff;
 }
-
-.copyright{
+.copyright {
     margin-top: 15px;
     text-align: center;
     font-size: 18px;

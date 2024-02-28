@@ -1,15 +1,10 @@
 <meta charset="UTF-8">
-
 <title>Correo electrónico</title>
-
 <div class="modal-container">
     <form [formGroup]="datos">
         <div class="row justify-content-center">
             <div class="col-lg-20">
                 <h4 class="text-center p-2">Datos del usuario</h4>
-
-                <!-- <input type="email" placeholder="Correo" class="form-control mb-2" formControlName="correo"> -->
-                <!--Mensaje: Dirección de entrega-->
                 <div>
                     <b><br><a>Dirección de entrega: </a></b>
                     <!--<a>Especifique (ciudad, barrio y nomenclatura de la casa), es importante para entregar su pedido. </a>-->
@@ -47,11 +42,9 @@
                     </table>
                     <a><b>Valor total:</b> {{ calcularTotalPedido() | currency }}</a>
                 </div>
-
-
-
                 <div class="text-center p-2">
-                    <button class="btn btn-dark botonEmail" (click)="envioCorreo()" (click)="cleanCart">Confirmar</button>
+                    <button class="btn btn-dark botonEmail" (click)="envioCorreo()"
+                        (click)="cleanCart">Confirmar</button>
                 </div>
             </div>
         </div>
