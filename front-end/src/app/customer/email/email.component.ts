@@ -30,7 +30,6 @@ export class EmailComponent implements OnInit {
   }
   envioCorreo() {
     this.orderlist = [];
-    console.log(this.orderlist);
     this.productsAllService.getCart().subscribe(
       cartProducts => {
         cartProducts.forEach(element => {

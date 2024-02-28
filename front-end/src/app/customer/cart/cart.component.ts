@@ -67,7 +67,6 @@ export class CartComponent implements OnInit {
   };
   /* Ventana dialogo email */
   onToggleEmail() {
-    console.log(this.viewEmail)
     this.viewEmail = !this.viewEmail
   }
   /*Cerrar la ventana de Email */
