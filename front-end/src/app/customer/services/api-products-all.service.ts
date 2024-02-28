@@ -19,6 +19,8 @@ export class ApiProductsAllService {
   //para enviar al detalle de producto
   private productDet: any;
 
+  public noStock:boolean=false;
+
 
   constructor(private http: HttpClient) {
 
@@ -63,13 +65,16 @@ export class ApiProductsAllService {
       // Si el producto ya existe en el carrito
       if (this.canAddUnitWithoutExceedingStock(existingProduct.id_product)) {
         existingProduct.cantidad = existingProduct.cantidad + product.cantidad;
+        this.noStock=false;
       } else {
         console.log("No se puede agregar más cantidad. Stock máximo alcanzado.");
+        this.noStock=true;
+        console.log(this.noStock)
 
       }
     } else {
       
-        product.cantidad = 1;
+        // product.cantidad = 1;
         this.myList.push(product);
         console.log("Producto agregado");
 
@@ -85,6 +90,7 @@ export class ApiProductsAllService {
     this.myCart.next(this.myList);
     // Guardar el carrito actualizado en el almacenamiento local
     localStorage.setItem('cart', JSON.stringify(this.myList));
+    this.noStock=false;
   }
 
   findProductById(id: number) {

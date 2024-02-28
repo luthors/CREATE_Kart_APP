@@ -26,12 +26,14 @@ export class DetailsProductsComponent implements OnInit {
   public colors:any =[];
   public tallas:any =[];
 
+  noStock:boolean=false;
+
   constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private route: ActivatedRoute, private fb:FormBuilder){
-    // this.crearformulario();
+    // this.crearformulario();   
   }
 
 /*app - header*/
-  ngOnInit(): void {
+  ngOnInit(): void { 
     // this.llenarData();
     // Estilos del body
     this.renderer.setStyle(document.body, 'background-color', 'black');
@@ -45,7 +47,7 @@ export class DetailsProductsComponent implements OnInit {
       this.colors=this.product.colors
       this.tallas=this.product.sizes
       this.loadedData=true    
-      })
+      })    
   }
 
   getColorKeys() {
@@ -101,7 +103,6 @@ export class DetailsProductsComponent implements OnInit {
     }
   }
 
-
   addToCart(product:Product){    
 
     this.productSelected={
@@ -121,5 +122,14 @@ export class DetailsProductsComponent implements OnInit {
     }
     // console.log(this.productSelected);
     return this.apiProductsAllService.addProduct(this.productSelected);
+  }
+
+  sinStock(){
+    this.noStock=this.apiProductsAllService.noStock;
+    console.log(this.noStock)
+  }
+
+  cambiarEstado(){
+    this.noStock=false
   }
 }
