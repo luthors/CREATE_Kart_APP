@@ -7,26 +7,24 @@ import { WomanComponent } from './filter/woman/woman.component';
 import { ManComponent } from './filter/man/man.component';
 
 
-const routes: Routes =[
+const routes: Routes = [
   {
-    path:'',
-    component:ProductsComponent,
+    path: '',
+    component: ProductsComponent,
   },
   {
     path: 'detailsproducts/:id',
-    component:DetailsProductsComponent
+    component: DetailsProductsComponent
   },
   {
-    path:'woman',
-    component:WomanComponent
+    path: 'woman',
+    component: WomanComponent
   },
   {
-    path:'man',
-    component:ManComponent
+    path: 'man',
+    component: ManComponent
   }
 ]
-
-
 @NgModule({
   declarations: [],
   imports: [

@@ -1,46 +1,43 @@
-.container{
+.container {
     display: flex;
-    justify-content: center;/*Centrar*/
+    justify-content: center;
+    /*Centrar*/
     /*Espacio entre las dos columnnas*/
-    grid-template-columns: 1fr 1fr;/*Columnas*/
-    max-width: 1100px; /*El encabezado cambie de color al bajar la barra derecha de vista.*//**/
-    padding-top: 8%;     
+    grid-template-columns: 1fr 1fr;
+    /*Columnas*/
+    max-width: 1100px;
+    /*El encabezado cambie de color al bajar la barra derecha de vista.*/
+    /**/
+    padding-top: 8%;
 }
-
-.image-container{
+.image-container {
     text-align: left;
 }
-
-.image{
+.image {
     height: 510px;
     width: 500px;
     margin-right: 20px;
 }
-
-.content-container{
+.content-container {
     text-align: right;
     background-color: white;
-    padding: 25px;/*Espacio entre los bordes del color del fondo.*/
+    padding: 25px;
+    /*Espacio entre los bordes del color del fondo.*/
     margin: 0px 10px;
     border-radius: 20px;
     text-align: justify;
-    
 }
-
-.content-container h1, h2, span{
+.content-container h1,
+h2,
+span {
     color: rgb(0, 0, 0);
 }
-
 p {
     color: rgb(68, 68, 68);
 }
-
 .color-selector {
     display: flex;
 }
-
-
-
 .color-circle {
     width: 30px;
     height: 30px;
@@ -48,75 +45,70 @@ p {
     margin: 0 5px;
     cursor: pointer;
 }
-
-.boton{
+.boton {
     background-color: #411794;
     color: #fff;
     border: none;
     cursor: pointer;
     border-radius: 18px;
     font-weight: bold;
-    height:50px; /* Ajusta la altura según tus necesidades */
+    height: 50px;
+    /* Ajusta la altura según tus necesidades */
     font-size: large;
-    width: 250px; /* Ajusta el ancho según tus necesidades */
+    width: 250px;
+    /* Ajusta el ancho según tus necesidades */
 }
-
 .cart-icon {
-    margin-right: 10px; /* Ajusta el valor según el espacio deseado */
+    margin-right: 10px;
+    /* Ajusta el valor según el espacio deseado */
 }
-
-.botonCantidad{
+.botonCantidad {
     border-radius: 10px;
     height: 30px;
     width: 30px;
     text-align: center;
     border-color: rgb(184, 184, 184);
 }
-
-.relacionados h1{
+.relacionados h1 {
     color: rgb(255, 249, 249);
     justify-content: center;
-
 }
-
-.Negro{
+.Negro {
     background-color: black;
 }
-.Amarillo{
+.Amarillo {
     background-color: yellow;
 }
-.Rojo{
+.Rojo {
     background-color: red;
 }
-.Azul{
+.Azul {
     background-color: blue;
 }
-.Verde{
+.Verde {
     background-color: green;
 }
-.Blanco{
+.Blanco {
     background-color: white;
 }
-
-.item{
-    margin: 10px;/*Espacios entre las imágenes*/
-    padding: 10px; /*Espacio del borde de la letra escrita.*/
-    float: left; /*Horizontal (items uno al lado del otro).*/
+.item {
+    margin: 10px;
+    /*Espacios entre las imágenes*/
+    padding: 10px;
+    /*Espacio del borde de la letra escrita.*/
+    float: left;
+    /*Horizontal (items uno al lado del otro).*/
 }
-
-.item h2{
+.item h2 {
     color: rgb(0, 0, 0);
 }
-
-#item1{
+#item1 {
     background-color: #ffffff;
 }
-
-#item2{
+#item2 {
     background-color: #ffffff;
 }
-
-#item3{
+#item3 {
     background-color: #ffffff;
 }
 

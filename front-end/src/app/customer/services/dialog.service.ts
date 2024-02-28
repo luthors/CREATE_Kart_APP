@@ -7,10 +7,8 @@ import { EmailComponent } from "../email/email.component";
 })
 
 export class DialogService {
-
-    constructor(private matDialog: MatDialog){}
-
-    openDialogCustom(){
+    constructor(private matDialog: MatDialog) { }
+    openDialogCustom() {
         this.matDialog.open(EmailComponent)
     }
 }

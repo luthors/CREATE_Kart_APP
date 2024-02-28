@@ -9,11 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DestacadosComponent } from './pages/destacados/destacados.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     HomeComponent,
