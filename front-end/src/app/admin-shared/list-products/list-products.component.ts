@@ -10,21 +10,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./list-products.component.css']
 })
 export class ListProductsComponent implements OnInit{
-
   //Array
   listProducts: productsInterface[]= [ /* Objeto */
     /*Parametros*/]
-
-    //
   loading: boolean = false;
-
   constructor(private _productService : ProductService, private toastr: ToastrService){ }
-
   ngOnInit(): void { 
     this.getListProducts();
-
   }
-
   /*Obtener lista de productos visualizar */
   getListProducts(){
     this.loading = true;
@@ -34,7 +27,6 @@ export class ListProductsComponent implements OnInit{
       this.loading = false;
     })
   }
-
   /*Eliminar producto */
   deleteProduct(id_product: number){
     console.log('ID del producto a eliminar:',id_product);

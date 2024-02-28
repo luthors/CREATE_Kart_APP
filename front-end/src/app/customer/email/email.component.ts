@@ -68,7 +68,7 @@ export class EmailComponent implements OnInit {
   createOrderDetail(newOrderDetail: any) {
     let address = this.datos.value.mensaje;
     this.Order.createOrderDetail(newOrderDetail, address).subscribe(response => {
-      console.log('Registro realizado',response);
+      console.log('Registro realizado', response);
     });
     this.router.navigateByUrl('/products/template');
   }

@@ -7,15 +7,15 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   {
-  path: '',
-  component: AuthLayoutComponent,
-  children: [
-    { path: 'login', component: LoginPageComponent },
-    { path: 'register', component: RegisterPageComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: '**', redirectTo: 'login' }
-  ]
-}
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      { path: 'login', component: LoginPageComponent },
+      { path: 'register', component: RegisterPageComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: '**', redirectTo: 'login' }
+    ]
+  }
 ];
 
 @NgModule({

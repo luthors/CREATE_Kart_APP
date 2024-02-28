@@ -24,23 +24,16 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.llenarData();
-
-
     // Estilos del body
     this.renderer.setStyle(document.body, 'background-color', 'black');
-    // this.renderer.setStyle(document.body, 'width','100%');
-    // this.renderer.setStyle(document.body, 'height','100vh');
-    // this.renderer.setStyle(document.body, 'display','flex');
     this.renderer.setStyle(document.body, 'justify-content', 'center');
     this.renderer.setStyle(document.body, 'align-items', 'center');
-    // this.renderer.setStyle(document, 'box-sizing', 'border-box');
   }
 
   /*Search */
   public llenarData() {
     this.route.queryParams.subscribe(params => {
       const filter = params["filter"];
-
       if (filter) {
         this.apiService.getSearchProducts(filter).subscribe(
           (response) => {
@@ -49,34 +42,22 @@ export class ProductsComponent implements OnInit {
           error => {
             console.error('Error en la búsqueda:', error);
           }
-
         )
       } else {
-        this.apiProductsAllService.get('http://localhost:3001/api/products').subscribe(data => [
+        this.apiProductsAllService.get(`${this.baseUrl}/api/products`).subscribe(data => [
           this.listaProductos = data
         ]);
-
       }
     });
-
-
   }
-
   addToCart(product: Product) {
     return this.apiProductsAllService.addProduct(product);
   }
-
   productDetail(product: Product) {
-    // this.apiProductsAllService.setProductDetails(product);
     if (product.id_product) {
       this.router.navigate(['/products/detailsproducts', product.id_product])
     }
-
   }
-
-
-
-
 }
 
 

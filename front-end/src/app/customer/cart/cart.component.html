@@ -6,6 +6,7 @@
             <div class="product-body-info">
                 <p>$ {{product.price}}</p>
                 <p>cantidad: {{product.cantidad}}</p>
+                <p>{{product.size}}</p>
             </div>
         </div>
         <div class="productCart-total">
@@ -24,8 +25,6 @@
                 </button>
             </div>
             <i class="fa-solid fa-trash" (click)="deleteProduct(product.id_product)"></i>
-
-
         </div>
     </article>
     <div class="cartTotal">

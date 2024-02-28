@@ -11,46 +11,37 @@ import { Product } from '../../interfaces/product.interface';
 })
 export class WomanComponent implements OnInit {
   baseUrl = environment.baseUrl
-  categories : any[] = [];
-  products : any[] = [];
-  public listaProductos:any =[]
-  constructor(private apiProductsAllService: ApiProductsAllService,private renderer: Renderer2, private router: Router,){}
+  categories: any[] = [];
+  products: any[] = [];
+  public listaProductos: any = []
+  constructor(private apiProductsAllService: ApiProductsAllService, private renderer: Renderer2, private router: Router,) { }
 
   ngOnInit(): void {
     this.getProductsCategory()
     // Estilos del body
     this.renderer.setStyle(document.body, 'background-color', 'black');
-    // this.renderer.setStyle(document.body, 'width','100%');
-    // this.renderer.setStyle(document.body, 'height','100vh');
-    // this.renderer.setStyle(document.body, 'display','flex');
-    this.renderer.setStyle(document.body, 'justify-content','center');
-    this.renderer.setStyle(document.body, 'align-items','center'); 
-    // this.renderer.setStyle(document, 'box-sizing', 'border-box');
+    this.renderer.setStyle(document.body, 'justify-content', 'center');
+    this.renderer.setStyle(document.body, 'align-items', 'center');
   }
-
-
-  public llenarData(){
+  public llenarData() {
     //para que funcione lo de las variables de entorno hay que asegurarse
     //de poner un "/" despues de copiar la baseUrl 
     this.apiProductsAllService.get(`${this.baseUrl}/products`).subscribe(data => [
-      this.listaProductos=data
+      this.listaProductos = data
     ])
   }
-  
-  addToCart(product:Product){
+  addToCart(product: Product) {
     return this.apiProductsAllService.addProduct(product);
   }
-  productDetail(product:Product){
-    this.apiProductsAllService.setProductDetails(product);
-    this.router.navigate(['/products/detailsproducts'])
+  productDetail(product: Product) {
+    if (product.id_product) {
+      this.router.navigate(['/products/detailsproducts', product.id_product])
+    }
   }
-
-
-getProductsCategory(){
-  this.apiProductsAllService.getProductsByWoman().subscribe((res: any)=>{
-  this.products = res
-  this.listaProductos = this.products
-
-  })
-}
+  getProductsCategory() {
+    this.apiProductsAllService.getProductsByWoman().subscribe((res: any) => {
+      this.products = res
+      this.listaProductos = this.products
+    })
+  }
 }

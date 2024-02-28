@@ -163,3 +163,52 @@ input::placeholder{
       font-size: 25px;
       font-style: italic;
     }
+
+.abrir-menu,
+.cerrar-menu{
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer; /* para mantener el cursor interactivo */
+}
+
+.menu-list{
+    list-style-type: none;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: end;
+}
+
+.menu-list li a{
+    text-decoration: none;
+    color: black;
+    font-size: 100%;
+    cursor: pointer;
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    position: fixed;
+    top: 0;
+    right: 0;
+    gap: 1rem;
+    bottom: 0;
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0,0.5);
+}
+
+.menu.invisible{
+    opacity: 0;
+    visibility: hidden;
+}
+
+.menu.visible{
+    opacity: 1;
+    visibility: visible;
+}

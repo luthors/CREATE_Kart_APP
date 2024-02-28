@@ -11,8 +11,7 @@
     <button type="button" class="btn btn-info" routerLink="/admin/add">Agregar producto</button>
   </div>
   <br>
-
-<table *ngIf="listProducts.length >0" class="table table-hover">
+  <table *ngIf="listProducts.length >0" class="table table-hover">
     <thead>
       <tr class="table-dark">
         <th class="fa-2x" scope="col">Productos</th>
@@ -34,7 +33,7 @@
     <tbody>
       <tr *ngFor="let item of listProducts"> <!--Iterar: *ngFor="let products"-->
         <td><img src="{{item.url}}" alt="{{item.title}}" style="max-width: 100px; max-height: 100px;"></td>
-        <td scope="row">{{item.title}}</td> <!--<th> </th>: Para poner en negrita, Interpolación--> 
+        <td scope="row">{{item.title}}</td> <!--<th> </th>: Para poner en negrita, Interpolación-->
         <td class="description">{{item.descrip}}</td>
         <td>{{item.price | currency}}</td><!--currency es para establecer el signo $ y los puntos del valor $30,000.00, acepta decimales. -->
         <!--<td>{{item.stock}}</td>-->
