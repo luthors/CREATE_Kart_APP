@@ -84,7 +84,7 @@ export const envioCorreo = (user, address, orderDetails) => {
                         <div>
                             <b><p style="text-align: center; font-size: 20px;">Dirección de entrega del pedido</p></b>
                             <p style="text-align: justify; font-size: 18px; margin-left: 20px;">Esta es la dirección que usted proporcionó para la entrega de la compra.</p>
-                            <p style="text-align: justify; margin-left: 20px; font-weight: bold; color: rgb(25, 43, 134); font-size: 18px;">${address}</p>
+                            <p style="text-align: justify; margin-left: 20px; font-weight: bold; color: rgb(25, 43, 134); font-size: 20px;">${address}</p>
                         </div>
                     </div> 
                 </div>

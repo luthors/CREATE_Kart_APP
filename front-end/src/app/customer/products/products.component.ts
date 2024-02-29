@@ -1,5 +1,4 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ApiProductsAllService } from '../services/api-products-all.service';
 import { Product } from '../interfaces/product.interface';
 import { Router, ActivatedRoute } from '@angular/router';

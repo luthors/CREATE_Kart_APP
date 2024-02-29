@@ -43,6 +43,7 @@ export class AuthService {
   obtenerUsuario() {
     if (localStorage.length === 0) {
       this.username = '';
+      this.idUser= '';
       this.isLoggedInSubject.next(false)
     } else {
       let usuario = localStorage.getItem('usuario')

@@ -20,8 +20,15 @@ export class CartComponent implements OnInit {
   viewEmail: boolean = false;
   up: boolean = true;
   /*Email: Detalles del carrito del cliente */
-  constructor(private productsAllService: ApiProductsAllService, private dialogService: DialogService, private Order: OrderCartService) { }
+  constructor(private productsAllService: ApiProductsAllService, private dialogService: DialogService, private Order: OrderCartService, private cartService: CartService) { }
   ngOnInit(): void {
+     /*View productos carrito en plantilla email de button confirmar: 1 */
+     this.loadCart();
+  }
+  /*View productos carrito en plantilla email de button confirmar: 3 */
+  loadCart() {
+    const cartProducts = this.productsAllService.getCartProducts();
+    this.cartService.updateCartProducts(cartProducts);
   }
   totalProducts(price: number, units: number) {
     return price * units;

@@ -6,11 +6,10 @@
 
     <ul>
       <!--Search-->
-      <!-- <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup.enter)="loadSearch()" [(ngModel)]="search">  -->
+      <input aria-label="Search" type="search" placeholder="Buscar producto" data-ms-editor="true" class="form-control ms-auto input-search" (keyup.enter)="loadSearch()" [(ngModel)]="search">
       
-      <!-- Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts". -->
+      <!-- No borrar:  Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadProducts". -->
 
-      <!--[(ngModel)]: Modelo de Angular-->
 
       &nbsp;<!--Espacios-->
       &nbsp;
@@ -33,7 +32,8 @@
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}">Hello {{username}}!</a></li>
       <li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i></a></li>
       
-      <!-- Editar perfil -->
+      <!-- No borrar: 
+        Editar perfil -->
       <!--<li *ngIf="isLoggedIn"><a [ngClass]="{'linkup':up,'linkdown':!up}" routerLink='auth/profile'><i class="fa-solid fa-user-pen"></i></a></li>-->
 
       <!--Barra de despliegue-->

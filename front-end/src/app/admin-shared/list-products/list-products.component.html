@@ -1,8 +1,9 @@
 <app-progress-bar *ngIf="loading"></app-progress-bar>
 <div *ngIf="!loading" class="container">
   <div class="title">
-    <!--<b><h4>Lista de productos</h4></b>-->
-    <!--<div>
+    <b><h4>Lista de productos</h4></b>
+    <!--  No borrar
+    <div>
       <form class="d-flex me-sm-3">
         <input class="form-control me-sm-2" type="search" placeholder="Search" spellcheck="false" data-ms-editor="true">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -19,14 +20,14 @@
         <th scope="col"></th>
         <th scope="col"></th>
         <th scope="col"></th>
-        <!--<th class="text-end fa-2x" scope="col" ><img src="../../../../assets/filter.png" alt="filter" class="img-fluid"></th><!--Filtrar-->
+        <!--No borrar <th class="text-end fa-2x" scope="col" ><img src="../../../../assets/filter.png" alt="filter" class="img-fluid"></th><!--Filtrar-->
       </tr>
       <tr class="table-secondary">
         <th scope="col"></th>
         <th scope="col">Nombre</th>
         <th scope="col">Descripción</th>
         <th scope="col">Precio</th>
-        <!--<th scope="col">Stock</th>-->
+        <!--No borrar <th scope="col">Stock</th>-->
         <th scope="col">Detalles</th>
       </tr>
     </thead>
@@ -36,7 +37,7 @@
         <td scope="row">{{item.title}}</td> <!--<th> </th>: Para poner en negrita, Interpolación-->
         <td class="description">{{item.descrip}}</td>
         <td>{{item.price | currency}}</td><!--currency es para establecer el signo $ y los puntos del valor $30,000.00, acepta decimales. -->
-        <!--<td>{{item.stock}}</td>-->
+        <!-- No borrar <td>{{item.stock}}</td>-->
         <td>
           <button routerLink="/admin/edit/{{ item.id_product }}" type="button" class="btn btn-success">Editar</button>
           <button (click)="deleteProduct(item.id_product!)" type="button" class="btn btn-danger ms-2">Eliminar</button>

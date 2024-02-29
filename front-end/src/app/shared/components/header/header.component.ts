@@ -60,6 +60,7 @@ export class HeaderComponent implements OnInit {
     // obtener norble del usuario logeado    
     this.username = this.authService.getUsername;
   }
+  /*No borrar */
   //Search
   //Keyup: Cuando se escribe algo escucha los cambios, es un metodo "loadSearch", cargar búsqueda.
   //Filter se puede filtrar por marca, precio, color, talla.
