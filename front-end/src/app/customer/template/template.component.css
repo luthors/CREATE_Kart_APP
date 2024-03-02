@@ -90,3 +90,16 @@ table {
     color: rgb(177, 177, 177);
     clear: both; /* Limpiar flotadores */
 }
+
+
+/*Botón devolver a página principal*/
+.botonTemplate{
+    padding: 1%;
+    background-color: black;
+    border-radius: 10%;
+    margin-left: 4%;
+    margin-top: 3%;
+
+
+    
+}

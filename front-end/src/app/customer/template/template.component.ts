@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { Product } from '../interfaces/product.interface'; /*View productos carrito: 2 */
 import { CartService } from '../services/cart.service';/*View productos carrito: 3 */
 import { AddressService } from '../services/address.service';/*Dirección de residencia: 2 */
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-template',
@@ -31,9 +32,15 @@ export class TemplateComponent implements OnInit{
 
 
 
-  constructor(public authService: AuthService, private cartService: CartService, private addressService: AddressService){
+  constructor(public authService: AuthService, private cartService: CartService, private addressService: AddressService, private router: Router){
     /*Nombre del usuario */
     this.username = this.authService.getUsername;
+  }
+
+  /*Botón template para redireccionar a página principal */
+  redirectTemplateToHome(){
+    this.router.navigateByUrl('#') 
+      
   }
 
   ngOnInit(): void {
