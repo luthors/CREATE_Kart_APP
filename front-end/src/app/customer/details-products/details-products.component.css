@@ -1,7 +1,6 @@
 .container {
     display: flex;
     justify-content: center;
-    /*Centrar*/
     /*Espacio entre las dos columnnas*/
     grid-template-columns: 1fr 1fr;
     /*Columnas*/
@@ -10,14 +9,17 @@
     /**/
     padding-top: 8%;
 }
+
 .image-container {
     text-align: left;
 }
+
 .image {
     height: 510px;
     width: 500px;
     margin-right: 20px;
 }
+
 .content-container {
     text-align: right;
     background-color: white;
@@ -27,17 +29,21 @@
     border-radius: 20px;
     text-align: justify;
 }
+
 .content-container h1,
 h2,
 span {
     color: rgb(0, 0, 0);
 }
+
 p {
     color: rgb(68, 68, 68);
 }
+
 .color-selector {
     display: flex;
 }
+
 .color-circle {
     width: 30px;
     height: 30px;
@@ -45,6 +51,7 @@ p {
     margin: 0 5px;
     cursor: pointer;
 }
+
 .boton {
     background-color: #411794;
     color: #fff;
@@ -58,10 +65,12 @@ p {
     width: 250px;
     /* Ajusta el ancho según tus necesidades */
 }
+
 .cart-icon {
     margin-right: 10px;
     /* Ajusta el valor según el espacio deseado */
 }
+
 .botonCantidad {
     border-radius: 10px;
     height: 30px;
@@ -69,28 +78,36 @@ p {
     text-align: center;
     border-color: rgb(184, 184, 184);
 }
+
 .relacionados h1 {
     color: rgb(255, 249, 249);
     justify-content: center;
 }
+
 .Negro {
     background-color: black;
 }
+
 .Amarillo {
     background-color: yellow;
 }
+
 .Rojo {
     background-color: red;
 }
+
 .Azul {
     background-color: blue;
 }
+
 .Verde {
     background-color: green;
 }
+
 .Blanco {
     background-color: white;
 }
+
 .item {
     margin: 10px;
     /*Espacios entre las imágenes*/
@@ -99,20 +116,24 @@ p {
     float: left;
     /*Horizontal (items uno al lado del otro).*/
 }
+
 .item h2 {
     color: rgb(0, 0, 0);
 }
+
 #item1 {
     background-color: #ffffff;
 }
+
 #item2 {
     background-color: #ffffff;
 }
+
 #item3 {
     background-color: #ffffff;
 }
 
-/* .noHay{
+.siHay {
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
     top: 0;
@@ -122,61 +143,34 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    visibility: hidden;
-  } */
-  
-  .siHay{
-    background-color: rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .popup{
+}
+
+.popup {
     background-color: #f8f8f8;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
     padding: 20px;
     text-align: center;
     width: 500px;
-  
-  
-  }
-  
-  .popup .btn-cerrar-popup{
+
+
+}
+
+.popup .btn-cerrar-popup {
     font-size: 16px;
     line-height: 16px;
     display: block;
     text-align: right;
     transition: .3s ease all;
-  }
-  
-  .popup .btn-cerrar-popup:hover{
+}
+
+.popup .btn-cerrar-popup:hover {
     color: #000;
-  }
-  
-  .popup h3{
+}
+
+.popup h3 {
     /* font-size: 36px; */
     margin-bottom: 10px;
     /* opacity: 0; */
-  }
-  
-  /* .popup button {
-    background-color: #9191bd;
-    color: #fff;
-    border-radius: 20px;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  .popup button:hover{
-    background-color: #7a7a9a;
-  } */
-  
+}
+

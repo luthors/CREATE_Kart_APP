@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../interfaces/product.interface';
 import { environment } from 'src/environments/environments';
-import { map } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +16,7 @@ export class ApiProductsAllService {
   myCart$ = this.myCart.asObservable();
   //para enviar al detalle de producto
   private productDet: any;
-
   public noStock:boolean=false;
-
 
   constructor(private http: HttpClient) {
     const carritoGuardado = localStorage.getItem('cart');
@@ -65,8 +61,6 @@ export class ApiProductsAllService {
 
       }
     } else {
-      
-        // product.cantidad = 1;
         this.myList.push(product);
         console.log("Producto agregado");
 

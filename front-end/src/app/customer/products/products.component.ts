@@ -6,8 +6,6 @@ import { ApiService } from 'src/app/welcome/services/api.service';
 import { environment } from 'src/environments/environments';
 import { ChangeDetectorRef } from '@angular/core';
 
-
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
