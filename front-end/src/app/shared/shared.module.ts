@@ -8,8 +8,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { EmailComponent } from '../customer/email/email.component';
 import { MatDialogModule } from '@angular/material/dialog'; /* Ventana dialogo email */
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,

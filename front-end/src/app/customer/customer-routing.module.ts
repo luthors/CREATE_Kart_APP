@@ -22,12 +22,12 @@ const routes: Routes = [
     component: WomanComponent
   },
   {
-    path:'man',
-    component:ManComponent
+    path: 'man',
+    component: ManComponent
   },
   {/*Plantilla email */
-    path:'template',
-    component:TemplateComponent
+    path: 'template',
+    component: TemplateComponent
   }
 ]
 @NgModule({

@@ -56,7 +56,7 @@ export class LoginPageComponent implements OnInit {
         }, err => {
           this.errorauth = true;
         }
-      )
+        )
     }
   }
   // funcion para cerrar popup de error al inicio de sesion

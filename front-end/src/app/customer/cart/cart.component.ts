@@ -74,7 +74,6 @@ export class CartComponent implements OnInit {
     return !this.isCartEmpty && this.totalCart()>0 &&  token!= null
   }
 
-
   //obtener los productos
   getProducts() {
     this.productsAllService.get(`${this.baseUrl}/api/products`).subscribe(data => [

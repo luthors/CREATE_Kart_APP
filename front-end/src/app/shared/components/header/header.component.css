@@ -1,23 +1,21 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-header{
+
+header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background-size: cover;
     background-position: center;
-    /* display: flex; */
-    /* justify-content: space-between; */
     transition: 0.7s;
-    /* padding: 1px 10px; */
     z-index: 10;
 }
 
-.logoup{
+.logoup {
     position: relative;
     color: #fff;
     font-weight: bold;
@@ -26,7 +24,8 @@ header{
     transition: 1.5s;
     text-decoration: none;
 }
-.logodown{
+
+.logodown {
     position: relative;
     color: black;
     font-weight: bold;
@@ -35,14 +34,16 @@ header{
     transition: 1.5s;
     text-decoration: none;
 }
-.navbarup{
+
+.navbarup {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 25px;
 }
-.navbardown{
+
+.navbardown {
     width: 100%;
     background-color: #fff;
     display: flex;
@@ -51,14 +52,14 @@ header{
     padding: 25px;
 }
 
-header ul{
+header ul {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-header ul li{
+header ul li {
     list-style: none;
 }
 
@@ -73,6 +74,7 @@ header ul li{
     font-weight: 600;
     transition: 0.7s;
 }
+
 .linkdown {
     cursor: pointer;
     position: relative;
@@ -84,23 +86,28 @@ header ul li{
     font-weight: 600;
     transition: 0.7s;
 }
-.name{
+
+.name {
     color: #fff;
     text-align: center;
 }
 
-input::placeholder{
+input::placeholder {
     text-align: left;
-    font-size: 15.5px;/*Tamaño de letra*/
-    font-family:Geneva, Verdana, sans-serif;/*Tipo de letra*/
+    font-size: 15.5px;
+    /*Tamaño de letra*/
+    font-family: Geneva, Verdana, sans-serif;
+    /*Tipo de letra*/
     margin: auto;
 }
 
 .input-search {
-    height: 36px; /* Ajusta la altura según tus necesidades */
-    width: 200px; /* Ajusta el ancho según tus necesidades */
+    height: 36px;
+    /* Ajusta la altura según tus necesidades */
+    width: 200px;
+    /* Ajusta el ancho según tus necesidades */
     padding: 10px;
-  }
+}
 
 .cart {
     position: relative;
@@ -114,7 +121,7 @@ input::placeholder{
     left: 0.5px;
     top: -0.8rem;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     background-color: red;
     height: 20px;
@@ -126,10 +133,11 @@ input::placeholder{
     text-align: center;
 }
 
-.cart-list{
+.cart-list {
     display: none;
 }
-.show{
+
+.show {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,54 +150,57 @@ input::placeholder{
     top: 83px;
     min-width: 40%;
 }
-.show > app-cart {
+
+.show>app-cart {
     display: flex;
     flex-direction: column;
-    justify-content: center;    
+    justify-content: center;
 }
 
-#navbarNav{ /*Estilo id*/
+#navbarNav {
+    /*Estilo id*/
     font-family: Geneva, Verdana, sans-serif;
-    font-size: 23px;/*Tamaño de letra*/
+    font-size: 23px;
+    /*Tamaño de letra*/
     border-color: white;
 }
 
-.link{
-      padding: 10px;
-      text-decoration: none;
-      /* font-weight: bold; */
-      border-radius: 5px;
-      text-decoration: underline;
-      font-size: 25px;
-      font-style: italic;
-    }
+.link {
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-decoration: underline;
+    font-size: 25px;
+    font-style: italic;
+}
 
 .abrir-menu,
-.cerrar-menu{
+.cerrar-menu {
     display: block;
     background: none;
     border: none;
     padding: 0;
     margin: 0;
     font: inherit;
-    cursor: pointer; /* para mantener el cursor interactivo */
+    cursor: pointer;
+    /* para mantener el cursor interactivo */
 }
 
-.menu-list{
+.menu-list {
     list-style-type: none;
     gap: 1rem;
     flex-direction: column;
     align-items: end;
 }
 
-.menu-list li a{
+.menu-list li a {
     text-decoration: none;
     color: black;
     font-size: 100%;
     cursor: pointer;
 }
 
-.menu{
+.menu {
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -200,15 +211,15 @@ input::placeholder{
     bottom: 0;
     background-color: white;
     padding: 2rem;
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0,0.5);
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
 }
 
-.menu.invisible{
+.menu.invisible {
     opacity: 0;
     visibility: hidden;
 }
 
-.menu.visible{
+.menu.visible {
     opacity: 1;
     visibility: visible;
 }

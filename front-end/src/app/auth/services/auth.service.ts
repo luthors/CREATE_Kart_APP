@@ -70,6 +70,7 @@ export class AuthService {
   getUserId(){
     return this.idUser;
   }
+
   register(user: User): Observable<User> {
     const urlRegister = `${this.baseUrl}/api/auth/register`;
     const body = { user };
@@ -78,6 +79,4 @@ export class AuthService {
         map(() => user),
       )
   }
-  
-  
 }
